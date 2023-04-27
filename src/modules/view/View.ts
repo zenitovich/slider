@@ -1,6 +1,8 @@
-export default class Slider {
-    init() {
-        document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+import {IView} from "../../interfaces.ts";
+
+export default class View implements IView{
+    html() {
+        return document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <div class="slider">
 <!--                <div class="slider__control-panel slider__item">-->
 <!--                    <div class="slider__control-panel&#45;&#45;item">-->

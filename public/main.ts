@@ -1,5 +1,5 @@
-import Slider from "../src/view/View";
 import "../src/styles/style.scss"
+import Slider from "../src/slider";
 
 let slider = new Slider()
 
