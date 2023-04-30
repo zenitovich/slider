@@ -1,7 +1,13 @@
-import {IView} from "../../interfaces.ts";
-
+import {IView} from "../../interfaces";
+import Presenter from "../presenter/Presenter";
+let presenter = new Presenter(10, 20)
 export default class View implements IView{
-    html() {
+    // private html: string
+    constructor() {
+        // this.html = '121'
+        // console.log(this.html)
+    }
+    public toHtml() {
         return document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <div class="slider">
 <!--                <div class="slider__control-panel slider__item">-->
@@ -33,6 +39,22 @@ export default class View implements IView{
                 <div class="slider__scale">
                     <div class="slider__scale--button button-one"></div>
                     <div class="slider__scale--button button-two"></div>
+                </div>
+                <div class="slider__ruler">
+                    <div class="slider__ruler--item"></div>
+                    <div class="slider__ruler--item"></div>
+                    <div class="slider__ruler--item"></div>
+                    <div class="slider__ruler--item"></div>
+                    <div class="slider__ruler--item"></div>
+                    <div class="slider__ruler--item"></div>
+                </div>
+                <div class="slider__ruler-value slider__item">
+                    <div class="slider__ruler-value--min" data-value="min">${presenter.min}</div>
+                    <div class="slider__ruler-value--item" data-value="first-item">${presenter.firstEl}</div>
+                    <div class="slider__ruler-value--item" data-value="second-item">${presenter.secondEl}</div>
+                    <div class="slider__ruler-value--item" data-value="third-item">${presenter.thirdEl}</div>
+                    <div class="slider__ruler-value--item" data-value="fourth-item">${presenter.fourthEl}</div>
+                    <div class="slider__ruler-value--max" data-value="max">${presenter.max}</div>
                 </div>
                 <div class="slider__inputs slider__item">
 <!--                    <div>-->

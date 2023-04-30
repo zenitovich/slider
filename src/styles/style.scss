@@ -29,11 +29,11 @@ body {
   }
   &__scale {
     width: 75%;
-    height: 3px;
+    height: 1.5px;
     border-radius: 3px;
-    border: 3px solid dodgerblue;
+    border: 1.5px solid dodgerblue;
     margin: 25px 0px;
-    background-color: aliceblue;
+    background-color: dodgerblue;
     position: relative;
     &--button {
       position: absolute;
@@ -50,6 +50,23 @@ body {
     .button-two {
       right: 0;
     }
+  }
+  &__ruler {
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+    height: 3px;
+    background-color: sienna;
+    &--item {
+      width: 3px;
+      height: 18px;
+      background-color: sienna;
+    }
+  }
+  &__ruler-value {
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
   }
   &__inputs {
     display: flex;

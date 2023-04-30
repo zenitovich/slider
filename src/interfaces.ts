@@ -1,8 +1,17 @@
 export interface IView {
-    html(): string
+    toHtml(): string
 }
 
 export interface  ISlider {
     init(): string
     view: IView
+}
+
+export interface IPresenter {
+    min: number
+    max: number
+    // firstEl: number
+    // secondEl: number
+    // thirdEl: number
+    // fourthEl: number
 }
