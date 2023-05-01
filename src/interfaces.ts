@@ -10,8 +10,4 @@ export interface  ISlider {
 export interface IPresenter {
     min: number
     max: number
-    // firstEl: number
-    // secondEl: number
-    // thirdEl: number
-    // fourthEl: number
 }

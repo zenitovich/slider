@@ -1,11 +1,9 @@
 import {IView} from "../../interfaces";
-import Presenter from "../presenter/Presenter";
-let presenter = new Presenter(10, 20)
+import Presenter from "../presenter/Presenter.ts";
 export default class View implements IView{
-    // private html: string
-    constructor() {
-        // this.html = '121'
-        // console.log(this.html)
+    presenter: Presenter
+    constructor(presenter: Presenter) {
+        this.presenter = presenter
     }
     public toHtml() {
         return document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
@@ -49,12 +47,12 @@ export default class View implements IView{
                     <div class="slider__ruler--item"></div>
                 </div>
                 <div class="slider__ruler-value slider__item">
-                    <div class="slider__ruler-value--min" data-value="min">${presenter.min}</div>
-                    <div class="slider__ruler-value--item" data-value="first-item">${presenter.firstEl}</div>
-                    <div class="slider__ruler-value--item" data-value="second-item">${presenter.secondEl}</div>
-                    <div class="slider__ruler-value--item" data-value="third-item">${presenter.thirdEl}</div>
-                    <div class="slider__ruler-value--item" data-value="fourth-item">${presenter.fourthEl}</div>
-                    <div class="slider__ruler-value--max" data-value="max">${presenter.max}</div>
+                    <div class="slider__ruler-value--min" data-value="min">${this.presenter.min}</div>
+                    <div class="slider__ruler-value--item" data-value="first-item">${this.presenter.firstEl}</div>
+                    <div class="slider__ruler-value--item" data-value="second-item">${this.presenter.secondEl}</div>
+                    <div class="slider__ruler-value--item" data-value="third-item">${this.presenter.thirdEl}</div>
+                    <div class="slider__ruler-value--item" data-value="fourth-item">${this.presenter.fourthEl}</div>
+                    <div class="slider__ruler-value--max" data-value="max">${this.presenter.max}</div>
                 </div>
                 <div class="slider__inputs slider__item">
 <!--                    <div>-->
@@ -74,3 +72,10 @@ export default class View implements IView{
         `
     }
 }
+// воткнуть в слайдер рулер итем
+    // <div class="slider__ruler-value--min" data-value="min">${presenter.min}</div>
+    // <div class="slider__ruler-value--item" data-value="first-item">${presenter.firstEl}</div>
+    // <div class="slider__ruler-value--item" data-value="second-item">${presenter.secondEl}</div>
+    // <div class="slider__ruler-value--item" data-value="third-item">${presenter.thirdEl}</div>
+    // <div class="slider__ruler-value--item" data-value="fourth-item">${presenter.fourthEl}</div>
+    // <div class="slider__ruler-value--max" data-value="max">${presenter.max}</div>
