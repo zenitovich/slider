@@ -4,7 +4,17 @@ export default class View implements IView{
     presenter: Presenter
     constructor(presenter: Presenter) {
         this.presenter = presenter
+
+      //   this.$emitter.subscribe('update:rice', (min: number, max: number, rice: number) => this.makeRice(min, max, rice))
     }
+
+    // todo: Генерация рисок на стороне вью тк это не расчеты, это отрисовка
+    // makeRice(rice: number, min: number, max: number) {
+    //
+    // Итерация по количеству рисок
+    //   // for ()
+    // return '<div class="slider__ruler-value--min" data-value="min">${this.presenter.min}</div>'
+    // }
     public toHtml() {
         return document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <div class="slider">
