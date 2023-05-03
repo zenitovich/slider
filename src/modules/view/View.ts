@@ -4,7 +4,6 @@ export default class View implements IView{
     presenter: Presenter
     constructor(presenter: Presenter) {
         this.presenter = presenter
-
       //   this.$emitter.subscribe('update:rice', (min: number, max: number, rice: number) => this.makeRice(min, max, rice))
     }
 
@@ -57,12 +56,12 @@ export default class View implements IView{
                     <div class="slider__ruler--item"></div>
                 </div>
                 <div class="slider__ruler-value slider__item">
-                    <div class="slider__ruler-value--min" data-value="min">${this.presenter.min}</div>
-                    <div class="slider__ruler-value--item" data-value="first-item">${this.presenter.firstEl}</div>
-                    <div class="slider__ruler-value--item" data-value="second-item">${this.presenter.secondEl}</div>
-                    <div class="slider__ruler-value--item" data-value="third-item">${this.presenter.thirdEl}</div>
-                    <div class="slider__ruler-value--item" data-value="fourth-item">${this.presenter.fourthEl}</div>
-                    <div class="slider__ruler-value--max" data-value="max">${this.presenter.max}</div>
+                    <div class="slider__ruler-value--min" data-value="min">?????</div>
+                    <div class="slider__ruler-value--item" data-value="first-item">?????</div>
+                    <div class="slider__ruler-value--item" data-value="second-item">?????</div>
+                    <div class="slider__ruler-value--item" data-value="third-item">?????</div>
+                    <div class="slider__ruler-value--item" data-value="fourth-item">?????</div>
+                    <div class="slider__ruler-value--max" data-value="max">?????</div>
                 </div>
                 <div class="slider__inputs slider__item">
 <!--                    <div>-->
