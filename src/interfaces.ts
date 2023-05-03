@@ -1,13 +1,12 @@
 export interface IView {
-    toHtml(): string
+    addHtml(): HTMLDivElement
 }
 export interface IOption {
   min: number,
   max: number,
-  init(): string
 }
 export interface  ISlider {
-    // init(): string
+    init(): void
     view: IView
     el: string
     option: IOption

@@ -6,7 +6,6 @@ export default class View implements IView{
         this.presenter = presenter
       //   this.$emitter.subscribe('update:rice', (min: number, max: number, rice: number) => this.makeRice(min, max, rice))
     }
-
     // todo: Генерация рисок на стороне вью тк это не расчеты, это отрисовка
     // makeRice(rice: number, min: number, max: number) {
     //
@@ -14,8 +13,10 @@ export default class View implements IView{
     //   // for ()
     // return '<div class="slider__ruler-value--min" data-value="min">${this.presenter.min}</div>'
     // }
-    public toHtml() {
-        return document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+    public addHtml() {
+        const sliderHtml = document.createElement('div')
+        sliderHtml.className = 'sliderHtml'
+        sliderHtml.innerHTML = `
             <div class="slider">
 <!--                <div class="slider__control-panel slider__item">-->
 <!--                    <div class="slider__control-panel&#45;&#45;item">-->
@@ -79,12 +80,6 @@ export default class View implements IView{
                 </div>
             </div>
         `
+        return sliderHtml
     }
 }
-// воткнуть в слайдер рулер итем
-    // <div class="slider__ruler-value--min" data-value="min">${presenter.min}</div>
-    // <div class="slider__ruler-value--item" data-value="first-item">${presenter.firstEl}</div>
-    // <div class="slider__ruler-value--item" data-value="second-item">${presenter.secondEl}</div>
-    // <div class="slider__ruler-value--item" data-value="third-item">${presenter.thirdEl}</div>
-    // <div class="slider__ruler-value--item" data-value="fourth-item">${presenter.fourthEl}</div>
-    // <div class="slider__ruler-value--max" data-value="max">${presenter.max}</div>

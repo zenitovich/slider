@@ -27,12 +27,13 @@ export default class Slider implements ISlider {
         this.view = new View(this.presenter)
   }
 
+
     // constructor(presenter: Presenter) {
     //     this.presenter = presenter
     //     this.view = new View(this.presenter)
     //     console.log(presenter)
     // }
-    // public init() {
-    //     return this.view.toHtml()
-    // }
+    public init() {
+        return document.querySelector(this.el)!.append(this.view.addHtml())
+    }
 }

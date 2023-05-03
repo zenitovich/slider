@@ -1,9 +1,7 @@
 import "../src/styles/style.scss"
 import Slider from "../src/slider";
 
-let slider = new Slider('app', {min: 1, max: 2, init(): string {
-    return '1'
-    }})
+let slider = new Slider('#app', {min: 1, max: 2,})
 
 // TODO: Переделать так:
 // let slider = new Slider('#app', {
@@ -12,7 +10,7 @@ let slider = new Slider('app', {min: 1, max: 2, init(): string {
 //   initValue: 55,
 // })
 
-slider.option.init()
+slider.init()
 
-
+slider.init()
 
