@@ -2,8 +2,9 @@ export interface IView {
     addHtml(): HTMLDivElement
 }
 export interface IOption {
-  min: number,
-  max: number,
+    min: number,
+    max: number,
+    initValue: number,
 }
 export interface  ISlider {
     init(): void
@@ -14,8 +15,7 @@ export interface  ISlider {
     model: IModel
 }
 export interface IPresenter {
-    model: IModel,
-    option: IOption
+    model: IModel
 }
 export interface IModel {
 

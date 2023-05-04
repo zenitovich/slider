@@ -22,8 +22,8 @@ export default class Slider implements ISlider {
     constructor(el: string, option: IOption) {
         this.option = option;
         this.el = el
-        this.model = new Model(this.option.min, this.option.max)
-        this.presenter = new Presenter(this.model,  this.option)
+        this.model = new Model(this.option.min, this.option.max, this.option.initValue)
+        this.presenter = new Presenter(this.model)
         this.view = new View(this.presenter)
   }
 

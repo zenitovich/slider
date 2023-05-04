@@ -1,12 +1,12 @@
-import {IPresenter, IOption, IModel} from "../../interfaces";
+import {IPresenter} from "../../interfaces";
 import Model from "../model/Model.ts";
 export default class Presenter implements IPresenter {
   // todo:  Не должно быть свойств кроме модели
-    public model: IModel
-    public option: IOption
-    constructor(model: Model, option: IOption) {
+    public model: Model
+    constructor(model: Model) {
         this.model = model
-        this.option = option
+        console.log(this.model)
+        // this.model.getValues()
 
       // todo: модель в слайдере инициализируется + риски генерятся во вью а не тут
       // todo этого не будет
