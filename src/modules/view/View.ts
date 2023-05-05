@@ -4,6 +4,7 @@ export default class View implements IView{
     presenter: Presenter
     constructor(presenter: Presenter) {
         this.presenter = presenter
+        this.presenter.model.getValues()
       //   this.$emitter.subscribe('update:rice', (min: number, max: number, rice: number) => this.makeRice(min, max, rice))
     }
     // todo: Генерация рисок на стороне вью тк это не расчеты, это отрисовка
@@ -14,6 +15,11 @@ export default class View implements IView{
     // return '<div class="slider__ruler-value--min" data-value="min">${this.presenter.min}</div>'
     // }
     public addHtml() {
+        let str: string = ''
+        this.presenter.model.arrOfValues.forEach((el) => {
+                str += `<div class="slider__ruler-value--item">${el}</div>`
+            }
+        )
         const sliderHtml = document.createElement('div')
         sliderHtml.className = 'sliderHtml'
         sliderHtml.innerHTML = `
@@ -48,22 +54,8 @@ export default class View implements IView{
                     <div class="slider__scale--button button-one"></div>
                     <div class="slider__scale--button button-two"></div>
                 </div>
-                <div class="slider__ruler">
-                    <div class="slider__ruler--item"></div>
-                    <div class="slider__ruler--item"></div>
-                    <div class="slider__ruler--item"></div>
-                    <div class="slider__ruler--item"></div>
-                    <div class="slider__ruler--item"></div>
-                    <div class="slider__ruler--item"></div>
-                </div>
-                <div class="slider__ruler-value slider__item">
-                    <div class="slider__ruler-value--min" data-value="min">?????</div>
-                    <div class="slider__ruler-value--item" data-value="first-item">?????</div>
-                    <div class="slider__ruler-value--item" data-value="second-item">?????</div>
-                    <div class="slider__ruler-value--item" data-value="third-item">?????</div>
-                    <div class="slider__ruler-value--item" data-value="fourth-item">?????</div>
-                    <div class="slider__ruler-value--max" data-value="max">?????</div>
-                </div>
+                <div class="slider__ruler"></div>
+                <div class="slider__ruler-value">${str}</div>
                 <div class="slider__inputs slider__item">
 <!--                    <div>-->
 <!--                        min: <input type="text" class="slider__inputs&#45;&#45;input">-->

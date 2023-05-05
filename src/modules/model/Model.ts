@@ -1,7 +1,8 @@
 export default class Model{
-    private min: number
-    private max: number
+    public min: number
+    public max: number
     private initValue: number
+    public arrOfValues: number[]
     constructor(min: number, max: number, initValue: number) {
         this.min = min
         this.max = max
@@ -9,16 +10,17 @@ export default class Model{
         console.log(this.min)
         console.log(this.max)
         console.log(this.initValue)
+        this.arrOfValues = [this.min]
     }
     getValues = (min: number = this.min, max: number = this.max, initValue: number = this.initValue) => {
-        const arrOfValues: number[] = []
         const  range = max - min
         const interval = range / (initValue + 1)
         for (let i = 1; i <= initValue; i+= 1) {
             const split = Math.round(min + (interval * i))
-            arrOfValues.push(split)
+            this.arrOfValues.push(split)
         }
-        return console.log(arrOfValues)
+        this.arrOfValues.push(this.max)
+        return console.log(this.arrOfValues)
     }
 
     // setValue(value: number) {

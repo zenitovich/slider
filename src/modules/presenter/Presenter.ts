@@ -5,8 +5,6 @@ export default class Presenter implements IPresenter {
     public model: Model
     constructor(model: Model) {
         this.model = model
-        console.log(this.model)
-        // this.model.getValues()
 
       // todo: модель в слайдере инициализируется + риски генерятся во вью а не тут
       // todo этого не будет
