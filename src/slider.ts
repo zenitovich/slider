@@ -1,7 +1,8 @@
-import {IOption, ISlider, IView} from "./interfaces";
+import {IOptions, ISlider, IView} from "./interfaces";
 import View from "./modules/view/View";
-import Presenter from "./modules/presenter/Presenter.ts";
+import Presenter from "./modules/presenter/Presenter";
 import Model from "./modules/model/Model";
+import Emitter from "./core/Emitter";
 
 // todo в интерфейсах
 // interface IOption {
@@ -11,20 +12,19 @@ import Model from "./modules/model/Model";
 // }
 
 export default class Slider implements ISlider {
-    public view: IView
-    public presenter: Presenter
-    public el: string
-    public model: Model
-    public option: IOption
-
+    private view: IView
+    private presenter: Presenter
+    private model: Model
+    private el: string
+    private emitter: Emitter
     // public  model: IModel
   // TODO: Принимает так + тут все инициализации основных модулей приложения
-    constructor(el: string, option: IOption) {
-        this.option = option;
+    constructor(el: string, options: IOptions) {
+        this.emitter = new Emitter()
         this.el = el
-        this.model = new Model(this.option.min, this.option.max, this.option.initValue)
-        this.presenter = new Presenter(this.model)
-        this.view = new View(this.presenter)
+        this.presenter = new Presenter()
+        this.view = new View(this.presenter, this.emitter)
+        this.model = new Model({min: options.min, max: options.max, initValue: options.initValue}, this.emitter)
   }
 
 

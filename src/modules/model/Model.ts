@@ -1,13 +1,21 @@
+import {IOptions} from "../../interfaces.ts";
+import Emitter from "../../core/Emitter.ts";
+
 export default class Model{
-    public min: number
-    public max: number
+
+    // @ts-ignore
+    private _min: number
+
+    private max: number
     private initValue: number
+    private emitter: Emitter
     public arrOfValues: number[]
-    constructor(min: number, max: number, initValue: number) {
-        this.min = min
-        this.max = max
-        this.initValue = initValue
+    constructor(options: IOptions, emitter: Emitter) {
+        this.emitter = emitter
+        this.min = options.min
         console.log(this.min)
+        this.max = options.max
+        this.initValue = options.initValue
         console.log(this.max)
         console.log(this.initValue)
         this.arrOfValues = [this.min]
@@ -23,6 +31,13 @@ export default class Model{
         return console.log(this.arrOfValues)
     }
 
+    set min(min: number) {
+        this._min = min
+        this.emitter.emit('update:min', this.min)
+    }
+    get min() {
+        return this._min
+    }
     // setValue(value: number) {
     //   this.value = value
     //

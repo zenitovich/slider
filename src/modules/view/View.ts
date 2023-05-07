@@ -1,10 +1,15 @@
 import {IView} from "../../interfaces";
-import Presenter from "../presenter/Presenter.ts";
-export default class View implements IView{
+import Presenter from "../presenter/Presenter";
+import Emitter from "../../core/Emitter.ts";
+
+export default class View implements IView {
     presenter: Presenter
-    constructor(presenter: Presenter) {
+    private emitter: Emitter
+    constructor(presenter: Presenter, emitter: Emitter) {
+        // super()
+        this.emitter = emitter
         this.presenter = presenter
-        this.presenter.model.getValues()
+        this.emitter.subscribe('update:min',  (min: number) => {console.log('change min ' + min)})
       //   this.$emitter.subscribe('update:rice', (min: number, max: number, rice: number) => this.makeRice(min, max, rice))
     }
     // todo: Генерация рисок на стороне вью тк это не расчеты, это отрисовка
@@ -16,10 +21,11 @@ export default class View implements IView{
     // }
     public addHtml() {
         let str: string = ''
-        this.presenter.model.arrOfValues.forEach((el) => {
-                str += `<div class="slider__ruler-value--item">${el}</div>`
-            }
-        )
+        // working with sub
+        // this.presenter.model.arrOfValues.forEach((el) => {
+        //         str += `<div class="slider__ruler-value--item">${el}</div>`
+        //     }
+        // )
         const sliderHtml = document.createElement('div')
         sliderHtml.className = 'sliderHtml'
         sliderHtml.innerHTML = `
