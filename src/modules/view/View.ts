@@ -6,21 +6,13 @@ export default class View implements IView {
     presenter: Presenter
     private emitter: Emitter
     constructor(presenter: Presenter, emitter: Emitter) {
-        // super()
         this.emitter = emitter
         this.presenter = presenter
-        this.emitter.subscribe('update:optionValues',  (optionValues: IOptionValues) =>
-        {console.log('change optionValues ' + optionValues)})
-        // this.emitter.subscribe('update:optionValues',  (min: number) => {console.log('change min ' + min)})
-      //   this.$emitter.subscribe('update:rice', (min: number, max: number, rice: number) => this.makeRice(min, max, rice))
+        this.emitter.subscribe('update:optionValues',  (optionValues: IOptionValues) => {
+            console.log('change optionValues ', optionValues);
+        })
+        //   this.$emitter.subscribe('update:rice', (min: number, max: number, rice: number) => this.makeRice(min, max, rice))
     }
-    // todo: Генерация рисок на стороне вью тк это не расчеты, это отрисовка
-    // makeRice(rice: number, min: number, max: number) {
-    //
-    // Итерация по количеству рисок
-    //   // for ()
-    // return '<div class="slider__ruler-value--min" data-value="min">${this.presenter.min}</div>'
-    // }
     public addHtml() {
         let str: string = ''
         // working with sub

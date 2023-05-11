@@ -2,6 +2,7 @@ import {IEvents} from "../interfaces.ts";
 
 export default class Emitter {
     events: IEvents = {}
+
     //подписка / добавление слушателей
     subscribe(name: keyof IEvents, listener: Function) {
         if (!this.events[name]) {
@@ -9,6 +10,7 @@ export default class Emitter {
         }
         this.events[name]?.push(listener);
     }
+
     //удаление слушателей (функций из массива по имени события)
     removeListener(name: keyof IEvents, listenerToRemove: Function) {
         if (!this.events[name]) {
@@ -16,9 +18,10 @@ export default class Emitter {
         }
         this.events[name] = this.events[name]?.filter((listener: Function) => listener !== listenerToRemove);
     }
+
     //оповещение слушателей в массиве с именем события, где по-очереди вызываются функции с текущими параметрами(data)
     // в дате будет объект с мин макс инит осуществленный в интерфейсе
-    emit(name: keyof IEvents, data: number | object) {
+    emit(name: keyof IEvents, data: Object) {
         if (!this.events[name]) {
             throw new Error(`Can't emit an event. Event "${name}" doesn't exits.`);
         }
