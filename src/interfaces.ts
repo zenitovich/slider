@@ -2,9 +2,10 @@ export interface IView {
     addHtml(): HTMLDivElement
 }
 export interface IOptions {
-    min: number,
-    max: number,
-    initValue: number,
+    // min: number,
+    // max: number,
+    // initValue: number,
+    values: IOptionValues
 }
 export interface  ISlider {
     init(): void
@@ -16,6 +17,11 @@ export interface IModel {
 
 }
 export interface IEvents {
-    "update:min"?: Function[]
+    // "update:min"?: Function[]
+    "update:optionValues"?: Function[]
 }
-// export const Events: string = 'onclick' | "onmousedown" | "onmouseup" | "onmousemove" | "contextmenu"
+export interface IOptionValues {
+    min: number
+    max: number
+    initValue: number
+}

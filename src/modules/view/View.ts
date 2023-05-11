@@ -1,4 +1,4 @@
-import {IView} from "../../interfaces";
+import {IOptionValues, IView} from "../../interfaces";
 import Presenter from "../presenter/Presenter";
 import Emitter from "../../core/Emitter.ts";
 
@@ -9,7 +9,9 @@ export default class View implements IView {
         // super()
         this.emitter = emitter
         this.presenter = presenter
-        this.emitter.subscribe('update:min',  (min: number) => {console.log('change min ' + min)})
+        this.emitter.subscribe('update:optionValues',  (optionValues: IOptionValues) =>
+        {console.log('change optionValues ' + optionValues)})
+        // this.emitter.subscribe('update:optionValues',  (min: number) => {console.log('change min ' + min)})
       //   this.$emitter.subscribe('update:rice', (min: number, max: number, rice: number) => this.makeRice(min, max, rice))
     }
     // todo: Генерация рисок на стороне вью тк это не расчеты, это отрисовка

@@ -18,7 +18,7 @@ export default class Emitter {
     }
     //оповещение слушателей в массиве с именем события, где по-очереди вызываются функции с текущими параметрами(data)
     // в дате будет объект с мин макс инит осуществленный в интерфейсе
-    emit(name: keyof IEvents, data: number) {
+    emit(name: keyof IEvents, data: number | object) {
         if (!this.events[name]) {
             throw new Error(`Can't emit an event. Event "${name}" doesn't exits.`);
         }
