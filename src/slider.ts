@@ -1,11 +1,11 @@
-import {IOptions, ISlider, IView} from "./interfaces";
+import {IOptions, ISlider} from "./interfaces";
 import View from "./modules/view/View";
 import Presenter from "./modules/presenter/Presenter";
 import Model from "./modules/model/Model";
 import Emitter from "./core/Emitter";
 
 export default class Slider implements ISlider {
-    private view: IView
+    private view: View
     private presenter: Presenter
     private model: Model
     private el: string
