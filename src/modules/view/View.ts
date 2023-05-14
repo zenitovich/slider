@@ -7,12 +7,14 @@ export default class View implements IView {
     private presenter: Presenter
     private emitter: Emitter
     private ruler: Ruler
+
     constructor(presenter: Presenter, emitter: Emitter) {
         this.emitter = emitter
         this.presenter = presenter
         this.ruler = new Ruler(this.emitter)
         console.log(this.presenter)
     }
+
     public addHtml() {
         const sliderHtml = document.createElement('div')
         sliderHtml.className = 'sliderHtml'

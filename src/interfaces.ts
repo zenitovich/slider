@@ -1,13 +1,13 @@
 export interface IView {
     addHtml(): HTMLDivElement
 }
-export interface IOptionValues {
+export interface IScaleData {
     min: number
     max: number
     initValue: number
 }
 export interface IOptions {
-    values: IOptionValues
+    scaleData: IScaleData
 }
 export interface  ISlider {
     init(): void
@@ -21,4 +21,3 @@ export interface IModel {
 export interface IEvents {
     "update:optionValues"?: Function[]
 }
-

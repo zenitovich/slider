@@ -17,7 +17,9 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    //добавлено для реализации методов get и set без указания их в конструкторе
+    "strictPropertyInitialization": false
   },
   "include": ["src", "public"]
 }
