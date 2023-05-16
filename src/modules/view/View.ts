@@ -7,6 +7,7 @@ export default class View implements IView {
     private presenter: Presenter
     private emitter: Emitter
     private ruler: Ruler
+    //переместить логику отрисовки компонентов через массив из слайдера
 
     constructor(presenter: Presenter, emitter: Emitter) {
         this.emitter = emitter
