@@ -14,11 +14,10 @@ export interface IComponent {
 
 export interface IOptions {
     scaleData: IScaleData
-    components: IComponent[]
 }
 
 export interface  ISlider {
-    init(): void
+    // init(): void
 }
 
 export interface IPresenter {

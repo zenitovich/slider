@@ -1,4 +1,4 @@
-import {IView} from "../../interfaces";
+import {IComponent, IView} from "../../interfaces";
 import Presenter from "../presenter/Presenter";
 import Emitter from "../../core/Emitter.ts";
 import Ruler from "./components/Ruler.ts";
@@ -6,15 +6,30 @@ import Ruler from "./components/Ruler.ts";
 export default class View implements IView {
     private presenter: Presenter
     private emitter: Emitter
-    private ruler: Ruler
+    // private ruler: Ruler
+    components: Array<IComponent>
     //переместить логику отрисовки компонентов через массив из слайдера
 
     constructor(presenter: Presenter, emitter: Emitter) {
+        this.components = [Ruler]
         this.emitter = emitter
         this.presenter = presenter
-        this.ruler = new Ruler(this.emitter)
+        // this.ruler = new Ruler(this.emitter)
         console.log(this.presenter)
+        console.log(this.components)
+        console.log(this.emitter)
     }
+
+    getRoot() {
+        const root = document.createElement('div')
+
+        this.components.forEach((Component: IComponent) => {
+            const component  = new Component()
+            console.log(component)
+        })
+        return root
+    }
+
 
     public addHtml() {
         const sliderHtml = document.createElement('div')
