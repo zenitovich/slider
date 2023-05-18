@@ -5,7 +5,7 @@ export default class Model{
 
     set scaleData(scaleData: IScaleData) {
         this._scaleData = scaleData
-        this.emitter.emit('update:optionValues', this.scaleData)
+        // this.emitter.emit('update:optionValues', this.scaleData)
     }
 
     get scaleData() {
@@ -18,6 +18,7 @@ export default class Model{
     constructor(options: IOptions, emitter: Emitter) {
         this.emitter = emitter
         this.scaleData = options.scaleData
+        console.log(this.emitter)
     }
 
 }

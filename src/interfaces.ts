@@ -1,3 +1,5 @@
+import Ruler from "./modules/view/components/Ruler.ts";
+
 export interface IView {
     addHtml(): HTMLDivElement
 }
@@ -31,3 +33,5 @@ export interface IModel {
 export interface IEvents {
     "update:optionValues"?: Function[]
 }
+
+export type TComponent = typeof Ruler

@@ -1,13 +1,12 @@
-import {IComponent, IView} from "../../interfaces";
+import {IView, TComponent} from "../../interfaces";
 import Presenter from "../presenter/Presenter";
-import Emitter from "../../core/Emitter.ts";
-import Ruler from "./components/Ruler.ts";
+import Emitter from "../../core/Emitter";
+import Ruler from "./components/Ruler";
 
 export default class View implements IView {
-    private presenter: Presenter
-    private emitter: Emitter
-    // private ruler: Ruler
-    components: Array<IComponent>
+    private readonly presenter: Presenter
+    private readonly emitter: Emitter
+    private readonly components: [typeof Ruler]
     //переместить логику отрисовки компонентов через массив из слайдера
 
     constructor(presenter: Presenter, emitter: Emitter) {
@@ -16,19 +15,23 @@ export default class View implements IView {
         this.presenter = presenter
         // this.ruler = new Ruler(this.emitter)
         console.log(this.presenter)
-        console.log(this.components)
-        console.log(this.emitter)
     }
 
     getRoot() {
-        const root = document.createElement('div')
+        const $root: HTMLDivElement = document.createElement('div')
+        $root.classList.add('slider')
 
-        this.components.forEach((Component: IComponent) => {
-            const component  = new Component()
-            console.log(component)
+        this.components.forEach((Component: TComponent) => {
+            const $el: HTMLDivElement = document.createElement('div')
+            $el.classList.add(Component.className)
+            const component = new Component(this.emitter)
+            $el.innerHTML = component.toHTML()
+            $root.append($el)
         })
-        return root
+
+        return $root
     }
+
 
 
     public addHtml() {

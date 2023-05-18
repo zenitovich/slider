@@ -6,18 +6,18 @@ import Emitter from "./core/Emitter";
 
 export default class Slider implements ISlider {
     private view: View
-    private presenter: Presenter
-    private model: Model
-    private el: HTMLDivElement | null
-    private selector: string
-    private emitter: Emitter
+    private readonly presenter: Presenter
+    private readonly model: Model
+    private $el: HTMLDivElement | null
+    private readonly selector: string
+    private readonly emitter: Emitter
     //переместить логику отрисовки компонентов через массив вов ью
     // private components: IComponent[]
 
     constructor(selector: string, options: IOptions) {
         this.emitter = new Emitter()
         this.selector = selector
-        this.el = document.querySelector(this.selector)
+        this.$el = document.querySelector(this.selector)
         // this.components = options.components
         this.presenter = new Presenter()
         this.view = new View(this.presenter, this.emitter)
@@ -31,6 +31,6 @@ export default class Slider implements ISlider {
     // }
 
     public render() {
-        this.el?.append(this.view.getRoot())
+        this.$el?.append(this.view.getRoot())
     }
 }
