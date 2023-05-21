@@ -7,13 +7,11 @@ export default class View implements IView {
     private readonly presenter: Presenter
     private readonly emitter: Emitter
     private readonly components: [typeof Ruler]
-    //переместить логику отрисовки компонентов через массив из слайдера
 
     constructor(presenter: Presenter, emitter: Emitter) {
         this.components = [Ruler]
         this.emitter = emitter
         this.presenter = presenter
-        // this.ruler = new Ruler(this.emitter)
         console.log(this.presenter)
     }
 
@@ -24,7 +22,8 @@ export default class View implements IView {
         this.components.forEach((Component: TComponent) => {
             const $el: HTMLDivElement = document.createElement('div')
             $el.classList.add(Component.className)
-            const component = new Component(this.emitter)
+            const component = new Component(this.emitter, $el)
+            // то же самое что и иннер html
             $el.innerHTML = component.toHTML()
             $root.append($el)
         })

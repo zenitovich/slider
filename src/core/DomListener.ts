@@ -1,7 +1,7 @@
 export default class DomListener {
-    $root: string
+    $root: HTMLDivElement
 
-    constructor($root: string) {
+    constructor($root: HTMLDivElement) {
         if (!$root) {
             throw new Error(`No $root provided for Domlistener`)
         }

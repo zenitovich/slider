@@ -9,28 +9,15 @@ export default class Slider implements ISlider {
     private readonly presenter: Presenter
     private readonly model: Model
     private $el: HTMLDivElement | null
-    private readonly selector: string
     private readonly emitter: Emitter
-    //переместить логику отрисовки компонентов через массив вов ью
-    // private components: IComponent[]
 
     constructor(selector: string, options: IOptions) {
         this.emitter = new Emitter()
-        this.selector = selector
-        this.$el = document.querySelector(this.selector)
-        // this.components = options.components
+        this.$el = document.querySelector(selector)
         this.presenter = new Presenter()
         this.view = new View(this.presenter, this.emitter)
+        this.$el?.append(this.view.getRoot())
         this.model = new Model({scaleData: options.scaleData}, this.emitter)
         console.log(this.model)
-        // console.log(this.components)
   }
-
-    // public init() {
-    //     return document.querySelector(this.el)!.append(this.view.addHtml())
-    // }
-
-    public render() {
-        this.$el?.append(this.view.getRoot())
-    }
 }

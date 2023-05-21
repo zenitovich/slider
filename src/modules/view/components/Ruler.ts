@@ -8,13 +8,12 @@ export default class Ruler extends SliderComponent implements IComponent{
     private emitter: Emitter
     stringOfValues: string
 
-    constructor(emitter: Emitter) {
-        super(Ruler.className)
+    constructor(emitter: Emitter, $root: HTMLDivElement) {
+        console.log($root)
+        super($root)
         this.emitter = emitter
         this.stringOfValues = ''
-        this.emitter.subscribe('update:optionValues',  (scaleData: IScaleData) => {
-            this.stringOfValues = `${this.rulerToString(scaleData.min, scaleData.max, scaleData.initValue)}`
-        })
+        this.emitter.subscribe('update:optionValues',  (scaleData: IScaleData) => this.changeRuler(scaleData))
     }
 
     rulerToString(min: number , max: number, initValue: number)  {
@@ -39,8 +38,15 @@ export default class Ruler extends SliderComponent implements IComponent{
     }
 
     toHTML(): string {
+        console.log(this.stringOfValues)
         return `
-            <div class="slider__ruler-value">${this.rulerToString(1, 15, 5)}</div>
+            <div class="slider__ruler-value">${this.stringOfValues}</div>
         `;
+    }
+
+    //временный метод
+    changeRuler(scaleData: IScaleData) {
+        this.stringOfValues = this.rulerToString(scaleData.min, scaleData.max, scaleData.initValue)
+        this.changeHtml(this.toHTML())
     }
 }
