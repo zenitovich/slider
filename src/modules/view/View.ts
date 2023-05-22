@@ -2,6 +2,7 @@ import {IView, TComponent} from "../../interfaces";
 import Presenter from "../presenter/Presenter";
 import Emitter from "../../core/Emitter";
 import Ruler from "./components/Ruler";
+import {$} from "../../core/dom.ts";
 
 export default class View implements IView {
     private readonly presenter: Presenter
@@ -15,20 +16,18 @@ export default class View implements IView {
         console.log(this.presenter)
     }
 
-    getRoot() {
-        const $root: HTMLDivElement = document.createElement('div')
-        $root.classList.add('slider')
+    getRoot(): HTMLElement | null {
+        const $root = $.create('div', 'slider')
 
         this.components.forEach((Component: TComponent) => {
-            const $el: HTMLDivElement = document.createElement('div')
-            $el.classList.add(Component.className)
+            const $el  = $.create('div', Component.className)
+            console.log($el)
             const component = new Component(this.emitter, $el)
-            // то же самое что и иннер html
-            $el.innerHTML = component.toHTML()
-            $root.append($el)
+            $el.html(component.toHTML())
+            $root.append($el.$el)
         })
 
-        return $root
+        return $root.$el
     }
 
 
@@ -69,7 +68,7 @@ export default class View implements IView {
                     <div class="slider__scale--button button-two"></div>
                 </div>
                 <div class="slider__ruler"></div>
-                <div class="slider__ruler-value">${this.ruler.stringOfValues}</div>
+                <div class="slider__ruler-value">this.ruler.stringOfValues</div>
                 <div class="slider__inputs slider__item">
 <!--                    <div>-->
 <!--                        min: <input type="text" class="slider__inputs&#45;&#45;input">-->

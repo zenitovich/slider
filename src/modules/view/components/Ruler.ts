@@ -1,6 +1,7 @@
 import Emitter from "../../../core/Emitter.ts";
 import {IComponent, IScaleData} from "../../../interfaces.ts";
 import {SliderComponent} from "../../../core/SliderComponent.ts";
+import {Dom} from "../../../core/dom.ts";
 
 export default class Ruler extends SliderComponent implements IComponent{
     static className: string = 'slider__ruler'
@@ -8,7 +9,7 @@ export default class Ruler extends SliderComponent implements IComponent{
     private emitter: Emitter
     stringOfValues: string
 
-    constructor(emitter: Emitter, $root: HTMLDivElement) {
+    constructor(emitter: Emitter, $root: Dom) {
         console.log($root)
         super($root)
         this.emitter = emitter

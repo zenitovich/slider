@@ -1,8 +1,9 @@
 import DomListener from "./DomListener";
+import {Dom} from "./dom.ts";
 
 export class SliderComponent extends DomListener {
 
-    constructor($root: HTMLDivElement) {
+    constructor($root: Dom) {
         super($root);
     }
 
@@ -11,6 +12,7 @@ export class SliderComponent extends DomListener {
     }
 
     changeHtml(html: string) {
-        this.$root.innerHTML = html
+        this.$root.html(html)
+        // this.$root.innerHTML = html
     }
 }
