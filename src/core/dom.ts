@@ -27,6 +27,7 @@ export class Dom{
         if (node) {
             this.$el?.append(node)
         }
+        return this
     }
 
 }

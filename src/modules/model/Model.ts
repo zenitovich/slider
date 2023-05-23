@@ -10,7 +10,6 @@ export default class Model{
         this.emitter = emitter
         this.scaleData = options.scaleData
         console.log(this.emitter)
-        setTimeout(() => {this.scaleData= {min: 1, max: 66, initValue: 6}}, 5000)
     }
 
     set scaleData(scaleData: IScaleData) {

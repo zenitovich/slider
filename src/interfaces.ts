@@ -14,12 +14,17 @@ export interface IComponent {
 
 }
 
+export interface IComponentOptions {
+    listeners: string[],
+    name: string
+}
+
 export interface IOptions {
     scaleData: IScaleData
 }
 
 export interface  ISlider {
-    // init(): void
+
 }
 
 export interface IPresenter {

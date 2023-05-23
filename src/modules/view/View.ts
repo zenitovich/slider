@@ -7,7 +7,9 @@ import {$} from "../../core/dom.ts";
 export default class View implements IView {
     private readonly presenter: Presenter
     private readonly emitter: Emitter
-    private readonly components: [typeof Ruler]
+    components: [typeof Ruler]
+    //массив с нашими классами
+    componentsInstance: Ruler[]
 
     constructor(presenter: Presenter, emitter: Emitter) {
         this.components = [Ruler]
@@ -19,15 +21,24 @@ export default class View implements IView {
     getRoot(): HTMLElement | null {
         const $root = $.create('div', 'slider')
 
-        this.components.forEach((Component: TComponent) => {
+        this.componentsInstance = this.components.map((Component: TComponent) => {
+
             const $el  = $.create('div', Component.className)
-            console.log($el)
             const component = new Component(this.emitter, $el)
+
             $el.html(component.toHTML())
             $root.append($el.$el)
+
+            return component
         })
 
         return $root.$el
+    }
+
+    render() {
+        this.componentsInstance.forEach((component) => {
+            component.init()
+        })
     }
 
 
