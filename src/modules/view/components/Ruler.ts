@@ -12,15 +12,15 @@ export default class Ruler extends SliderComponent implements IComponent{
     constructor(emitter: Emitter, $root: Dom) {
         super($root, {
             name: 'Ruler',
-            listeners: ['input']
+            listeners: ['click']
         })
         this.emitter = emitter
         this.stringOfValues = ''
         this.emitter.subscribe('update:optionValues',  (scaleData: IScaleData) => this.changeRuler(scaleData))
     }
 
-    onInput(event: string) {
-        console.log('Formula onInput', event)
+    onClick(event: Event) {
+        console.log('Ruler onClick', event)
     }
 
     rulerToString(min: number , max: number, initValue: number)  {

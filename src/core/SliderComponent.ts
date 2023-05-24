@@ -18,6 +18,5 @@ export class SliderComponent extends DomListener {
 
     changeHtml(html: string) {
         this.$root.html(html)
-        // this.$root.innerHTML = html
     }
 }

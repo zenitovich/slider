@@ -21,4 +21,8 @@ export default class Slider implements ISlider {
         this.model = new Model({scaleData: options.scaleData}, this.emitter)
         console.log(this.model)
   }
+
+  init() {
+        this.view.render()
+  }
 }
