@@ -1,4 +1,4 @@
-import Ruler from "./modules/view/components/Ruler.ts";
+import Ruler from "./modules/view/components/Ruler";
 
 export type TComponent = typeof Ruler
 
@@ -9,10 +9,10 @@ export type TEventName = 'click' | 'mousedown'
 export type TCapitalizeName = 'Click' | 'Mousedown'
 
 
-export interface IDomListenerEvents {
-    onClick(event: Event): void
-    onMousedown(event: Event): void
-}
+// export interface IDomListenerEvents {
+//     onClick(event: Event): void
+//     onMousedown(event: Event): void
+// }
 
 export interface IView {
     addHtml(): HTMLDivElement

@@ -1,18 +1,12 @@
 import {Dom} from "./dom";
 import {capitalize} from "./utils";
-import {IDomListenerEvents, TEventName, TMethodName} from "../interfaces";
-import AbstractDom from "./abstractDom.ts";
+import {TEventName, TMethodName} from "../interfaces";
+import AbstractDom from "./abstractDom";
 
-export default // @ts-ignore
-class DomListener extends AbstractDom {
+export default class DomListener extends AbstractDom {
     $root: Dom
     listeners: Array<TEventName>
-    // onMousedown(event: Event): void {
-    //     console.log(event)
-    // }
-    // onClick(event: Event): void {
-    //     console.log(event)
-    // }
+
 
     constructor($root: Dom, listeners: TEventName[] = []) {
         super()
@@ -26,14 +20,16 @@ class DomListener extends AbstractDom {
     initDomListeners() {
         this.listeners.forEach((listener: TEventName) => {
             const method = getMethodName(listener)
-            //тоже самое что и addEventListener
-            console.log(this)
-            this.$root.on(listener, this[method as keyof IDomListenerEvents])
+            this.$root.on(listener,
+                this[method])
         })
     }
 
     removeDomListeners() {
-
+        this.listeners.forEach((listener: TEventName) => {
+            const method: TMethodName = getMethodName(listener)
+            this.$root.off(listener, this[method])
+        })
     }
 }
 

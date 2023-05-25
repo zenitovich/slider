@@ -1,7 +1,7 @@
-import Emitter from "../../../core/Emitter.ts";
-import {IComponent, IScaleData} from "../../../interfaces.ts";
-import {SliderComponent} from "../../../core/SliderComponent.ts";
-import {Dom} from "../../../core/dom.ts";
+import Emitter from "../../../core/Emitter";
+import {IComponent, IScaleData} from "../../../interfaces";
+import {SliderComponent} from "../../../core/SliderComponent";
+import {Dom} from "../../../core/dom";
 
 export default class Ruler extends SliderComponent implements IComponent{
     static className: string = 'slider__ruler'

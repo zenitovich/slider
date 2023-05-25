@@ -3,7 +3,7 @@ import View from "./modules/view/View";
 import Presenter from "./modules/presenter/Presenter";
 import Model from "./modules/model/Model";
 import Emitter from "./core/Emitter";
-import {Dom} from "./core/dom.ts";
+import {Dom} from "./core/dom";
 
 export default class Slider implements ISlider {
     private view: View

@@ -1,4 +1,4 @@
-import {TEventName} from "../interfaces.ts";
+import {TEventName} from "../interfaces";
 
 export class Dom{
     $el: HTMLElement | null
@@ -27,6 +27,10 @@ export class Dom{
 
     on(eventType: TEventName, callback: (event: Event) => void) {
         this.$el?.addEventListener(eventType, callback)
+    }
+
+    off(eventType: TEventName, callback: (event: Event) => void) {
+        this.$el?.removeEventListener(eventType, callback)
     }
 
     append(node: HTMLElement | null) {
