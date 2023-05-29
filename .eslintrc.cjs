@@ -4,9 +4,10 @@ module.exports = {
         "es2021": true
     },
     "extends": [
+        "prettier",
         "eslint:recommended",
+        "airbnb-base",
         "plugin:@typescript-eslint/recommended",
-        "prettier"
     ],
     "overrides": [
     ],
