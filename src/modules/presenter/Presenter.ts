@@ -1,6 +1,1 @@
-import {IPresenter} from "../../interfaces";
-export default class Presenter implements IPresenter {
-
-    constructor() {
-    }
-}
+export default class Presenter {}
