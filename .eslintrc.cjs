@@ -22,6 +22,7 @@ module.exports = {
         "@typescript-eslint",
     ],
     "rules": {
+        "no-underscore-dangle": 'off',
         "class-methods-use-this": 0,
         "import/no-cycle": 0,
         "no-console": 0,
