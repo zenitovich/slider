@@ -2,30 +2,31 @@ import { TComponent } from "../../interfaces.ts";
 import Presenter from "../presenter/Presenter.ts";
 import Emitter from "../../core/Emitter.ts";
 import Ruler from "./components/Ruler.ts";
-import { $ } from "../../core/dom";
+import { Dom } from "../../core/dom";
+import Point from "./components/Point.ts";
 
 export default class View {
   private readonly presenter: Presenter;
 
   private readonly emitter: Emitter;
 
-  components: [typeof Ruler];
+  components: TComponent[];
 
   // массив с нашими классами
-  componentsInstance: Ruler[];
+  componentsInstance: (Ruler | Point)[];
 
   constructor(presenter: Presenter, emitter: Emitter) {
-    this.components = [Ruler];
+    this.components = [Point, Ruler];
     this.emitter = emitter;
     this.presenter = presenter;
     console.log(this.presenter);
   }
 
   getRoot(): HTMLElement | null {
-    const $root = $.create("div", "slider");
+    const $root = new Dom("slider");
 
     this.componentsInstance = this.components.map((Component: TComponent) => {
-      const $el = $.create("div", Component.className);
+      const $el = new Dom(Component.className);
       const component = new Component(this.emitter, $el);
 
       $el.html(component.toHTML());

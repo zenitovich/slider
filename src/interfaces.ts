@@ -1,6 +1,7 @@
 import Ruler from "./modules/view/components/Ruler.ts";
+import Point from "./modules/view/components/Point.ts";
 
-export type TComponent = typeof Ruler;
+export type TComponent = typeof Ruler | typeof Point;
 
 export type TMethodName = "onClick" | "onMousedown";
 

@@ -27,28 +27,25 @@ body {
       align-items: flex-end;
     }
   }
-  &__scale {
+  &__point {
     width: 75%;
-    height: 1.5px;
-    border-radius: 3px;
-    border: 1.5px solid dodgerblue;
-    margin: 25px 0;
-    background-color: dodgerblue;
+    //height: 1px;
+    //background-color: red;
+    //height: 1.5px;
+    //border-radius: 3px;
+    //border: 1.5px solid dodgerblue;
+    //margin: 25px 0;
+    //background-color: dodgerblue;
     position: relative;
     &--button {
       position: absolute;
-      height: 20px;
-      width: 20px;
-      border: 3px solid dodgerblue;
-      background-color: aliceblue;
-      top: -11px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
-    }
-    .button-one {
-      left: 0;
-    }
-    .button-two {
-      right: 0;
+      background-color: aliceblue;
+      left: 3px;
+      top: -10px;
+      border: 3px solid sienna;
     }
   }
   &__ruler {

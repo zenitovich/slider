@@ -4,10 +4,19 @@ export class Dom {
   $el: HTMLElement | null;
 
   constructor(selector: string | HTMLElement) {
-    if (typeof selector === "string") {
+    if (
+      typeof selector === "string" &&
+      document.querySelector(selector) !== null
+    ) {
       this.$el = document.querySelector(selector);
+    } else if (
+      typeof selector === "string" &&
+      document.querySelector(selector) === null
+    ) {
+      this.$el = document.createElement("div");
+      this.$el.classList.add(selector);
     } else {
-      this.$el = selector;
+      this.$el = selector as HTMLElement;
     }
   }
 
@@ -41,14 +50,14 @@ export class Dom {
   }
 }
 
-export function $(selector: HTMLElement) {
-  return new Dom(selector);
-}
-
-$.create = (tagName: string, classes = ""): Dom => {
-  const el: HTMLElement = document.createElement(tagName);
-  if (classes) {
-    el.classList.add(classes);
-  }
-  return $(el);
-};
+// export function $(selector: HTMLElement) {
+//   return new Dom(selector);
+// }
+//
+// $.create = (tagName: string, classes = ''): Dom => {
+//   const el: HTMLElement = document.createElement(tagName);
+//   if (classes) {
+//     el.classList.add(classes);
+//   }
+//   return $(el);
+// };
