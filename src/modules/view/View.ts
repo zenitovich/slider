@@ -1,9 +1,9 @@
-import { TComponent } from "../../interfaces.ts";
-import Presenter from "../presenter/Presenter.ts";
-import Emitter from "../../core/Emitter.ts";
-import Ruler from "./components/Ruler.ts";
-import { Dom } from "../../core/dom";
-import Point from "./components/Point.ts";
+import { TComponent } from '../../interfaces.ts';
+import Presenter from '../presenter/Presenter.ts';
+import Emitter from '../../core/Emitter.ts';
+import Ruler from './components/Ruler.ts';
+import { Dom } from '../../core/dom';
+import Point from './components/Point.ts';
 
 export default class View {
   private readonly presenter: Presenter;
@@ -23,7 +23,7 @@ export default class View {
   }
 
   getRoot(): HTMLElement | null {
-    const $root = new Dom("slider");
+    const $root = new Dom('slider');
 
     this.componentsInstance = this.components.map((Component: TComponent) => {
       const $el = new Dom(Component.className);

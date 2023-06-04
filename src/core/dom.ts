@@ -1,27 +1,27 @@
-import { TEventName } from "../interfaces";
+import { TEventName } from '../interfaces';
 
 export class Dom {
   $el: HTMLElement | null;
 
   constructor(selector: string | HTMLElement) {
     if (
-      typeof selector === "string" &&
+      typeof selector === 'string' &&
       document.querySelector(selector) !== null
     ) {
       this.$el = document.querySelector(selector);
     } else if (
-      typeof selector === "string" &&
+      typeof selector === 'string' &&
       document.querySelector(selector) === null
     ) {
-      this.$el = document.createElement("div");
+      this.$el = document.createElement('div');
       this.$el.classList.add(selector);
     } else {
       this.$el = selector as HTMLElement;
     }
   }
 
-  html(html = "") {
-    if (typeof html === "string" && this.$el !== null) {
+  html(html = '') {
+    if (typeof html === 'string' && this.$el !== null) {
       this.$el.innerHTML = html;
       return this;
     }
@@ -30,7 +30,7 @@ export class Dom {
   }
 
   clear() {
-    this.html("");
+    this.html('');
     return this;
   }
 
@@ -49,15 +49,3 @@ export class Dom {
     return this;
   }
 }
-
-// export function $(selector: HTMLElement) {
-//   return new Dom(selector);
-// }
-//
-// $.create = (tagName: string, classes = ''): Dom => {
-//   const el: HTMLElement = document.createElement(tagName);
-//   if (classes) {
-//     el.classList.add(classes);
-//   }
-//   return $(el);
-// };

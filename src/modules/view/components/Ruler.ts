@@ -1,10 +1,10 @@
-import Emitter from "../../../core/Emitter.ts";
-import { IScaleData } from "../../../interfaces.ts";
-import { SliderComponent } from "../../../core/SliderComponent.ts";
-import { Dom } from "../../../core/dom.ts";
+import Emitter from '../../../core/Emitter.ts';
+import { IScaleData } from '../../../interfaces.ts';
+import { SliderComponent } from '../../../core/SliderComponent.ts';
+import { Dom } from '../../../core/dom.ts';
 
 export default class Ruler extends SliderComponent {
-  static className = "slider__ruler";
+  static className = 'slider__ruler';
 
   private emitter: Emitter;
 
@@ -12,18 +12,18 @@ export default class Ruler extends SliderComponent {
 
   constructor(emitter: Emitter, $root: Dom) {
     super($root, {
-      name: "Ruler",
-      listeners: ["click"],
+      name: 'Ruler',
+      listeners: ['click'],
     });
     this.emitter = emitter;
-    this.stringOfValues = "";
-    this.emitter.subscribe("update:optionValues", (scaleData: IScaleData) =>
+    this.stringOfValues = '';
+    this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) =>
       this.changeRuler(scaleData)
     );
   }
 
   onClick(event: Event) {
-    console.log("Ruler onClick", event);
+    console.log('Ruler onClick', event);
   }
 
   rulerToString(min: number, max: number, divisionValue: number) {
@@ -31,7 +31,7 @@ export default class Ruler extends SliderComponent {
     const range = max - min;
     const interval = range / (divisionValue + 1);
 
-    let str = "";
+    let str = '';
 
     for (let i = 1; i <= divisionValue; i += 1) {
       const split = Math.round(min + interval * i);

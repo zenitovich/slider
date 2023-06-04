@@ -29,14 +29,10 @@ body {
   }
   &__point {
     width: 75%;
-    //height: 1px;
-    //background-color: red;
-    //height: 1.5px;
-    //border-radius: 3px;
-    //border: 1.5px solid dodgerblue;
-    //margin: 25px 0;
-    //background-color: dodgerblue;
     position: relative;
+    width: 75%;
+    height: 3px;
+    background-color: sienna;
     &--button {
       position: absolute;
       width: 18px;
@@ -52,7 +48,7 @@ body {
     display: flex;
     justify-content: space-between;
     width: 75%;
-    height: 3px;
+    height: 1px;
     background-color: sienna;
   }
   &__ruler-value {
