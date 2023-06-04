@@ -23,21 +23,17 @@ export default class Point extends SliderComponent {
   onMousedown() {
     console.log('Mousedown');
     const point: HTMLElement | null = document.querySelector('.slider__point');
+    const pointCoords: DOMRect | undefined = point?.getBoundingClientRect();
     const pointButton: HTMLElement | null = document.querySelector(
       '.slider__point--button'
     );
-    if (point !== null && pointButton !== null) {
-      point.onmousemove = (e) => {
-        console.log(e.pageX, e.pageY);
-        pointButton.style.left = `${e.pageX}px`;
+    if (pointButton !== null && pointCoords !== undefined) {
+      document.onmousemove = (e) => {
+        if (e.pageX >= pointCoords.x && e.pageX <= pointCoords.right) {
+          pointButton.style.left = `${e.pageX - pointCoords.x}px`;
+        }
       };
     }
-    // document.onmousemove = (e) => {
-    //   console.log(e.pageX, e.pageY);
-    //   if (point !== null) {
-    //     point.style.left = `${e.pageX}px`;
-    //   }
-    // };
   }
 
   toHTML(): string {
