@@ -1,5 +1,5 @@
-import { IOptions, IScaleData } from "../../interfaces.ts";
-import Emitter from "../../core/Emitter.ts";
+import { IOptions, IScaleData } from '../../interfaces.ts';
+import Emitter from '../../core/Emitter.ts';
 
 export default class Model {
   private _scaleData: IScaleData;
@@ -15,7 +15,7 @@ export default class Model {
   set scaleData(scaleData: IScaleData) {
     // eslint-disable-next-line no-underscore-dangle
     this._scaleData = scaleData;
-    this.emitter.emit("update:optionValues", this.scaleData);
+    this.emitter.emit('update:optionValues', this.scaleData);
   }
 
   get scaleData() {

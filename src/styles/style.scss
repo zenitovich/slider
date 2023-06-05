@@ -43,6 +43,11 @@ body {
       top: -10px;
       border: 3px solid sienna;
     }
+    &--value {
+      height: 50px;
+      width: 50px;
+      margin: 20px;
+    }
   }
   &__ruler {
     display: flex;

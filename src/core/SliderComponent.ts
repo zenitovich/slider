@@ -1,6 +1,6 @@
-import DomListener from "./DomListener";
-import { Dom } from "./dom.ts";
-import { IComponentOptions } from "../interfaces";
+import DomListener from './DomListener';
+import { Dom } from './dom.ts';
+import { IComponentOptions } from '../interfaces';
 
 export class SliderComponent extends DomListener {
   constructor($root: Dom, componentOptions: IComponentOptions) {
@@ -16,7 +16,7 @@ export class SliderComponent extends DomListener {
   }
 
   toHTML(): string {
-    return "";
+    return '';
   }
 
   changeHtml(html: string) {

@@ -1,9 +1,9 @@
-import { IOptions } from "./interfaces";
-import View from "./modules/view/View";
-import Presenter from "./modules/presenter/Presenter";
-import Model from "./modules/model/Model";
-import Emitter from "./core/Emitter";
-import { Dom } from "./core/dom";
+import { IOptions } from './interfaces';
+import View from './modules/view/View';
+import Presenter from './modules/presenter/Presenter';
+import Model from './modules/model/Model';
+import Emitter from './core/Emitter';
+import { Dom } from './core/dom';
 
 export default class Slider {
   private view: View;
