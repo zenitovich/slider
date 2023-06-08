@@ -24,7 +24,7 @@ export default class DomListener extends AbstractDom {
   initDomListeners() {
     this.listeners.forEach((listener: TEventName) => {
       const method: TMethodName = getMethodName(listener);
-      this.$root.on(listener, this[method]);
+      this.$root.on(listener, this[method].bind(this));
     });
   }
 

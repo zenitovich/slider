@@ -19,10 +19,11 @@ export default class Slider {
   constructor(selector: string, options: IOptions) {
     this.emitter = new Emitter();
     this.$el = new Dom(selector);
-    this.presenter = new Presenter();
+    this.model = new Model(this.emitter);
+    this.presenter = new Presenter(this.model);
     this.view = new View(this.presenter, this.emitter);
     this.$el?.append(this.view.getRoot());
-    this.model = new Model({ scaleData: options.scaleData }, this.emitter);
+    this.model.setInitData(options);
     console.log(this.model);
   }
 

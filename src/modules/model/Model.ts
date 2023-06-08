@@ -6,10 +6,14 @@ export default class Model {
 
   private emitter: Emitter;
 
-  constructor(options: IOptions, emitter: Emitter) {
+  constructor(emitter: Emitter) {
     this.emitter = emitter;
-    this.scaleData = options.scaleData;
+    // this.scaleData = options.scaleData;
     console.log(this.emitter);
+  }
+
+  setInitData(options: IOptions) {
+    this.scaleData = options.scaleData;
   }
 
   set scaleData(scaleData: IScaleData) {

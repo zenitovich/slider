@@ -27,11 +27,9 @@ export default class View {
 
     this.componentsInstance = this.components.map((Component: TComponent) => {
       const $el = new Dom(Component.className);
-      const component = new Component(this.emitter, $el);
-
+      const component = new Component(this.emitter, $el, this.presenter);
       $el.html(component.toHTML());
       $root.append($el.$el);
-
       return component;
     });
 

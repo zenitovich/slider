@@ -2,6 +2,7 @@ import Emitter from '../../../core/Emitter.ts';
 import { IScaleData } from '../../../interfaces.ts';
 import { SliderComponent } from '../../../core/SliderComponent.ts';
 import { Dom } from '../../../core/dom.ts';
+import Presenter from '../../presenter/Presenter.ts';
 
 export default class Ruler extends SliderComponent {
   static className = 'slider__ruler';
@@ -10,11 +11,15 @@ export default class Ruler extends SliderComponent {
 
   stringOfValues: string;
 
-  constructor(emitter: Emitter, $root: Dom) {
-    super($root, {
-      name: 'Ruler',
-      listeners: ['click'],
-    });
+  constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
+    super(
+      $root,
+      {
+        name: 'Ruler',
+        listeners: ['click'],
+      },
+      presenter
+    );
     this.emitter = emitter;
     this.stringOfValues = '';
     this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) =>

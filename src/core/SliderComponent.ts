@@ -1,10 +1,19 @@
 import DomListener from './DomListener';
 import { Dom } from './dom.ts';
 import { IComponentOptions } from '../interfaces';
+import Presenter from '../modules/presenter/Presenter.ts';
 
 export class SliderComponent extends DomListener {
-  constructor($root: Dom, componentOptions: IComponentOptions) {
+  presenter: Presenter;
+
+  constructor(
+    $root: Dom,
+    componentOptions: IComponentOptions,
+    presenter: Presenter
+  ) {
     super($root, componentOptions.listeners);
+    this.presenter = presenter;
+    console.log(this.presenter);
   }
 
   init() {
