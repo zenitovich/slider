@@ -14,13 +14,20 @@ export interface IScaleData {
   max: number;
   divisionValue: number;
 }
+export interface IPointData {
+  valueElemHtml: string;
+  pointButtonPosition: string;
+  valueElemPosition: string;
+}
 export interface IComponentOptions {
   listeners: TEventName[];
   name: string;
 }
 export interface IOptions {
   scaleData: IScaleData;
+  pointData?: IPointData | undefined;
 }
 export interface IEvents {
   'update:optionValues'?: Function[];
+  'update:pointData'?: Function[];
 }

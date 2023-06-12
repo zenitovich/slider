@@ -1,7 +1,7 @@
 import Model from '../model/Model.ts';
 
 export default class Presenter {
-  model: Model;
+  private model: Model;
 
   constructor(model: Model) {
     this.model = model;
@@ -26,6 +26,11 @@ export default class Presenter {
             Math.round((e.pageX - pointCoords.x) * pointStep) +
             this.model.scaleData.min;
           valueElem.innerHTML = `${pointValue}`;
+          this.model.pointData = {
+            valueElemHtml: `${valueElem.innerHTML}`,
+            pointButtonPosition: `${button.style.left}`,
+            valueElemPosition: `${valueElem.style.left}`,
+          };
         }
       };
     }

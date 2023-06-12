@@ -1,8 +1,8 @@
 import { SliderComponent } from '../../../core/SliderComponent.ts';
 import Emitter from '../../../core/Emitter.ts';
 import { Dom } from '../../../core/dom.ts';
-import { IScaleData } from '../../../interfaces.ts';
 import Presenter from '../../presenter/Presenter.ts';
+import { IPointData } from '../../../interfaces.ts';
 
 export default class Point extends SliderComponent {
   static className = 'slider__point';
@@ -12,15 +12,12 @@ export default class Point extends SliderComponent {
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super(
       $root,
-      {
-        name: 'Point',
-        listeners: ['click', 'mousedown'],
-      },
+      { name: 'Point', listeners: ['click', 'mousedown'] },
       presenter
     );
     this.emitter = emitter;
-    this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) =>
-      console.log(scaleData)
+    this.emitter.subscribe('update:pointData', (pointData: IPointData) =>
+      this.changePoint(pointData)
     );
   }
 
@@ -46,5 +43,10 @@ export default class Point extends SliderComponent {
             <div class="slider__point--button"></div>
             <div class="slider__point--value"></div>
         `;
+  }
+
+  changePoint(pointData: IPointData) {
+    console.log('pointData from Point', pointData);
+    this.changeHtml(this.toHTML());
   }
 }

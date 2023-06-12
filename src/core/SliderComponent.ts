@@ -13,7 +13,6 @@ export class SliderComponent extends DomListener {
   ) {
     super($root, componentOptions.listeners);
     this.presenter = presenter;
-    console.log(this.presenter);
   }
 
   init() {

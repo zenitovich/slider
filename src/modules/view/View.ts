@@ -19,7 +19,6 @@ export default class View {
     this.components = [Point, Ruler];
     this.emitter = emitter;
     this.presenter = presenter;
-    console.log(this.presenter);
   }
 
   getRoot(): HTMLElement | null {

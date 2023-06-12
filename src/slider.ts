@@ -24,7 +24,6 @@ export default class Slider {
     this.view = new View(this.presenter, this.emitter);
     this.$el?.append(this.view.getRoot());
     this.model.setInitData(options);
-    console.log(this.model);
   }
 
   init() {
