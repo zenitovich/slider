@@ -9,6 +9,12 @@ export default class Point extends SliderComponent {
 
   private emitter: Emitter;
 
+  point: HTMLElement | null;
+
+  pointButton: HTMLElement | null;
+
+  pointValue: HTMLElement | null;
+
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super(
       $root,
@@ -16,8 +22,13 @@ export default class Point extends SliderComponent {
       presenter
     );
     this.emitter = emitter;
+    this.point = this.$root.$el;
+    this.pointButton = document.querySelector('.slider__point--button');
+    this.pointValue = document.querySelector<HTMLElement>(
+      '.slider__point--value'
+    );
     this.emitter.subscribe('update:pointData', (pointData: IPointData) =>
-      this.changePoint(pointData)
+      this.changePoint(pointData, this.point, this.pointButton, this.pointValue)
     );
   }
 
@@ -26,13 +37,15 @@ export default class Point extends SliderComponent {
   }
 
   onMousedown() {
-    const pointButton: HTMLElement | null = document.querySelector(
-      '.slider__point--button'
-    );
-    const pointValue: HTMLElement | null = document.querySelector<HTMLElement>(
-      '.slider__point--value'
-    );
-    this.presenter.method(this.$root.$el, pointButton, pointValue);
+    if (
+      this.point !== null &&
+      this.pointButton !== null &&
+      this.pointValue !== null
+    ) {
+      const pointCoords: DOMRect = this.point.getBoundingClientRect();
+      console.log(this.pointValue, pointCoords, this.pointButton);
+      this.presenter.method(pointCoords);
+    }
     document.onmouseup = () => {
       document.onmousemove = null;
     };
@@ -45,8 +58,18 @@ export default class Point extends SliderComponent {
         `;
   }
 
-  changePoint(pointData: IPointData) {
-    console.log('pointData from Point', pointData);
+  changePoint(
+    pointData: IPointData,
+    point: HTMLElement | null,
+    pointButton: HTMLElement | null,
+    pointValue: HTMLElement | null
+  ) {
+    if (point !== null && pointButton !== null && pointValue !== null) {
+      pointButton.style.left = pointData.pointButtonPosition;
+      pointValue.style.left = pointData.valueElemPosition;
+      point.innerHTML = pointData.valueElemHtml;
+    }
+    console.log(pointData.pointButtonPosition);
     this.changeHtml(this.toHTML());
   }
 }
