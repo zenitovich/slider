@@ -42,7 +42,6 @@ export default class Point extends SliderComponent {
     this.pointValue = document.querySelector<HTMLElement>(
       '.slider__point--value'
     );
-    console.log(this.pointValue, this.pointButton);
     if (
       this.point !== null &&
       this.pointButton !== null &&
@@ -66,16 +65,17 @@ export default class Point extends SliderComponent {
   }
 
   changePoint(pointData: IPointData) {
-    console.log('pointData from Point', pointData);
     if (
       this.point !== null &&
-      this.pointButton !== null &&
-      this.pointValue !== null
+      this.pointValue !== null &&
+      this.pointButton !== null
     ) {
       this.pointButton.style.left = pointData.pointButtonPosition;
       this.pointValue.style.left = pointData.valueElemPosition;
-      this.point.innerHTML = pointData.valueElemHtml;
+      this.pointValue.innerHTML = pointData.valueElemHtml;
+      console.log('pointValue:', this.pointValue.style.left);
+      console.log('pointButton:', this.pointButton.style.left);
+      console.log('innerText', this.point.innerHTML);
     }
-    this.toHTML();
   }
 }

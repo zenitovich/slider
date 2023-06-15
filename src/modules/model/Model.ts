@@ -30,7 +30,6 @@ export default class Model {
   set pointData(pointData: IPointData | undefined) {
     this._pointData = pointData;
     this.emitter.emit('update:pointData', this.pointData);
-    console.log('pointData from Model', this.pointData);
   }
 
   get pointData() {
