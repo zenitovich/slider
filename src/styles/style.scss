@@ -38,7 +38,6 @@ body {
       height: 18px;
       border-radius: 50%;
       background-color: aliceblue;
-      left: 3px;
       top: -10px;
       border: 3px solid sienna;
     }
@@ -61,8 +60,11 @@ body {
     justify-content: space-between;
     width: 100%;
     &--item {
-      padding-top: 25px;
+      padding-top: 30px;
       position: relative;
+      width: 3px;
+      display: flex;
+      justify-content: center;
     }
     &--item::before {
       content: '';
@@ -71,7 +73,6 @@ body {
       height: 18px;
       background-color: sienna;
       top: 0;
-      margin: auto;
       left: 0;
       right: 0;
     }

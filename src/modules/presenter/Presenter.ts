@@ -13,13 +13,15 @@ export default class Presenter {
       this.model.scaleData.max - this.model.scaleData.min;
     const pointStep: number = pointRange / pointLength;
     if (event.pageX >= pointCoords.x && event.pageX <= pointCoords.right) {
+      // pageX x
       const pointValue: number =
         Math.round((event.pageX - pointCoords.x) * pointStep) +
         this.model.scaleData.min;
       this.model.pointData = {
         valueElemHtml: `${pointValue}`,
-        pointButtonPosition: `${event.pageX - pointCoords.x}px`,
-        valueElemPosition: `${event.pageX - pointCoords.x}px`,
+        // position
+        pointButtonPosition: `${event.pageX - pointCoords.x - 11}px`,
+        valueElemPosition: `${event.pageX - pointCoords.x - 11}px`,
       };
     }
   }
