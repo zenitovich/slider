@@ -5,4 +5,4 @@ const slider = new Slider('#app', {
   scaleData: { min: 6, max: 100, divisionValue: 20 },
 });
 
-slider.init();
+console.log(slider);

@@ -25,8 +25,4 @@ export default class Slider {
     this.$el?.append(this.view.getRoot());
     this.model.setInitData(options);
   }
-
-  init() {
-    this.view.render();
-  }
 }

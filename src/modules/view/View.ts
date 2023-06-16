@@ -29,15 +29,10 @@ export default class View {
       const component = new Component(this.emitter, $el, this.presenter);
       $el.html(component.toHTML());
       $root.append($el.$el);
+      component.init();
       return component;
     });
 
     return $root.$el;
-  }
-
-  render() {
-    this.componentsInstance.forEach((component) => {
-      component.init();
-    });
   }
 }

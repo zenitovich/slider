@@ -4,15 +4,9 @@ export class Dom {
   $el: HTMLElement | null;
 
   constructor(selector: string | HTMLElement) {
-    if (
-      typeof selector === 'string' &&
-      document.querySelector(selector) !== null
-    ) {
+    if (typeof selector === 'string' && document.querySelector(selector) !== null) {
       this.$el = document.querySelector(selector);
-    } else if (
-      typeof selector === 'string' &&
-      document.querySelector(selector) === null
-    ) {
+    } else if (typeof selector === 'string' && document.querySelector(selector) === null) {
       this.$el = document.createElement('div');
       this.$el.classList.add(selector);
     } else {

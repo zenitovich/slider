@@ -16,14 +16,12 @@ export default class Emitter {
     if (!this.events[name]) {
       throw new Error('Argument types do not match parameters');
     }
-    this.events[name] = this.events[name]?.filter(
-      (listener: Function) => listener !== listenerToRemove
-    );
+    this.events[name] = this.events[name]?.filter((listener: Function) => listener !== listenerToRemove);
   }
 
   // оповещение слушателей в массиве с именем события,вызываются функции с параметрами(data)
   // в дате будет объект с мин макс инит осуществленный в интерфейсе
-  emit(name: keyof IEvents, data: Object | undefined) {
+  emit(name: keyof IEvents, data: Object | undefined | number | string) {
     if (!this.events[name]) {
       throw new Error(`Can't emit an event. Event "${name}" doesn't exits.`);
     }

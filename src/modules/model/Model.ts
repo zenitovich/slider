@@ -1,10 +1,12 @@
-import { IOptions, IPointData, IScaleData } from '../../interfaces.ts';
+import { IOptions, IScaleData } from '../../interfaces.ts';
 import Emitter from '../../core/Emitter.ts';
 
 export default class Model {
   private _scaleData: IScaleData;
 
-  private _pointData: IPointData | undefined;
+  private value = 0;
+
+  private pointPositionPX: number;
 
   private emitter: Emitter;
 
@@ -12,9 +14,27 @@ export default class Model {
     this.emitter = emitter;
   }
 
+  setValue(value: number) {
+    this.value = value;
+    this.emitter.emit('update:pointData', { value: this.value, pointPositionPX: this.pointPositionPX });
+  }
+
+  getValue() {
+    return this.value;
+  }
+
+  setPointPositionPX(pointPositionPX: number) {
+    this.pointPositionPX = pointPositionPX;
+    this.emitter.emit('update:pointData', { value: this.value, pointPositionPX: this.pointPositionPX });
+  }
+
+  getPointPositionPX() {
+    return this.pointPositionPX;
+  }
+
   setInitData(options: IOptions) {
     this.scaleData = options.scaleData;
-    this.pointData = options.pointData;
+    // this.pointData = options.pointData;
   }
 
   set scaleData(scaleData: IScaleData) {
@@ -27,12 +47,30 @@ export default class Model {
     return this._scaleData;
   }
 
-  set pointData(pointData: IPointData | undefined) {
-    this._pointData = pointData;
-    this.emitter.emit('update:pointData', this.pointData);
-  }
+  // set value(value: number) {
+  //   this._value = value;
+  //   this.emitter.emit('update:pointData', this.value);
+  // }
+  //
+  // get value() {
+  //   return this._value;
+  // }
+  //
+  // set pointPositionPX(pointPositionPX: string) {
+  //   this._pointPositionPX = pointPositionPX;
+  //   this.emitter.emit('update:pointData', this.pointPositionPX);
+  // }
+  //
+  // get pointPositionPX() {
+  //   return this._pointPositionPX;
+  // }
 
-  get pointData() {
-    return this._pointData;
-  }
+  // set pointData(pointData: IPointData | undefined) {
+  //   this._pointData = pointData;
+  //   this.emitter.emit('update:pointData', this.pointData);
+  // }
+  //
+  // get pointData() {
+  //   return this._pointData;
+  // }
 }

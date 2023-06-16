@@ -3,13 +3,14 @@ import Emitter from '../../../core/Emitter.ts';
 import { Dom } from '../../../core/dom.ts';
 import Presenter from '../../presenter/Presenter.ts';
 import { IPointData } from '../../../interfaces.ts';
+// import { IPointData } from '../../../interfaces.ts';
 
 export default class Point extends SliderComponent {
   static className = 'slider__point';
 
   private emitter: Emitter;
 
-  point: HTMLElement | null;
+  pointElement: HTMLElement | null;
 
   pointButton: HTMLElement | null;
 
@@ -18,9 +19,7 @@ export default class Point extends SliderComponent {
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super($root, { name: 'Point', listeners: ['click', 'mousedown'] }, presenter);
     this.emitter = emitter;
-    this.point = this.$root.$el;
-    this.pointButton = document.querySelector('.slider__point--button');
-    this.pointValue = document.querySelector<HTMLElement>('.slider__point--value');
+    this.pointElement = this.$root.$el;
     this.emitter.subscribe('update:pointData', (pointData: IPointData) => this.changePoint(pointData));
   }
 
@@ -29,11 +28,8 @@ export default class Point extends SliderComponent {
   }
 
   onMousedown() {
-    this.point = this.$root.$el;
-    this.pointButton = document.querySelector('.slider__point--button');
-    this.pointValue = document.querySelector<HTMLElement>('.slider__point--value');
-    if (this.point !== null && this.pointButton !== null && this.pointValue !== null) {
-      const pointCoords: DOMRect = this.point.getBoundingClientRect();
+    if (this.pointElement !== null) {
+      const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
       const pointCoordsX: number = pointCoords.x;
       const pointCoordsRight: number = pointCoords.right;
       document.onmousemove = (event: MouseEvent) => {
@@ -53,11 +49,18 @@ export default class Point extends SliderComponent {
         `;
   }
 
+  init() {
+    super.init();
+    this.pointButton = this.pointElement?.querySelector('.slider__point--button') || null;
+    this.pointValue = this.pointElement?.querySelector('.slider__point--value') || null;
+  }
+
   changePoint(pointData: IPointData) {
-    if (this.point !== null && this.pointValue !== null && this.pointButton !== null) {
-      this.pointButton.style.left = pointData.pointButtonPosition;
-      this.pointValue.style.left = pointData.valueElemPosition;
-      this.pointValue.innerHTML = pointData.valueElemHtml;
+    if (this?.pointValue && this?.pointButton) {
+      this.pointButton.style.left = `${pointData.pointPositionPX}px`;
+      this.pointValue.style.left = `${pointData.pointPositionPX}px`;
+      console.log(pointData);
+      this.pointValue.innerHTML = pointData.value.toString();
     }
   }
 }

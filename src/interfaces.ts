@@ -15,9 +15,8 @@ export interface IScaleData {
   divisionValue: number;
 }
 export interface IPointData {
-  valueElemHtml: string;
-  pointButtonPosition: string;
-  valueElemPosition: string;
+  value: number;
+  pointPositionPX: number;
 }
 export interface IComponentOptions {
   listeners: TEventName[];
@@ -25,7 +24,9 @@ export interface IComponentOptions {
 }
 export interface IOptions {
   scaleData: IScaleData;
-  pointData?: IPointData | undefined;
+  // pointData?: IPointData | undefined;
+  initValue?: number;
+  pointPositionPX?: string | undefined;
 }
 export interface IEvents {
   'update:optionValues'?: Function[];

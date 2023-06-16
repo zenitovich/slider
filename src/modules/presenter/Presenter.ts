@@ -13,11 +13,9 @@ export default class Presenter {
     const pointStep: number = pointRange / pointLength;
     if (eventPageX >= pointCoordsX && eventPageX <= pointCoordsRight) {
       const pointValue: number = Math.round((eventPageX - pointCoordsX) * pointStep) + this.model.scaleData.min;
-      this.model.pointData = {
-        valueElemHtml: `${pointValue}`,
-        pointButtonPosition: `${eventPageX - pointCoordsX - 11}px`,
-        valueElemPosition: `${eventPageX - pointCoordsX - 11}px`,
-      };
+      console.log(pointValue);
+      this.model.setPointPositionPX(eventPageX - pointCoordsX - 11);
+      this.model.setValue(pointValue);
     }
   }
 }
