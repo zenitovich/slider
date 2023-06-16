@@ -49,7 +49,8 @@ export default class Point extends SliderComponent {
     ) {
       const pointCoords: DOMRect = this.point.getBoundingClientRect();
       document.onmousemove = (event: MouseEvent) => {
-        this.presenter.method(pointCoords, event);
+        const eventPageX: number = event.pageX;
+        this.presenter.method(pointCoords, eventPageX);
       };
     }
     document.onmouseup = () => {
@@ -73,9 +74,6 @@ export default class Point extends SliderComponent {
       this.pointButton.style.left = pointData.pointButtonPosition;
       this.pointValue.style.left = pointData.valueElemPosition;
       this.pointValue.innerHTML = pointData.valueElemHtml;
-      console.log('pointValue:', this.pointValue.style.left);
-      console.log('pointButton:', this.pointButton.style.left);
-      console.log('innerText', this.point.innerHTML);
     }
   }
 }
