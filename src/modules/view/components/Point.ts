@@ -16,20 +16,12 @@ export default class Point extends SliderComponent {
   pointValue: HTMLElement | null;
 
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
-    super(
-      $root,
-      { name: 'Point', listeners: ['click', 'mousedown'] },
-      presenter
-    );
+    super($root, { name: 'Point', listeners: ['click', 'mousedown'] }, presenter);
     this.emitter = emitter;
     this.point = this.$root.$el;
     this.pointButton = document.querySelector('.slider__point--button');
-    this.pointValue = document.querySelector<HTMLElement>(
-      '.slider__point--value'
-    );
-    this.emitter.subscribe('update:pointData', (pointData: IPointData) =>
-      this.changePoint(pointData)
-    );
+    this.pointValue = document.querySelector<HTMLElement>('.slider__point--value');
+    this.emitter.subscribe('update:pointData', (pointData: IPointData) => this.changePoint(pointData));
   }
 
   onClick(event: Event) {
@@ -39,18 +31,14 @@ export default class Point extends SliderComponent {
   onMousedown() {
     this.point = this.$root.$el;
     this.pointButton = document.querySelector('.slider__point--button');
-    this.pointValue = document.querySelector<HTMLElement>(
-      '.slider__point--value'
-    );
-    if (
-      this.point !== null &&
-      this.pointButton !== null &&
-      this.pointValue !== null
-    ) {
+    this.pointValue = document.querySelector<HTMLElement>('.slider__point--value');
+    if (this.point !== null && this.pointButton !== null && this.pointValue !== null) {
       const pointCoords: DOMRect = this.point.getBoundingClientRect();
+      const pointCoordsX: number = pointCoords.x;
+      const pointCoordsRight: number = pointCoords.right;
       document.onmousemove = (event: MouseEvent) => {
         const eventPageX: number = event.pageX;
-        this.presenter.method(pointCoords, eventPageX);
+        this.presenter.method(pointCoordsX, pointCoordsRight, eventPageX);
       };
     }
     document.onmouseup = () => {
@@ -66,11 +54,7 @@ export default class Point extends SliderComponent {
   }
 
   changePoint(pointData: IPointData) {
-    if (
-      this.point !== null &&
-      this.pointValue !== null &&
-      this.pointButton !== null
-    ) {
+    if (this.point !== null && this.pointValue !== null && this.pointButton !== null) {
       this.pointButton.style.left = pointData.pointButtonPosition;
       this.pointValue.style.left = pointData.valueElemPosition;
       this.pointValue.innerHTML = pointData.valueElemHtml;
