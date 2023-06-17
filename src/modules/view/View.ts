@@ -21,6 +21,16 @@ export default class View {
     this.presenter = presenter;
   }
 
+  resize() {
+    window.addEventListener(
+      'resize',
+      (event) => {
+        console.log(event);
+      },
+      true
+    );
+  }
+
   getRoot(): HTMLElement | null {
     const $root = new Dom('slider');
 

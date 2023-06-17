@@ -63,4 +63,6 @@ export default class Point extends SliderComponent {
       this.pointValue.innerHTML = pointData.value.toString();
     }
   }
+
+  resizePoint() {}
 }

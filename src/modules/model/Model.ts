@@ -37,6 +37,10 @@ export default class Model {
     // this.pointData = options.pointData;
   }
 
+  getIninData() {
+    return this.scaleData;
+  }
+
   set scaleData(scaleData: IScaleData) {
     // eslint-disable-next-line no-underscore-dangle
     this._scaleData = scaleData;
