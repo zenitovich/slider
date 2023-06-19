@@ -21,11 +21,12 @@ export default class View {
     this.presenter = presenter;
   }
 
-  resize() {
+  resize(component: Ruler | Point) {
     window.addEventListener(
       'resize',
       (event) => {
         console.log(event);
+        component.resize();
       },
       true
     );
@@ -37,6 +38,7 @@ export default class View {
     this.componentsInstance = this.components.map((Component: TComponent) => {
       const $el = new Dom(Component.className);
       const component = new Component(this.emitter, $el, this.presenter);
+      this.resize(component);
       $el.html(component.toHTML());
       $root.append($el.$el);
       component.init();

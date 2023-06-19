@@ -3,7 +3,6 @@ import Emitter from '../../../core/Emitter.ts';
 import { Dom } from '../../../core/dom.ts';
 import Presenter from '../../presenter/Presenter.ts';
 import { IPointData } from '../../../interfaces.ts';
-// import { IPointData } from '../../../interfaces.ts';
 
 export default class Point extends SliderComponent {
   static className = 'slider__point';
@@ -11,6 +10,8 @@ export default class Point extends SliderComponent {
   private emitter: Emitter;
 
   pointElement: HTMLElement | null;
+
+  pointElementInitWidth: number;
 
   pointButton: HTMLElement | null;
 
@@ -29,6 +30,7 @@ export default class Point extends SliderComponent {
 
   onMousedown() {
     if (this.pointElement !== null) {
+      this.pointElementInitWidth = this.pointElement.offsetWidth;
       const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
       const pointCoordsX: number = pointCoords.x;
       const pointCoordsRight: number = pointCoords.right;
@@ -57,12 +59,23 @@ export default class Point extends SliderComponent {
 
   changePoint(pointData: IPointData) {
     if (this?.pointValue && this?.pointButton) {
-      this.pointButton.style.left = `${pointData.pointPositionPX}px`;
-      this.pointValue.style.left = `${pointData.pointPositionPX}px`;
-      console.log(pointData);
+      this.pointButton.style.left = `${pointData.pointPositionPercent}%`;
+      this.pointValue.style.left = `${pointData.pointPositionPercent}%`;
       this.pointValue.innerHTML = pointData.value.toString();
     }
   }
 
-  resizePoint() {}
+  resize() {
+    // if (this?.pointElement && this?.pointElementInitWidth && this?.pointButton && this?.pointValue) {
+    //   const denis = this.pointElement.offsetWidth;
+    //   const radar = this.pointElementInitWidth / denis;
+    //   this.pointButton.style.left = `${parseInt(this.pointButton.style.left, 10) * radar}px`;
+    //   this.pointValue.style.left = `${parseInt(this.pointButton.style.left, 10) * radar}px`;
+    // }
+    // if (this.$root.$el?.style !== undefined && this?.pointValue && this?.initWidth) {
+    //   const width: string = this.$root.$el?.style.width;
+    //   const operation = parseInt(this.pointValue.style.left, 10) * (this.initWidth / width);
+    //   this.pointValue.style.left = `${this.pointValue.style.left * (this.initWidth / width)}px`;
+    // }
+  }
 }

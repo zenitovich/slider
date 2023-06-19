@@ -22,9 +22,7 @@ export default class Ruler extends SliderComponent {
     );
     this.emitter = emitter;
     this.stringOfValues = '';
-    this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) =>
-      this.changeRuler(scaleData)
-    );
+    this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) => this.changeRuler(scaleData));
   }
 
   onClick(event: Event) {
@@ -59,11 +57,9 @@ export default class Ruler extends SliderComponent {
 
   // временный метод
   changeRuler(scaleData: IScaleData) {
-    this.stringOfValues = this.rulerToString(
-      scaleData.min,
-      scaleData.max,
-      scaleData.divisionValue
-    );
+    this.stringOfValues = this.rulerToString(scaleData.min, scaleData.max, scaleData.divisionValue);
     this.changeHtml(this.toHTML());
   }
+
+  resize() {}
 }

@@ -16,7 +16,7 @@ export interface IScaleData {
 }
 export interface IPointData {
   value: number;
-  pointPositionPX: number;
+  pointPositionPercent: number;
 }
 export interface IComponentOptions {
   listeners: TEventName[];
