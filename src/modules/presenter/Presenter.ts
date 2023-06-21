@@ -8,14 +8,14 @@ export default class Presenter {
   }
 
   public method(pointCoordsX: number, pointCoordsRight: number, eventPageX: number) {
-    const pointLength: number = pointCoordsRight - pointCoordsX;
-    const halfPoint = (9 / pointLength) * 100;
+    const scaleLength: number = pointCoordsRight - pointCoordsX;
+    const halfPoint = (9 / scaleLength) * 100;
     const scaleData = this.model.getInitData();
-    const pointRange: number = scaleData.max - scaleData.min;
-    const percent = ((eventPageX - pointCoordsX) / pointLength) * 100;
+    const scaleRange: number = scaleData.max - scaleData.min;
+    const percent = ((eventPageX - pointCoordsX) / scaleLength) * 100;
     if (eventPageX >= pointCoordsX && eventPageX <= pointCoordsRight) {
-      const pointValue: number = Math.round((pointRange / 100) * percent);
-      console.log(((eventPageX - pointCoordsX) / pointLength) * 100, 'отношение');
+      const pointValue: number = Math.round((scaleRange / 100) * percent);
+      console.log(((eventPageX - pointCoordsX) / scaleLength) * 100, 'отношение');
       this.model.setPointPositionPercent(percent - halfPoint);
       this.model.setValue(pointValue);
     }

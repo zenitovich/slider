@@ -19,10 +19,6 @@ export default class Model {
     this.emitter.emit('update:pointData', { value: this.value, pointPositionPercent: this.pointPositionPercent });
   }
 
-  getValue() {
-    return this.value;
-  }
-
   setPointPositionPercent(pointPositionPercent: number) {
     this.pointPositionPercent = pointPositionPercent;
     this.emitter.emit('update:pointData', { value: this.value, pointPositionPercent: this.pointPositionPercent });

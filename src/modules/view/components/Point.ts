@@ -65,17 +65,5 @@ export default class Point extends SliderComponent {
     }
   }
 
-  resize() {
-    // if (this?.pointElement && this?.pointElementInitWidth && this?.pointButton && this?.pointValue) {
-    //   const denis = this.pointElement.offsetWidth;
-    //   const radar = this.pointElementInitWidth / denis;
-    //   this.pointButton.style.left = `${parseInt(this.pointButton.style.left, 10) * radar}px`;
-    //   this.pointValue.style.left = `${parseInt(this.pointButton.style.left, 10) * radar}px`;
-    // }
-    // if (this.$root.$el?.style !== undefined && this?.pointValue && this?.initWidth) {
-    //   const width: string = this.$root.$el?.style.width;
-    //   const operation = parseInt(this.pointValue.style.left, 10) * (this.initWidth / width);
-    //   this.pointValue.style.left = `${this.pointValue.style.left * (this.initWidth / width)}px`;
-    // }
-  }
+  resize() {}
 }
