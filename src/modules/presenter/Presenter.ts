@@ -1,4 +1,4 @@
-import Model from '../model/Model.ts';
+import Model from '@modules/model/Model.ts';
 
 export default class Presenter {
   private model: Model;

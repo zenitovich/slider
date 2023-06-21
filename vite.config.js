@@ -1,3 +1,10 @@
+import { ViteAliases } from 'vite-aliases'
+
 export default {
-    root: 'public'
+    root: 'public',
+    plugins: [
+        ViteAliases({
+            prefix: '@'
+        })
+    ],
 }

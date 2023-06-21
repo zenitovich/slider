@@ -1,5 +1,5 @@
-import Ruler from './modules/view/components/Ruler.ts';
-import Point from './modules/view/components/Point.ts';
+import Ruler from '@modules/view/components/Ruler.ts';
+import Point from '@modules/view/components/Point.ts';
 
 export type TComponent = typeof Ruler | typeof Point;
 

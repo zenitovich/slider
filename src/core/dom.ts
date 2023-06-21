@@ -1,4 +1,4 @@
-import { TEventName } from '../interfaces';
+import { TEventName } from '@/interfaces.ts';
 
 export class Dom {
   $el: HTMLElement | null;

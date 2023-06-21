@@ -1,15 +1,7 @@
 module.exports = {
     settings: {
         'import/resolver': {
-            alias: {
-                map: [
-                    ['babel-polyfill', 'babel-polyfill/dist/polyfill.min.js'],
-                    ['helper', './utils/helper'],
-                    ['material-ui/DatePicker', '../custom/DatePicker'],
-                    ['material-ui', 'material-ui-ie10']
-                ],
-                extensions: ['.ts', '.js', '.jsx', '.json']
-            }
+            alias: true
         }
     },
     "env": {
@@ -33,8 +25,20 @@ module.exports = {
     },
     "plugins": [
         "@typescript-eslint",
+        "import-alias"
     ],
     "rules": {
+        "import-alias/import-alias": [
+            "error",
+            {
+                "relativeDepth": 0,
+                "aliases": [
+                    { "alias": "@src", "matcher": "^src" }, // src/modules/app/test -> @src/modules/app/test
+                    { "alias": "@test", "matcher": "^test\/unit" }, // test/unit/modules/app -> @test/modules/app
+                    { "alias": "@testRoot", "matcher": "^(test)\/e2e" } // test/e2e/modules/app -> @testRoot/e2e/modules/app
+                ]
+            }
+        ],
         "no-param-reassign": 0,
         "no-underscore-dangle": 'off',
         "class-methods-use-this": 0,

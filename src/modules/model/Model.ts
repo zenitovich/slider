@@ -1,5 +1,5 @@
-import { IOptions, IScaleData } from '../../interfaces.ts';
-import Emitter from '../../core/Emitter.ts';
+import Emitter from '@core/Emitter.ts';
+import { IOptions, IScaleData } from '@/interfaces.ts';
 
 export default class Model {
   private _scaleData: IScaleData;

@@ -18,12 +18,14 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-import-alias": "^1.2.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
     "prettier": "2.8.8",
     "prettier-eslint": "^15.0.1",
     "typescript": "^5.0.2",
     "vite": "^4.3.0",
+    "vite-aliases": "^0.11.2",
     "vite-plugin-eslint": "^1.8.1"
   },
   "dependencies": {

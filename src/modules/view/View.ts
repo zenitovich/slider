@@ -1,9 +1,9 @@
-import { TComponent } from '../../interfaces.ts';
-import Presenter from '../presenter/Presenter.ts';
-import Emitter from '../../core/Emitter.ts';
-import Ruler from './components/Ruler.ts';
-import { Dom } from '../../core/dom';
-import Point from './components/Point.ts';
+import Presenter from '@modules/presenter/Presenter.ts';
+import Emitter from '@core/Emitter.ts';
+import Ruler from '@modules/view/components/Ruler.ts';
+import { Dom } from '@core/dom.ts';
+import Point from '@modules/view/components/Point.ts';
+import { TComponent } from '@/interfaces.ts';
 
 export default class View {
   private readonly presenter: Presenter;

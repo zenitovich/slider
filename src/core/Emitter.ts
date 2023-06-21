@@ -1,4 +1,4 @@
-import { IEvents } from '../interfaces';
+import { IEvents } from '@/interfaces.ts';
 
 export default class Emitter {
   events: IEvents = {};

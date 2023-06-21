@@ -1,7 +1,7 @@
-import { Dom } from './dom';
-import { capitalize } from './utils';
-import { TEventName, TMethodName } from '../interfaces';
-import AbstractDom from './abstractDom';
+import { Dom } from '@core/dom.ts';
+import { capitalize } from '@core/utils.ts';
+import AbstractDom from '@core/abstractDom.ts';
+import { TEventName, TMethodName } from '@/interfaces';
 
 function getMethodName(eventName: TEventName): TMethodName {
   return `on${capitalize(eventName)}` as TMethodName;
