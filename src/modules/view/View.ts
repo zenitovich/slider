@@ -12,9 +12,6 @@ export default class View {
 
   components: TComponent[];
 
-  // массив с нашими классами
-  componentsInstance: (Ruler | Point)[];
-
   constructor(presenter: Presenter, emitter: Emitter) {
     this.components = [Point, Ruler];
     this.emitter = emitter;
@@ -35,7 +32,7 @@ export default class View {
   getRoot(): HTMLElement | null {
     const $root = new Dom('slider');
 
-    this.componentsInstance = this.components.map((Component: TComponent) => {
+    this.components.map((Component: TComponent) => {
       const $el = new Dom(Component.className);
       const component = new Component(this.emitter, $el, this.presenter);
       this.resize(component);

@@ -26,7 +26,6 @@ export default class Model {
 
   setInitData(options: IOptions) {
     this.scaleData = options.scaleData;
-    // this.pointData = options.pointData;
   }
 
   getInitData() {
@@ -34,7 +33,6 @@ export default class Model {
   }
 
   set scaleData(scaleData: IScaleData) {
-    // eslint-disable-next-line no-underscore-dangle
     this._scaleData = scaleData;
     this.emitter.emit('update:optionValues', this.scaleData);
   }

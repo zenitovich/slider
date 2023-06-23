@@ -24,33 +24,6 @@ export default class Point extends SliderComponent {
     this.emitter.subscribe('update:pointData', (pointData: IPointData) => this.changePoint(pointData));
   }
 
-  onClick(event: Event) {
-    console.log('Point onClick', event);
-  }
-
-  onMousedown() {
-    if (this.pointElement !== null) {
-      this.pointElementInitWidth = this.pointElement.offsetWidth;
-      const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
-      const pointCoordsX: number = pointCoords.x;
-      const pointCoordsRight: number = pointCoords.right;
-      document.onmousemove = (event: MouseEvent) => {
-        const eventPageX: number = event.pageX;
-        this.presenter.method(pointCoordsX, pointCoordsRight, eventPageX);
-      };
-    }
-    document.onmouseup = () => {
-      document.onmousemove = null;
-    };
-  }
-
-  toHTML(): string {
-    return `
-            <div class="slider__point--button"></div>
-            <div class="slider__point--value"></div>
-        `;
-  }
-
   init() {
     super.init();
     this.pointButton = this.pointElement?.querySelector('.slider__point--button') || null;
@@ -66,4 +39,35 @@ export default class Point extends SliderComponent {
   }
 
   resize() {}
+
+  onClick(event: Event) {
+    console.log('Point onClick', event);
+  }
+
+  onMousedown() {
+    if (this.pointElement !== null) {
+      this.pointElementInitWidth = this.pointElement.offsetWidth;
+
+      const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
+
+      const pointCoordsX: number = pointCoords.x;
+
+      const pointCoordsRight: number = pointCoords.right;
+
+      document.onmousemove = (event: MouseEvent) => {
+        const eventPageX: number = event.pageX;
+        this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX);
+      };
+    }
+    document.onmouseup = () => {
+      document.onmousemove = null;
+    };
+  }
+
+  toHTML(): string {
+    return `
+            <div class="slider__point--button"></div>
+            <div class="slider__point--value"></div>
+        `;
+  }
 }

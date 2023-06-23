@@ -24,7 +24,6 @@ export interface IComponentOptions {
 }
 export interface IOptions {
   scaleData: IScaleData;
-  // pointData?: IPointData | undefined;
   initValue?: number;
   pointPositionPX?: string | undefined;
 }

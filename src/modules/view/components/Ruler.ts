@@ -25,10 +25,6 @@ export default class Ruler extends SliderComponent {
     this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) => this.changeRuler(scaleData));
   }
 
-  onClick(event: Event) {
-    console.log('Ruler onClick', event);
-  }
-
   rulerToString(min: number, max: number, divisionValue: number) {
     const arr: number[] = [min];
     const range = max - min;
@@ -49,17 +45,20 @@ export default class Ruler extends SliderComponent {
     return str;
   }
 
-  toHTML(): string {
-    return `
-            <div class="slider__ruler-value">${this.stringOfValues}</div>
-        `;
-  }
-
-  // временный метод
   changeRuler(scaleData: IScaleData) {
     this.stringOfValues = this.rulerToString(scaleData.min, scaleData.max, scaleData.divisionValue);
     this.changeHtml(this.toHTML());
   }
 
   resize() {}
+
+  onClick(event: Event) {
+    console.log('Ruler onClick', event);
+  }
+
+  toHTML(): string {
+    return `
+            <div class="slider__ruler-value">${this.stringOfValues}</div>
+        `;
+  }
 }

@@ -25,7 +25,7 @@
     "baseUrl": ".",
     "paths": {
       "~core/*": [
-        "/src/core/*"
+        "src/core/*"
       ],
       "~modules/*": [
         "src/modules/*"
@@ -35,6 +35,9 @@
       ],
       "~/*": [
         "src/*"
+      ],
+      "~constants/*": [
+        "src/constants/*"
       ],
       "@core/*": [
         "src/core/*"
@@ -47,6 +50,9 @@
       ],
       "@/*": [
         "src/*"
+      ],
+      "@constants/*": [
+        "src/constants/*"
       ]
     }
   },
