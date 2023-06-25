@@ -3,23 +3,61 @@
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     //добавлено для реализации методов get и set без указания их в конструкторе
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
+    "paths": {
+      "~core/*": [
+        "src/core/*"
+      ],
+      "~modules/*": [
+        "src/modules/*"
+      ],
+      "~styles/*": [
+        "src/styles/*"
+      ],
+      "~/*": [
+        "src/*"
+      ],
+      "~constants/*": [
+        "src/constants/*"
+      ],
+      "@core/*": [
+        "src/core/*"
+      ],
+      "@modules/*": [
+        "src/modules/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@/*": [
+        "src/*"
+      ],
+      "@constants/*": [
+        "src/constants/*"
+      ]
+    }
   },
-  "include": ["src", "public"]
+  "include": [
+    "src",
+    "public"
+  ]
 }

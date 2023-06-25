@@ -1,29 +1,28 @@
-import Emitter from "../../../core/Emitter.ts";
-import { IScaleData } from "../../../interfaces.ts";
-import { SliderComponent } from "../../../core/SliderComponent.ts";
-import { Dom } from "../../../core/dom.ts";
+import Emitter from '@core/Emitter.ts';
+import { SliderComponent } from '@core/SliderComponent.ts';
+import { Dom } from '@core/dom.ts';
+import Presenter from '@modules/presenter/Presenter.ts';
+import { IScaleData } from '@/interfaces.ts';
 
 export default class Ruler extends SliderComponent {
-  static className = "slider__ruler";
+  static className = 'slider__ruler';
 
   private emitter: Emitter;
 
   stringOfValues: string;
 
-  constructor(emitter: Emitter, $root: Dom) {
-    super($root, {
-      name: "Ruler",
-      listeners: ["click"],
-    });
-    this.emitter = emitter;
-    this.stringOfValues = "";
-    this.emitter.subscribe("update:optionValues", (scaleData: IScaleData) =>
-      this.changeRuler(scaleData)
+  constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
+    super(
+      $root,
+      {
+        name: 'Ruler',
+        listeners: ['click'],
+      },
+      presenter
     );
-  }
-
-  onClick(event: Event) {
-    console.log("Ruler onClick", event);
+    this.emitter = emitter;
+    this.stringOfValues = '';
+    this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) => this.changeRuler(scaleData));
   }
 
   rulerToString(min: number, max: number, divisionValue: number) {
@@ -31,7 +30,7 @@ export default class Ruler extends SliderComponent {
     const range = max - min;
     const interval = range / (divisionValue + 1);
 
-    let str = "";
+    let str = '';
 
     for (let i = 1; i <= divisionValue; i += 1) {
       const split = Math.round(min + interval * i);
@@ -46,19 +45,20 @@ export default class Ruler extends SliderComponent {
     return str;
   }
 
+  changeRuler(scaleData: IScaleData) {
+    this.stringOfValues = this.rulerToString(scaleData.min, scaleData.max, scaleData.divisionValue);
+    this.changeHtml(this.toHTML());
+  }
+
+  resize() {}
+
+  onClick(event: Event) {
+    console.log('Ruler onClick', event);
+  }
+
   toHTML(): string {
     return `
             <div class="slider__ruler-value">${this.stringOfValues}</div>
         `;
-  }
-
-  // временный метод
-  changeRuler(scaleData: IScaleData) {
-    this.stringOfValues = this.rulerToString(
-      scaleData.min,
-      scaleData.max,
-      scaleData.divisionValue
-    );
-    this.changeHtml(this.toHTML());
   }
 }

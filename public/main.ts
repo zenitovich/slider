@@ -1,8 +1,8 @@
-import "../src/styles/style.scss";
-import Slider from "../src/slider.ts";
+import '@styles/style.scss';
+import Slider from '@/slider.ts';
 
-const slider = new Slider("#app", {
-  scaleData: { min: 100, max: 150, divisionValue: 15 },
+const slider = new Slider('#app', {
+  scaleData: { min: 0, max: 100, divisionValue: 9 },
 });
 
-slider.init();
+console.log(slider);
