@@ -15,6 +15,8 @@ export default class Point extends SliderComponent {
 
   pointButton: HTMLElement | null;
 
+  pointButtonTwo: HTMLElement | null;
+
   pointValue: HTMLElement | null;
 
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
@@ -27,12 +29,14 @@ export default class Point extends SliderComponent {
   init() {
     super.init();
     this.pointButton = this.pointElement?.querySelector('.slider__point--button') || null;
+    this.pointButtonTwo = this.pointElement?.querySelector('.slider__point--buttonTwo') || null;
     this.pointValue = this.pointElement?.querySelector('.slider__point--value') || null;
   }
 
   changePoint(pointData: IPointData) {
-    if (this?.pointValue && this?.pointButton) {
+    if (this?.pointValue && this?.pointButton && this?.pointButtonTwo) {
       this.pointButton.style.left = `${pointData.pointPositionPercent}%`;
+      this.pointButtonTwo.style.left = `${pointData.pointPositionPercent}%`;
       this.pointValue.style.left = `${pointData.pointPositionPercent}%`;
       this.pointValue.innerHTML = pointData.value.toString();
     }
@@ -40,8 +44,20 @@ export default class Point extends SliderComponent {
 
   resize() {}
 
-  onClick(event: Event) {
-    console.log('Point onClick', event);
+  onClick(event: MouseEvent) {
+    if (this.pointElement !== null && this.pointButtonTwo === null) {
+      this.pointElementInitWidth = this.pointElement.offsetWidth;
+
+      const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
+
+      const pointCoordsX: number = pointCoords.x;
+
+      const pointCoordsRight: number = pointCoords.right;
+
+      const eventPageX: number = event.pageX;
+
+      this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX);
+    }
   }
 
   onMousedown() {
@@ -67,6 +83,7 @@ export default class Point extends SliderComponent {
   toHTML(): string {
     return `
             <div class="slider__point--button"></div>
+            <div class="slider__point--buttonTwo"></div>
             <div class="slider__point--value"></div>
         `;
   }
