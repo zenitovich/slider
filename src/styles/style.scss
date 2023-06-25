@@ -44,6 +44,17 @@ body {
       left: -9px;
       border: 3px solid sienna;
     }
+    &--buttonTwo {
+      z-index: 3;
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-color: aliceblue;
+      top: -10px;
+      right: -9px;
+      border: 3px solid sienna;
+    }
     &--value {
       height: 50px;
       width: 50px;
