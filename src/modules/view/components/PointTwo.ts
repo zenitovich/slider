@@ -4,8 +4,8 @@ import { Dom } from '@core/dom.ts';
 import Presenter from '@modules/presenter/Presenter.ts';
 import { IPointData } from '@/interfaces.ts';
 
-export default class Point extends SliderComponent {
-  static className = 'slider__point';
+export default class PointTwo extends SliderComponent {
+  static className = 'slider__pointTwo';
 
   private emitter: Emitter;
 
@@ -18,29 +18,31 @@ export default class Point extends SliderComponent {
   pointValue: HTMLElement | null;
 
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
-    super($root, { name: 'Point', listeners: ['click', 'mousedown'] }, presenter);
+    super($root, { name: 'PointTwo', listeners: ['click', 'mousedown'] }, presenter);
     this.emitter = emitter;
     this.pointElement = this.$root.$el;
-    this.emitter.subscribe('update:pointData', (pointData: IPointData) => this.changePoint(pointData));
+    this.emitter.subscribe('update:pointTwoData', (pointData: IPointData) => this.changePoint(pointData));
   }
 
   init() {
     super.init();
-    this.pointButton = this.pointElement?.querySelector('.slider__point--button') || null;
-    this.pointValue = this.pointElement?.querySelector('.slider__point--value') || null;
+    this.pointButton = this.pointElement?.querySelector('.slider__pointTwo--button') || null;
+    this.pointValue = this.pointElement?.querySelector('.slider__pointTwo--value') || null;
   }
 
   changePoint(pointData: IPointData) {
     if (this?.pointValue && this?.pointButton) {
-      this.pointButton.style.left = `${pointData.pointPositionPercent}%`;
-      this.pointValue.style.left = `${pointData.pointPositionPercent}%`;
-      this.pointValue.innerHTML = pointData.value.toString();
+      this.pointButton.style.left = `${pointData.pointTwoPositionPercent}%`;
+      this.pointValue.style.left = `${pointData.pointTwoPositionPercent}%`;
+      console.log(this.pointButton.style.left);
+      this.pointValue.innerHTML = pointData.valueTwo.toString();
     }
   }
 
   resize() {}
 
   onClick(event: MouseEvent) {
+    console.log('pointTwo');
     if (this.pointElement !== null) {
       this.pointElementInitWidth = this.pointElement.offsetWidth;
 
@@ -52,7 +54,9 @@ export default class Point extends SliderComponent {
 
       const eventPageX: number = event.pageX;
 
-      this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX);
+      console.log(pointCoords, eventPageX);
+
+      this.presenter.coordsCounterTwo(pointCoordsX, pointCoordsRight, eventPageX);
     }
   }
 
@@ -68,7 +72,7 @@ export default class Point extends SliderComponent {
 
       document.onmousemove = (event: MouseEvent) => {
         const eventPageX: number = event.pageX;
-        this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX);
+        this.presenter.coordsCounterTwo(pointCoordsX, pointCoordsRight, eventPageX);
       };
     }
     document.onmouseup = () => {
@@ -78,8 +82,8 @@ export default class Point extends SliderComponent {
 
   toHTML(): string {
     return `
-            <div class="slider__point--button"></div>
-            <div class="slider__point--value"></div>
+            <div class="slider__pointTwo--button"></div>
+            <div class="slider__pointTwo--value"></div>
         `;
   }
 }

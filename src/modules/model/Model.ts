@@ -6,7 +6,11 @@ export default class Model {
 
   private value = 0;
 
+  private valueTwo = 0;
+
   private pointPositionPercent: number;
+
+  private pointTwoPositionPercent: number;
 
   private emitter: Emitter;
 
@@ -19,9 +23,19 @@ export default class Model {
     this.emitter.emit('update:pointData', { value: this.value, pointPositionPercent: this.pointPositionPercent });
   }
 
+  setValueTwo(valueTwo: number) {
+    this.valueTwo = valueTwo;
+    this.emitter.emit('update:pointTwoData', { valueTwo: this.valueTwo, pointTwoPositionPercent: this.pointTwoPositionPercent });
+  }
+
   setPointPositionPercent(pointPositionPercent: number) {
     this.pointPositionPercent = pointPositionPercent;
     this.emitter.emit('update:pointData', { value: this.value, pointPositionPercent: this.pointPositionPercent });
+  }
+
+  setPointTwoPositionPercent(pointTwoPositionPercent: number) {
+    this.pointTwoPositionPercent = pointTwoPositionPercent;
+    this.emitter.emit('update:pointTwoData', { valueTwo: this.valueTwo, pointTwoPositionPercent: this.pointTwoPositionPercent });
   }
 
   setInitData(options: IOptions) {
