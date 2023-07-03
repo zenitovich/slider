@@ -8,7 +8,7 @@ export default class Presenter {
     this.model = model;
   }
 
-  public coordsCounter(pointCoordsX: number, pointCoordsRight: number, eventPageX: number) {
+  public coordsCounter(pointCoordsX: number, pointCoordsRight: number, eventPageX: number, twoButtons?: boolean) {
     const scaleLength: number = pointCoordsRight - pointCoordsX;
 
     const halfPoint = (HALF_POINT_WIDTH / scaleLength) * 100;
@@ -20,29 +20,15 @@ export default class Presenter {
     const percent = ((eventPageX - pointCoordsX) / scaleLength) * 100;
 
     if (eventPageX >= pointCoordsX && eventPageX <= pointCoordsRight) {
-      const pointValue: number = Math.round((scaleRange / 100) * percent);
+      const pointValue: number = Math.round((scaleRange / 100) * percent + min);
 
-      this.model.setPointPositionPercent(percent - halfPoint);
-      this.model.setValue(pointValue);
-    }
-  }
-
-  public coordsCounterTwo(pointCoordsX: number, pointCoordsRight: number, eventPageX: number) {
-    const scaleLength: number = pointCoordsRight - pointCoordsX;
-
-    const halfPoint = (HALF_POINT_WIDTH / scaleLength) * 100;
-
-    const { min, max } = this.model.getInitData();
-
-    const scaleRange: number = max - min;
-
-    const percent = ((eventPageX - pointCoordsX) / scaleLength) * 100;
-
-    if (eventPageX >= pointCoordsX && eventPageX <= pointCoordsRight) {
-      const pointValue: number = Math.round((scaleRange / 100) * percent);
-
-      this.model.setPointTwoPositionPercent(percent - halfPoint);
-      this.model.setValueTwo(pointValue);
+      if (twoButtons) {
+        this.model.setPointTwoPositionPercent(percent - halfPoint);
+        this.model.setValueTwo(pointValue);
+      } else {
+        this.model.setPointPositionPercent(percent - halfPoint);
+        this.model.setValue(pointValue);
+      }
     }
   }
 }

@@ -9,13 +9,13 @@ export default class PointTwo extends SliderComponent {
 
   private emitter: Emitter;
 
-  pointElement: HTMLElement | null;
+  private pointElement: HTMLElement | null;
 
   pointElementInitWidth: number;
 
-  pointButton: HTMLElement | null;
+  private pointButton: HTMLElement | null;
 
-  pointValue: HTMLElement | null;
+  private pointValue: HTMLElement | null;
 
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super($root, { name: 'PointTwo', listeners: ['click', 'mousedown'] }, presenter);
@@ -31,10 +31,9 @@ export default class PointTwo extends SliderComponent {
   }
 
   changePoint(pointData: IPointData) {
-    if (this?.pointValue && this?.pointButton) {
+    if (this?.pointValue && this?.pointButton && pointData.value < pointData.valueTwo) {
       this.pointButton.style.left = `${pointData.pointTwoPositionPercent}%`;
       this.pointValue.style.left = `${pointData.pointTwoPositionPercent}%`;
-      console.log(this.pointButton.style.left);
       this.pointValue.innerHTML = pointData.valueTwo.toString();
     }
   }
@@ -42,7 +41,6 @@ export default class PointTwo extends SliderComponent {
   resize() {}
 
   onClick(event: MouseEvent) {
-    console.log('pointTwo');
     if (this.pointElement !== null) {
       this.pointElementInitWidth = this.pointElement.offsetWidth;
 
@@ -54,9 +52,7 @@ export default class PointTwo extends SliderComponent {
 
       const eventPageX: number = event.pageX;
 
-      console.log(pointCoords, eventPageX);
-
-      this.presenter.coordsCounterTwo(pointCoordsX, pointCoordsRight, eventPageX);
+      this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX, true);
     }
   }
 
@@ -72,7 +68,7 @@ export default class PointTwo extends SliderComponent {
 
       document.onmousemove = (event: MouseEvent) => {
         const eventPageX: number = event.pageX;
-        this.presenter.coordsCounterTwo(pointCoordsX, pointCoordsRight, eventPageX);
+        this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX, true);
       };
     }
     document.onmouseup = () => {

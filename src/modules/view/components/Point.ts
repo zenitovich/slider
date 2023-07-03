@@ -9,13 +9,13 @@ export default class Point extends SliderComponent {
 
   private emitter: Emitter;
 
-  pointElement: HTMLElement | null;
+  private pointElement: HTMLElement | null;
 
   pointElementInitWidth: number;
 
-  pointButton: HTMLElement | null;
+  private pointButton: HTMLElement | null;
 
-  pointValue: HTMLElement | null;
+  private pointValue: HTMLElement | null;
 
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super($root, { name: 'Point', listeners: ['click', 'mousedown'] }, presenter);
@@ -31,7 +31,7 @@ export default class Point extends SliderComponent {
   }
 
   changePoint(pointData: IPointData) {
-    if (this?.pointValue && this?.pointButton) {
+    if (this?.pointValue && this?.pointButton && pointData.value < pointData.valueTwo) {
       this.pointButton.style.left = `${pointData.pointPositionPercent}%`;
       this.pointValue.style.left = `${pointData.pointPositionPercent}%`;
       this.pointValue.innerHTML = pointData.value.toString();

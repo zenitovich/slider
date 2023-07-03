@@ -31,7 +31,7 @@ body {
   &__point {
     position: relative;
     width: 75%;
-    height: 1.5px;
+    height: 3px;
     background-color: sienna;
     &--button {
       z-index: 3;
@@ -54,7 +54,7 @@ body {
   &__pointTwo {
     position: relative;
     width: 75%;
-    height: 1.5px;
+    height: 0px;
     background-color: sienna;
     &--button {
       z-index: 3;
@@ -63,14 +63,14 @@ body {
       height: 18px;
       border-radius: 50%;
       background-color: aliceblue;
-      top: -10px;
+      top: -13px;
       right: -9px;
       border: 3px solid sienna;
     }
     &--value {
       height: 50px;
       width: 50px;
-      top: -30px;
+      top: -33px;
       position: absolute;
     }
   }

@@ -4,9 +4,9 @@ import { IOptions, IScaleData } from '@/interfaces.ts';
 export default class Model {
   private _scaleData: IScaleData;
 
-  private value = 0;
+  private value: number;
 
-  private valueTwo = 0;
+  private valueTwo: number;
 
   private pointPositionPercent: number;
 
@@ -16,16 +16,30 @@ export default class Model {
 
   constructor(emitter: Emitter) {
     this.emitter = emitter;
+    this.pointPositionPercent = 0;
+    this.pointTwoPositionPercent = 100;
+    this.value = 0;
+    this.valueTwo = 1000000;
   }
 
   setValue(value: number) {
     this.value = value;
-    this.emitter.emit('update:pointData', { value: this.value, pointPositionPercent: this.pointPositionPercent });
+    this.emitter.emit('update:pointData', {
+      value: this.value,
+      pointPositionPercent: this.pointPositionPercent,
+      valueTwo: this.valueTwo,
+      pointTwoPositionPercent: this.pointTwoPositionPercent,
+    });
   }
 
   setValueTwo(valueTwo: number) {
     this.valueTwo = valueTwo;
-    this.emitter.emit('update:pointTwoData', { valueTwo: this.valueTwo, pointTwoPositionPercent: this.pointTwoPositionPercent });
+    this.emitter.emit('update:pointTwoData', {
+      valueTwo: this.valueTwo,
+      pointTwoPositionPercent: this.pointTwoPositionPercent,
+      value: this.value,
+      pointPositionPercent: this.pointPositionPercent,
+    });
   }
 
   setPointPositionPercent(pointPositionPercent: number) {
