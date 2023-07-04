@@ -1,7 +1,8 @@
 import Ruler from '@modules/view/components/Ruler.ts';
 import Point from '@modules/view/components/Point.ts';
+import PointTwo from '@modules/view/components/PointTwo.ts';
 
-export type TComponent = typeof Ruler | typeof Point;
+export type TComponent = typeof Ruler | typeof Point | typeof PointTwo;
 
 export type TMethodName = 'onClick' | 'onMousedown';
 
@@ -16,7 +17,9 @@ export interface IScaleData {
 }
 export interface IPointData {
   value: number;
+  valueTwo: number;
   pointPositionPercent: number;
+  pointTwoPositionPercent: number;
 }
 export interface IComponentOptions {
   listeners: TEventName[];
@@ -30,4 +33,5 @@ export interface IOptions {
 export interface IEvents {
   'update:optionValues'?: Function[];
   'update:pointData'?: Function[];
+  'update:pointTwoData'?: Function[];
 }
