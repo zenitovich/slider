@@ -51,11 +51,11 @@ body {
       position: absolute;
     }
   }
-  &__pointTwo {
+  &__secondPoint {
     position: relative;
     width: 75%;
-    height: 0px;
-    background-color: sienna;
+    height: 3px;
+    background-color: red;
     &--button {
       z-index: 3;
       position: absolute;

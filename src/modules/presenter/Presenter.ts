@@ -8,10 +8,10 @@ export default class Presenter {
     this.model = model;
   }
 
-  public coordsCounter(pointCoordsX: number, pointCoordsRight: number, eventPageX: number, twoButtons?: boolean) {
+  public coordsCounter(pointCoordsX: number, pointCoordsRight: number, eventPageX: number, isSecondPointMove?: boolean) {
     const scaleLength: number = pointCoordsRight - pointCoordsX;
 
-    const halfPoint = (HALF_POINT_WIDTH / scaleLength) * 100;
+    const halfPointPercent = (HALF_POINT_WIDTH / scaleLength) * 100;
 
     const { min, max } = this.model.getInitData();
 
@@ -21,12 +21,13 @@ export default class Presenter {
 
     if (eventPageX >= pointCoordsX && eventPageX <= pointCoordsRight) {
       const pointValue: number = Math.round((scaleRange / 100) * percent + min);
+      const pointPositionPercent = percent - halfPointPercent;
 
-      if (twoButtons) {
-        this.model.setPointTwoPositionPercent(percent - halfPoint);
-        this.model.setValueTwo(pointValue);
+      if (isSecondPointMove === true) {
+        this.model.setSecondPointPositionPercent(pointPositionPercent);
+        this.model.setSecondValue(pointValue);
       } else {
-        this.model.setPointPositionPercent(percent - halfPoint);
+        this.model.setPointPositionPercent(pointPositionPercent);
         this.model.setValue(pointValue);
       }
     }

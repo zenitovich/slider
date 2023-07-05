@@ -4,22 +4,18 @@ import { IOptions, IScaleData } from '@/interfaces.ts';
 export default class Model {
   private _scaleData: IScaleData;
 
-  private value: number;
+  private value = 0;
 
-  private valueTwo: number;
+  private secondValue = 1000000;
 
-  private pointPositionPercent: number;
+  private pointPositionPercent = 0;
 
-  private pointTwoPositionPercent: number;
+  private secondPointPositionPercent = 100;
 
   private emitter: Emitter;
 
   constructor(emitter: Emitter) {
     this.emitter = emitter;
-    this.pointPositionPercent = 0;
-    this.pointTwoPositionPercent = 100;
-    this.value = 0;
-    this.valueTwo = 1000000;
   }
 
   setValue(value: number) {
@@ -27,16 +23,16 @@ export default class Model {
     this.emitter.emit('update:pointData', {
       value: this.value,
       pointPositionPercent: this.pointPositionPercent,
-      valueTwo: this.valueTwo,
-      pointTwoPositionPercent: this.pointTwoPositionPercent,
+      secondValue: this.secondValue,
+      secondPointPositionPercent: this.secondPointPositionPercent,
     });
   }
 
-  setValueTwo(valueTwo: number) {
-    this.valueTwo = valueTwo;
-    this.emitter.emit('update:pointTwoData', {
-      valueTwo: this.valueTwo,
-      pointTwoPositionPercent: this.pointTwoPositionPercent,
+  setSecondValue(secondValue: number) {
+    this.secondValue = secondValue;
+    this.emitter.emit('update:secondPointData', {
+      secondValue: this.secondValue,
+      secondPointPositionPercent: this.secondPointPositionPercent,
       value: this.value,
       pointPositionPercent: this.pointPositionPercent,
     });
@@ -47,9 +43,9 @@ export default class Model {
     this.emitter.emit('update:pointData', { value: this.value, pointPositionPercent: this.pointPositionPercent });
   }
 
-  setPointTwoPositionPercent(pointTwoPositionPercent: number) {
-    this.pointTwoPositionPercent = pointTwoPositionPercent;
-    this.emitter.emit('update:pointTwoData', { valueTwo: this.valueTwo, pointTwoPositionPercent: this.pointTwoPositionPercent });
+  setSecondPointPositionPercent(secondPointPositionPercent: number) {
+    this.secondPointPositionPercent = secondPointPositionPercent;
+    this.emitter.emit('update:secondPointData', { secondValue: this.secondValue, secondPointPositionPercent: this.secondPointPositionPercent });
   }
 
   setInitData(options: IOptions) {

@@ -4,8 +4,8 @@ import { Dom } from '@core/dom.ts';
 import Presenter from '@modules/presenter/Presenter.ts';
 import { IPointData } from '@/interfaces.ts';
 
-export default class Point extends SliderComponent {
-  static className = 'slider__point';
+export default class SecondPoint extends SliderComponent {
+  static className = 'slider__secondPoint';
 
   private emitter: Emitter;
 
@@ -18,23 +18,23 @@ export default class Point extends SliderComponent {
   private pointValue: HTMLElement | null;
 
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
-    super($root, { name: 'Point', listeners: ['click', 'mousedown'] }, presenter);
+    super($root, { name: 'SecondPoint', listeners: ['click', 'mousedown'] }, presenter);
     this.emitter = emitter;
     this.pointElement = this.$root.$el;
-    this.emitter.subscribe('update:pointData', (pointData: IPointData) => this.changePoint(pointData));
+    this.emitter.subscribe('update:secondPointData', (pointData: IPointData) => this.changePoint(pointData));
   }
 
   init() {
     super.init();
-    this.pointButton = this.pointElement?.querySelector('.slider__point--button') || null;
-    this.pointValue = this.pointElement?.querySelector('.slider__point--value') || null;
+    this.pointButton = this.pointElement?.querySelector('.slider__secondPoint--button') || null;
+    this.pointValue = this.pointElement?.querySelector('.slider__secondPoint--value') || null;
   }
 
   changePoint(pointData: IPointData) {
     if (this?.pointValue && this?.pointButton && pointData.value < pointData.secondValue) {
-      this.pointButton.style.left = `${pointData.pointPositionPercent}%`;
-      this.pointValue.style.left = `${pointData.pointPositionPercent}%`;
-      this.pointValue.innerHTML = pointData.value.toString();
+      this.pointButton.style.left = `${pointData.secondPointPositionPercent}%`;
+      this.pointValue.style.left = `${pointData.secondPointPositionPercent}%`;
+      this.pointValue.innerHTML = pointData.secondValue.toString();
 
       // console.log(pointData.pointPositionPercent, pointData.secondPointPositionPercent);
       console.log(pointData.value, pointData.secondValue);
@@ -55,7 +55,7 @@ export default class Point extends SliderComponent {
   //
   //     const eventPageX: number = event.pageX;
   //
-  //     this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX);
+  //     this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX, true);
   //   }
   // }
 
@@ -71,9 +71,11 @@ export default class Point extends SliderComponent {
 
       document.onmousemove = (event: MouseEvent) => {
         const eventPageX: number = event.pageX;
-        this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX, false);
+        this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX, true);
+        console.log('SecondPoint MouseMove!!!!!!!');
       };
     }
+
     document.onmouseup = () => {
       document.onmousemove = null;
     };
@@ -81,8 +83,8 @@ export default class Point extends SliderComponent {
 
   toHTML(): string {
     return `
-            <div class="slider__point--button"></div>
-            <div class="slider__point--value"></div>
+            <div class="slider__secondPoint--button"></div>
+            <div class="slider__secondPoint--value"></div>
         `;
   }
 }

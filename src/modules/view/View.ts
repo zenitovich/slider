@@ -3,7 +3,7 @@ import Emitter from '@core/Emitter.ts';
 import Ruler from '@modules/view/components/Ruler.ts';
 import { Dom } from '@core/dom.ts';
 import Point from '@modules/view/components/Point.ts';
-import PointTwo from '@modules/view/components/PointTwo.ts';
+import SecondPoint from '@modules/view/components/SecondPoint.ts';
 import { TComponent } from '@/interfaces.ts';
 
 export default class View {
@@ -14,12 +14,12 @@ export default class View {
   components: TComponent[];
 
   constructor(presenter: Presenter, emitter: Emitter) {
-    this.components = [Point, PointTwo, Ruler];
+    this.components = [Point, SecondPoint, Ruler];
     this.emitter = emitter;
     this.presenter = presenter;
   }
 
-  resize(component: Ruler | Point | PointTwo) {
+  resize(component: Ruler | Point | SecondPoint) {
     window.addEventListener(
       'resize',
       (event) => {
