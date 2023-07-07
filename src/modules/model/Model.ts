@@ -43,9 +43,17 @@ export default class Model {
     this.emitter.emit('update:pointData', { value: this.value, pointPositionPercent: this.pointPositionPercent });
   }
 
+  getPointPositionPercent() {
+    return this.pointPositionPercent;
+  }
+
   setSecondPointPositionPercent(secondPointPositionPercent: number) {
     this.secondPointPositionPercent = secondPointPositionPercent;
     this.emitter.emit('update:secondPointData', { secondValue: this.secondValue, secondPointPositionPercent: this.secondPointPositionPercent });
+  }
+
+  getSecondPointPositionPercent() {
+    return this.secondPointPositionPercent;
   }
 
   setInitData(options: IOptions) {

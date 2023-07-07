@@ -9,11 +9,7 @@ export default class Point extends SliderComponent {
 
   private emitter: Emitter;
 
-  private pointElement: HTMLElement | null;
-
-  pointElementInitWidth: number;
-
-  private pointButton: HTMLElement | null;
+  pointElement: HTMLElement | null;
 
   private pointValue: HTMLElement | null;
 
@@ -26,18 +22,14 @@ export default class Point extends SliderComponent {
 
   init() {
     super.init();
-    this.pointButton = this.pointElement?.querySelector('.slider__point--button') || null;
     this.pointValue = this.pointElement?.querySelector('.slider__point--value') || null;
   }
 
   changePoint(pointData: IPointData) {
-    if (this?.pointValue && this?.pointButton && pointData.value < pointData.secondValue) {
-      this.pointButton.style.left = `${pointData.pointPositionPercent}%`;
+    if (this?.pointValue && pointData.value < pointData.secondValue && this.pointElement) {
+      this.pointElement.style.left = `${pointData.pointPositionPercent}%`;
       this.pointValue.style.left = `${pointData.pointPositionPercent}%`;
       this.pointValue.innerHTML = pointData.value.toString();
-
-      // console.log(pointData.pointPositionPercent, pointData.secondPointPositionPercent);
-      console.log(pointData.value, pointData.secondValue);
     }
   }
 
@@ -61,17 +53,9 @@ export default class Point extends SliderComponent {
 
   onMousedown() {
     if (this.pointElement !== null) {
-      this.pointElementInitWidth = this.pointElement.offsetWidth;
-
-      const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
-
-      const pointCoordsX: number = pointCoords.x;
-
-      const pointCoordsRight: number = pointCoords.right;
-
       document.onmousemove = (event: MouseEvent) => {
         const eventPageX: number = event.pageX;
-        this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX, false);
+        this.presenter.coordsCounter(eventPageX, false);
       };
     }
     document.onmouseup = () => {
@@ -81,7 +65,6 @@ export default class Point extends SliderComponent {
 
   toHTML(): string {
     return `
-            <div class="slider__point--button"></div>
             <div class="slider__point--value"></div>
         `;
   }

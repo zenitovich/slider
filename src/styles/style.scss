@@ -4,6 +4,7 @@ body {
 }
 
 .slider {
+  position: relative;
   background-color: aliceblue;
   display: flex;
   flex-direction: column;
@@ -29,21 +30,15 @@ body {
     }
   }
   &__point {
-    position: relative;
-    width: 75%;
-    height: 3px;
-    background-color: sienna;
-    &--button {
-      z-index: 3;
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background-color: aliceblue;
-      top: -10px;
-      left: -9px;
-      border: 3px solid sienna;
-    }
+    z-index: 3;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: aliceblue;
+    top: 41%;
+    left: 11.75%;
+    border: 3px solid sienna;
     &--value {
       height: 50px;
       width: 50px;
@@ -52,21 +47,15 @@ body {
     }
   }
   &__secondPoint {
-    position: relative;
-    width: 75%;
-    height: 3px;
-    background-color: red;
-    &--button {
-      z-index: 3;
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background-color: aliceblue;
-      top: -13px;
-      right: -9px;
-      border: 3px solid sienna;
-    }
+    z-index: 3;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: aliceblue;
+    top: 41%;
+    right: 11.75%;
+    border: 3px solid sienna;
     &--value {
       height: 50px;
       width: 50px;
@@ -78,8 +67,8 @@ body {
     display: flex;
     justify-content: space-between;
     width: 75%;
-    height: 1px;
-    background-color: sienna;
+    height: 5px;
+    background-color: blue;
   }
   &__ruler-value {
     display: flex;
@@ -96,7 +85,7 @@ body {
       content: '';
       position: absolute;
       width: 3px;
-      height: 18px;
+      height: 21px;
       background-color: sienna;
       top: 0;
       left: 0;
