@@ -28,6 +28,10 @@ export default class Model {
     });
   }
 
+  getValue() {
+    return this.value;
+  }
+
   setSecondValue(secondValue: number) {
     this.secondValue = secondValue;
     this.emitter.emit('update:secondPointData', {
@@ -36,6 +40,10 @@ export default class Model {
       value: this.value,
       pointPositionPercent: this.pointPositionPercent,
     });
+  }
+
+  getSecondValue() {
+    return this.secondValue;
   }
 
   setPointPositionPercent(pointPositionPercent: number) {

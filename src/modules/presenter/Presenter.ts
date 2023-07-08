@@ -4,48 +4,52 @@ import { HALF_POINT_WIDTH } from '@constants/index.ts';
 export default class Presenter {
   private model: Model;
 
-  length: number;
+  private rulerLength: number;
 
-  coordsX: number;
+  private rulerCoordsX: number;
 
-  pointCoordsX: number;
+  private pointCoordsX = 1;
 
-  coordsRight: number;
+  private secondPointCoordsX = 10000000;
+
+  private rulerCoordsRight: number;
 
   constructor(model: Model) {
     this.model = model;
   }
 
-  method(length: number, coordsX: number, coordsRight: number) {
-    this.length = length;
-    this.coordsX = coordsX;
-    this.coordsRight = coordsRight;
+  rulerCounter(length: number, coordsX: number, coordsRight: number) {
+    this.rulerLength = length;
+    this.rulerCoordsX = coordsX;
+    this.rulerCoordsRight = coordsRight;
   }
 
-  method2(pointCoordsX: number) {
+  pointCoordsXCounter(pointCoordsX: number) {
     this.pointCoordsX = pointCoordsX;
   }
 
+  secondPointCoordsXCounter(pointCoordsX: number) {
+    this.secondPointCoordsX = pointCoordsX;
+  }
+
   public coordsCounter(eventPageX: number, isSecondPointMove?: boolean) {
-    const halfPointPercent = (HALF_POINT_WIDTH / this.length) * 100;
+    const halfPointPercent = (HALF_POINT_WIDTH / this.rulerLength) * 100;
 
     const { min, max } = this.model.getInitData();
 
     const scaleRange: number = max - min;
 
-    const percent = ((eventPageX - this.coordsX) / this.length) * 100;
+    const percent = ((eventPageX - this.rulerCoordsX) / this.rulerLength) * 100;
 
-    if (eventPageX >= this.coordsX && eventPageX <= this.coordsRight) {
+    if (eventPageX >= this.rulerCoordsX && eventPageX <= this.rulerCoordsRight) {
       const pointValue: number = Math.round((scaleRange / 100) * percent + min);
+
       const pointPositionPercent = percent - halfPointPercent;
 
-      if (isSecondPointMove === true) {
+      if (isSecondPointMove === true && eventPageX > this.pointCoordsX) {
         this.model.setSecondPointPositionPercent(pointPositionPercent * 0.75 + 11.75);
         this.model.setSecondValue(pointValue);
-        console.log('привет я лог из второго пойнта', this.pointCoordsX);
-      } else if (eventPageX < this.pointCoordsX) {
-        console.log(this.pointCoordsX, 'координаты понйта второго');
-        console.log(eventPageX, 'координаты мыши');
+      } else if (eventPageX < this.secondPointCoordsX) {
         this.model.setPointPositionPercent(pointPositionPercent * 0.75 + 11.75);
         this.model.setValue(pointValue);
       }

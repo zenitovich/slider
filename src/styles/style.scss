@@ -36,13 +36,13 @@ body {
     height: 18px;
     border-radius: 50%;
     background-color: aliceblue;
-    top: 41%;
+    top: 39%;
     left: 11.75%;
     border: 3px solid sienna;
     &--value {
       height: 50px;
       width: 50px;
-      top: -30px;
+      top: -25px;
       position: absolute;
     }
   }
@@ -53,13 +53,13 @@ body {
     height: 18px;
     border-radius: 50%;
     background-color: aliceblue;
-    top: 41%;
+    top: 39%;
     right: 11.75%;
     border: 3px solid sienna;
     &--value {
       height: 50px;
       width: 50px;
-      top: -33px;
+      top: -25px;
       position: absolute;
     }
   }
@@ -68,7 +68,7 @@ body {
     justify-content: space-between;
     width: 75%;
     height: 5px;
-    background-color: blue;
+    background-color: sienna;
   }
   &__ruler-value {
     display: flex;

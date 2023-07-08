@@ -33,31 +33,24 @@ export default class Point extends SliderComponent {
     }
   }
 
-  resize() {}
-
-  // onClick(event: MouseEvent) {
-  //   if (this.pointElement !== null) {
-  //     this.pointElementInitWidth = this.pointElement.offsetWidth;
-  //
-  //     const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
-  //
-  //     const pointCoordsX: number = pointCoords.x;
-  //
-  //     const pointCoordsRight: number = pointCoords.right;
-  //
-  //     const eventPageX: number = event.pageX;
-  //
-  //     this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX);
-  //   }
-  // }
+  resize() {
+    if (this.pointElement) {
+      const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
+      const pointCoordsX: number = pointCoords.x;
+      this.presenter.pointCoordsXCounter(pointCoordsX);
+    }
+  }
 
   onMousedown() {
-    if (this.pointElement !== null) {
-      document.onmousemove = (event: MouseEvent) => {
+    document.onmousemove = (event: MouseEvent) => {
+      if (this.pointElement) {
+        const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
+        const pointCoordsX: number = pointCoords.x;
         const eventPageX: number = event.pageX;
         this.presenter.coordsCounter(eventPageX, false);
-      };
-    }
+        this.presenter.pointCoordsXCounter(pointCoordsX);
+      }
+    };
     document.onmouseup = () => {
       document.onmousemove = null;
     };

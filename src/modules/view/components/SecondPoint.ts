@@ -33,35 +33,24 @@ export default class SecondPoint extends SliderComponent {
     }
   }
 
-  resize() {}
-
-  // onClick(event: MouseEvent) {
-  //   if (this.pointElement !== null) {
-  //     this.pointElementInitWidth = this.pointElement.offsetWidth;
-  //
-  //     const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
-  //
-  //     const pointCoordsX: number = pointCoords.x;
-  //
-  //     const pointCoordsRight: number = pointCoords.right;
-  //
-  //     const eventPageX: number = event.pageX;
-  //
-  //     this.presenter.coordsCounter(pointCoordsX, pointCoordsRight, eventPageX, true);
-  //   }
-  // }
+  resize() {
+    if (this.pointElement) {
+      const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
+      const pointCoordsX: number = pointCoords.x;
+      this.presenter.secondPointCoordsXCounter(pointCoordsX);
+    }
+  }
 
   onMousedown() {
     document.onmousemove = (event: MouseEvent) => {
       if (this.pointElement !== null) {
         const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
         const pointCoordsX: number = pointCoords.x;
-        this.presenter.method2(pointCoordsX);
         const eventPageX: number = event.pageX;
         this.presenter.coordsCounter(eventPageX, true);
+        this.presenter.secondPointCoordsXCounter(pointCoordsX);
       }
     };
-
     document.onmouseup = () => {
       document.onmousemove = null;
     };

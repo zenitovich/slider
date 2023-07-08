@@ -57,7 +57,7 @@ export default class Ruler extends SliderComponent {
       const rulerCoords: DOMRect = this.rulerElement.getBoundingClientRect();
       const rulerCoordsX: number = rulerCoords.x;
       const rulerCoordsRight: number = rulerCoords.right;
-      this.presenter.method(this.rulerLength, rulerCoordsX, rulerCoordsRight);
+      this.presenter.rulerCounter(this.rulerLength, rulerCoordsX, rulerCoordsRight);
     }
   }
 
@@ -67,7 +67,7 @@ export default class Ruler extends SliderComponent {
       const rulerCoords: DOMRect = this.rulerElement.getBoundingClientRect();
       const rulerCoordsX: number = rulerCoords.x;
       const rulerCoordsRight: number = rulerCoords.right;
-      this.presenter.method(this.rulerLength, rulerCoordsX, rulerCoordsRight);
+      this.presenter.rulerCounter(this.rulerLength, rulerCoordsX, rulerCoordsRight);
     }
   }
 
