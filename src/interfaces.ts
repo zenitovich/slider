@@ -21,6 +21,13 @@ export interface IPointData {
   pointPositionPercent: number;
   secondPointPositionPercent: number;
 }
+
+export interface IRulerData {
+  length: number;
+  coordsX: number;
+  coordsRight: number;
+}
+
 export interface IComponentOptions {
   listeners: TEventName[];
   name: string;
@@ -29,6 +36,7 @@ export interface IOptions {
   scaleData: IScaleData;
   initValue?: number;
   pointPositionPX?: string | undefined;
+  isRange?: boolean;
 }
 export interface IEvents {
   'update:optionValues'?: Function[];

@@ -1,16 +1,15 @@
 import { TEventName } from '@/interfaces.ts';
 
 export class Dom {
-  $el: HTMLElement | null;
+  $el: HTMLElement;
 
-  constructor(selector: string | HTMLElement) {
-    if (typeof selector === 'string' && document.querySelector(selector) !== null) {
-      this.$el = document.querySelector(selector);
-    } else if (typeof selector === 'string' && document.querySelector(selector) === null) {
+  constructor(selector: string) {
+    const el = document.querySelector(selector) as HTMLElement | null;
+    if (el) {
+      this.$el = el;
+    } else {
       this.$el = document.createElement('div');
       this.$el.classList.add(selector);
-    } else {
-      this.$el = selector as HTMLElement;
     }
   }
 

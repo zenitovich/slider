@@ -9,9 +9,9 @@ export default class SecondPoint extends SliderComponent {
 
   private emitter: Emitter;
 
-  pointElement: HTMLElement | null;
+  pointElement: HTMLElement;
 
-  private pointValue: HTMLElement | null;
+  private pointValueElement: HTMLElement | null;
 
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super($root, { name: 'SecondPoint', listeners: ['click', 'mousedown'] }, presenter);
@@ -22,34 +22,22 @@ export default class SecondPoint extends SliderComponent {
 
   init() {
     super.init();
-    this.pointValue = this.pointElement?.querySelector('.slider__secondPoint--value') || null;
+    this.pointValueElement = this.pointElement?.querySelector('.slider__secondPoint--value') || null;
   }
 
   changePoint(pointData: IPointData) {
-    if (this?.pointValue && pointData.value < pointData.secondValue && this.pointElement) {
+    if (this?.pointValueElement) {
       this.pointElement.style.left = `${pointData.secondPointPositionPercent}%`;
-      this.pointValue.style.left = `${pointData.secondPointPositionPercent}%`;
-      this.pointValue.innerHTML = pointData.secondValue.toString();
+      this.pointValueElement.style.left = `${pointData.secondPointPositionPercent}%`;
+      this.pointValueElement.innerHTML = pointData.secondValue.toString();
     }
   }
 
-  resize() {
-    if (this.pointElement) {
-      const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
-      const pointCoordsX: number = pointCoords.x;
-      this.presenter.secondPointCoordsXCounter(pointCoordsX);
-    }
-  }
+  resize() {}
 
   onMousedown() {
     document.onmousemove = (event: MouseEvent) => {
-      if (this.pointElement !== null) {
-        const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
-        const pointCoordsX: number = pointCoords.x;
-        const eventPageX: number = event.pageX;
-        this.presenter.coordsCounter(eventPageX, true);
-        this.presenter.secondPointCoordsXCounter(pointCoordsX);
-      }
+      this.presenter.coordsCounter(event.pageX, true);
     };
     document.onmouseup = () => {
       document.onmousemove = null;

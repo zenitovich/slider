@@ -9,9 +9,9 @@ export default class Point extends SliderComponent {
 
   private emitter: Emitter;
 
-  pointElement: HTMLElement | null;
+  pointElement: HTMLElement;
 
-  private pointValue: HTMLElement | null;
+  private pointValueElement: HTMLElement | null;
 
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super($root, { name: 'Point', listeners: ['click', 'mousedown'] }, presenter);
@@ -22,34 +22,22 @@ export default class Point extends SliderComponent {
 
   init() {
     super.init();
-    this.pointValue = this.pointElement?.querySelector('.slider__point--value') || null;
+    this.pointValueElement = this.pointElement.querySelector('.slider__point--value');
   }
 
   changePoint(pointData: IPointData) {
-    if (this?.pointValue && pointData.value < pointData.secondValue && this.pointElement) {
+    if (this?.pointValueElement) {
       this.pointElement.style.left = `${pointData.pointPositionPercent}%`;
-      this.pointValue.style.left = `${pointData.pointPositionPercent}%`;
-      this.pointValue.innerHTML = pointData.value.toString();
+      this.pointValueElement.style.left = `${pointData.pointPositionPercent}%`;
+      this.pointValueElement.innerHTML = pointData.value.toString();
     }
   }
 
-  resize() {
-    if (this.pointElement) {
-      const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
-      const pointCoordsX: number = pointCoords.x;
-      this.presenter.pointCoordsXCounter(pointCoordsX);
-    }
-  }
+  resize() {}
 
   onMousedown() {
     document.onmousemove = (event: MouseEvent) => {
-      if (this.pointElement) {
-        const pointCoords: DOMRect = this.pointElement.getBoundingClientRect();
-        const pointCoordsX: number = pointCoords.x;
-        const eventPageX: number = event.pageX;
-        this.presenter.coordsCounter(eventPageX, false);
-        this.presenter.pointCoordsXCounter(pointCoordsX);
-      }
+      this.presenter.coordsCounter(event.pageX, false);
     };
     document.onmouseup = () => {
       document.onmousemove = null;

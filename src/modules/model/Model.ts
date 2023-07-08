@@ -1,5 +1,5 @@
 import Emitter from '@core/Emitter.ts';
-import { IOptions, IScaleData } from '@/interfaces.ts';
+import { IOptions, IRulerData, IScaleData } from '@/interfaces.ts';
 
 export default class Model {
   private _scaleData: IScaleData;
@@ -14,8 +14,18 @@ export default class Model {
 
   private emitter: Emitter;
 
+  private rulerData: IRulerData;
+
   constructor(emitter: Emitter) {
     this.emitter = emitter;
+  }
+
+  setRulerData(rulerData: IRulerData) {
+    this.rulerData = rulerData;
+  }
+
+  getRulerData() {
+    return this.rulerData;
   }
 
   setValue(value: number) {

@@ -4,7 +4,7 @@ import Ruler from '@modules/view/components/Ruler.ts';
 import { Dom } from '@core/dom.ts';
 import Point from '@modules/view/components/Point.ts';
 import SecondPoint from '@modules/view/components/SecondPoint.ts';
-import { TComponent } from '@/interfaces.ts';
+import { IOptions, TComponent } from '@/interfaces.ts';
 
 export default class View {
   private readonly presenter: Presenter;
@@ -13,8 +13,8 @@ export default class View {
 
   components: TComponent[];
 
-  constructor(presenter: Presenter, emitter: Emitter) {
-    this.components = [Point, SecondPoint, Ruler];
+  constructor(presenter: Presenter, emitter: Emitter, options: IOptions) {
+    this.components = options.isRange ? [Point, SecondPoint, Ruler] : [Point, Ruler];
     this.emitter = emitter;
     this.presenter = presenter;
   }
