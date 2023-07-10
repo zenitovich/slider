@@ -16,8 +16,30 @@ export default class Model {
 
   private rulerData: IRulerData;
 
+  pointZIndex = 1;
+
+  secondPointZIndex = 1;
+
   constructor(emitter: Emitter) {
     this.emitter = emitter;
+  }
+
+  setPointZIndex(pointZIndex: number) {
+    this.pointZIndex = pointZIndex;
+    this.emitter.emit('update:pointZIndex', this.pointZIndex);
+  }
+
+  getPointZIndex() {
+    return this.pointZIndex;
+  }
+
+  setSecondPointZIndex(secondPointZIndex: number) {
+    this.secondPointZIndex = secondPointZIndex;
+    this.emitter.emit('update:secondPointZIndex', this.secondPointZIndex);
+  }
+
+  getSecondPointZIndex() {
+    return this.secondPointZIndex;
   }
 
   setRulerData(rulerData: IRulerData) {

@@ -13,16 +13,24 @@ export default class Point extends SliderComponent {
 
   private pointValueElement: HTMLElement | null;
 
+  private zIndex: number;
+
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super($root, { name: 'Point', listeners: ['click', 'mousedown'] }, presenter);
     this.emitter = emitter;
     this.pointElement = this.$root.$el;
     this.emitter.subscribe('update:pointData', (pointData: IPointData) => this.changePoint(pointData));
+    this.emitter.subscribe('update:pointZIndex', (zIndex: number) => this.zIndexChange(zIndex));
   }
 
   init() {
     super.init();
     this.pointValueElement = this.pointElement.querySelector('.slider__point--value');
+  }
+
+  zIndexChange(pointZIndex: number) {
+    this.zIndex = pointZIndex;
+    this.pointElement.style.zIndex = this.zIndex.toString();
   }
 
   changePoint(pointData: IPointData) {
@@ -35,7 +43,12 @@ export default class Point extends SliderComponent {
 
   resize() {}
 
+  // onClick(event: Event) {
+  //
+  // }
+
   onMousedown() {
+    this.presenter.pointZIndexCalc();
     document.onmousemove = (event: MouseEvent) => {
       this.presenter.coordsCounter(event.pageX, false);
     };

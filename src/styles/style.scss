@@ -7,7 +7,6 @@ body {
 
 .slider {
   position: relative;
-  background-color: aliceblue;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,39 +30,25 @@ body {
       align-items: flex-end;
     }
   }
-  &__point {
-    z-index: 3;
+  &__point, &__secondPoint {
     position: absolute;
     width: $pointWidth;
     height: $pointWidth;
     border-radius: 50%;
-    background-color: aliceblue;
+    background-color: sienna;
     top: 39%;
     border: 3px solid sienna;
     left: -(calc($pointWidth/2));
     &--value {
-      height: 50px;
-      width: 50px;
-      top: -25px;
-      position: absolute;
+      display: flex;
+      justify-content: center;
+      margin: -30px 0px;
     }
   }
   &__secondPoint {
-    z-index: 3;
-    position: absolute;
-    width: $pointWidth;
-    height: $pointWidth;
-    border-radius: 50%;
-    background-color: aliceblue;
-    top: 39%;
-    border: 3px solid sienna;
     right: -(calc($pointWidth/2));
-    &--value {
-      height: 50px;
-      width: 50px;
-      top: -25px;
-      position: absolute;
-    }
+    left: auto;
+    z-index: 1;
   }
   &__ruler {
     display: flex;

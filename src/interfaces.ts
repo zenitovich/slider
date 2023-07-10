@@ -42,4 +42,6 @@ export interface IEvents {
   'update:optionValues'?: Function[];
   'update:pointData'?: Function[];
   'update:secondPointData'?: Function[];
+  'update:pointZIndex'?: Function[];
+  'update:secondPointZIndex'?: Function[];
 }

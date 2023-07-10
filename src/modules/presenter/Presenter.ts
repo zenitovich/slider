@@ -16,6 +16,14 @@ export default class Presenter {
     });
   }
 
+  secondPointZIndexCalc() {
+    this.model.setSecondPointZIndex(this.model.getPointZIndex() + 1);
+  }
+
+  pointZIndexCalc() {
+    this.model.setPointZIndex(this.model.getSecondPointZIndex() + 1);
+  }
+
   public coordsCounter(eventPageX: number, isSecondPointMove?: boolean) {
     const { length, coordsX, coordsRight } = this.model.getRulerData();
 
