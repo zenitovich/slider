@@ -12,16 +12,36 @@ export default class Model {
 
   private secondPointPositionPercent = 100;
 
+  private pointPositionPX = 1;
+
+  private secondPointPositionPX = 10000;
+
   private emitter: Emitter;
 
   private rulerData: IRulerData;
 
-  pointZIndex = 1;
+  private pointZIndex = 1;
 
-  secondPointZIndex = 1;
+  private secondPointZIndex = 1;
 
   constructor(emitter: Emitter) {
     this.emitter = emitter;
+  }
+
+  setPointPositionPX(pointPositionPX: number) {
+    this.pointPositionPX = pointPositionPX;
+  }
+
+  getPointPositionPX() {
+    return this.pointPositionPX;
+  }
+
+  setSecondPointPositionPX(secondPointPositionPX: number) {
+    this.secondPointPositionPX = secondPointPositionPX;
+  }
+
+  getSecondPointPositionPX() {
+    return this.secondPointPositionPX;
   }
 
   setPointZIndex(pointZIndex: number) {

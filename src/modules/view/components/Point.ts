@@ -2,7 +2,7 @@ import { SliderComponent } from '@core/SliderComponent.ts';
 import Emitter from '@core/Emitter.ts';
 import { Dom } from '@core/dom.ts';
 import Presenter from '@modules/presenter/Presenter.ts';
-import { IPointData } from '@/interfaces.ts';
+import { IPointData, IScaleData } from '@/interfaces.ts';
 
 export default class Point extends SliderComponent {
   static className = 'slider__point';
@@ -21,11 +21,18 @@ export default class Point extends SliderComponent {
     this.pointElement = this.$root.$el;
     this.emitter.subscribe('update:pointData', (pointData: IPointData) => this.changePoint(pointData));
     this.emitter.subscribe('update:pointZIndex', (zIndex: number) => this.zIndexChange(zIndex));
+    this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) => this.showInitValue(scaleData));
   }
 
   init() {
     super.init();
     this.pointValueElement = this.pointElement.querySelector('.slider__point--value');
+  }
+
+  showInitValue(scaleData: IScaleData) {
+    if (this.pointValueElement) {
+      this.pointValueElement.innerHTML = `${scaleData.min}`;
+    }
   }
 
   zIndexChange(pointZIndex: number) {
@@ -34,6 +41,7 @@ export default class Point extends SliderComponent {
   }
 
   changePoint(pointData: IPointData) {
+    this.presenter.pointPositionCalc(this.pointElement.getBoundingClientRect().x);
     if (this?.pointValueElement) {
       this.pointElement.style.left = `${pointData.pointPositionPercent}%`;
       this.pointValueElement.style.left = `${pointData.pointPositionPercent}%`;
@@ -43,9 +51,9 @@ export default class Point extends SliderComponent {
 
   resize() {}
 
-  // onClick(event: Event) {
-  //
-  // }
+  onClick() {
+    document.onclick = (event: MouseEvent) => this.presenter.coordsCounter(event.pageX, false, true);
+  }
 
   onMousedown() {
     this.presenter.pointZIndexCalc();

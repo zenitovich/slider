@@ -16,6 +16,14 @@ export default class Presenter {
     });
   }
 
+  pointPositionCalc(pointPositionPX: number) {
+    this.model.setPointPositionPX(pointPositionPX);
+  }
+
+  secondPointPositionCalc(secondPointPositionPX: number) {
+    this.model.setSecondPointPositionPX(secondPointPositionPX);
+  }
+
   secondPointZIndexCalc() {
     this.model.setSecondPointZIndex(this.model.getPointZIndex() + 1);
   }
@@ -24,21 +32,16 @@ export default class Presenter {
     this.model.setPointZIndex(this.model.getSecondPointZIndex() + 1);
   }
 
-  public coordsCounter(eventPageX: number, isSecondPointMove?: boolean) {
+  public coordsCounter(eventPageX: number, isSecondPointMove?: boolean, click?: boolean) {
     const { length, coordsX, coordsRight } = this.model.getRulerData();
-
     const halfPointPercent = (HALF_POINT_WIDTH / length) * 100;
-
     const { min, max } = this.model.getInitData();
-
     const scaleRange: number = max - min;
-
     const percent = ((eventPageX - coordsX) / length) * 100;
+    const pointValue: number = Math.round((scaleRange / 100) * percent + min);
+    const pointPositionPercent = percent - halfPointPercent;
 
-    if (eventPageX >= coordsX && eventPageX <= coordsRight) {
-      const pointValue: number = Math.round((scaleRange / 100) * percent + min);
-
-      const pointPositionPercent = percent - halfPointPercent;
+    if (eventPageX >= coordsX && eventPageX <= coordsRight && !click) {
       if (isSecondPointMove) {
         if (pointPositionPercent <= this.model.getPointPositionPercent()) {
           this.model.setSecondPointPositionPercent(this.model.getPointPositionPercent());
@@ -56,6 +59,29 @@ export default class Presenter {
       }
       this.model.setPointPositionPercent(pointPositionPercent);
       this.model.setValue(pointValue);
+    }
+
+    // new block
+    if (click && eventPageX >= coordsX && eventPageX <= coordsRight) {
+      if (isSecondPointMove && eventPageX > this.model.getPointPositionPX()) {
+        if (pointPositionPercent <= this.model.getPointPositionPercent()) {
+          this.model.setSecondPointPositionPercent(this.model.getPointPositionPercent());
+          this.model.setSecondValue(this.model.getValue());
+          return;
+        }
+        this.model.setSecondPointPositionPercent(pointPositionPercent);
+        this.model.setSecondValue(pointValue);
+        return;
+      }
+      if (!isSecondPointMove && eventPageX < this.model.getSecondPointPositionPX()) {
+        if (pointPositionPercent >= this.model.getSecondPointPositionPercent()) {
+          this.model.setPointPositionPercent(this.model.getSecondPointPositionPercent());
+          this.model.setValue(this.model.getSecondValue());
+          return;
+        }
+        this.model.setPointPositionPercent(pointPositionPercent);
+        this.model.setValue(pointValue);
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-$pointWidth: 18px;
+$pointWidth: 24px;
 
 body {
   margin: 0;
@@ -12,7 +12,8 @@ body {
   justify-content: center;
   align-items: center;
   font-family: Galvji;
-  color: sienna;
+  color: #2280EF;
+  font-weight: bold;
   width: 100%;
   height: 100%;
   padding: 50px 0;
@@ -31,31 +32,38 @@ body {
     }
   }
   &__point, &__secondPoint {
+    z-index: 1;
     position: absolute;
     width: $pointWidth;
     height: $pointWidth;
     border-radius: 50%;
-    background-color: sienna;
-    top: 39%;
-    border: 3px solid sienna;
+    background-color: #2280EF;
+    top: 35%;
+    border: 6px solid white;;
     left: -(calc($pointWidth/2));
     &--value {
       display: flex;
       justify-content: center;
-      margin: -30px 0px;
+      padding: 20px 5px;
+      margin: -70px -22px;
+      color: white;
+      background: #2280EF;
+      border: 4px solid white;
+      border-radius: 50%;
+      width: 50px;
     }
   }
   &__secondPoint {
     right: -(calc($pointWidth/2));
     left: auto;
-    z-index: 1;
   }
   &__ruler {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 5px;
-    background-color: sienna;
+    height: 20px;
+    background: #2280EF;
+    border-radius: 10px;
   }
   &__ruler-value {
     display: flex;
@@ -71,9 +79,6 @@ body {
     &--item::before {
       content: '';
       position: absolute;
-      width: 3px;
-      height: 21px;
-      background-color: sienna;
       top: 0;
       left: 0;
       right: 0;
