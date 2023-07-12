@@ -41,7 +41,6 @@ export default class Point extends SliderComponent {
   }
 
   changePoint(pointData: IPointData) {
-    this.presenter.pointPositionCalc(this.pointElement.getBoundingClientRect().x);
     if (this?.pointValueElement) {
       this.pointElement.style.left = `${pointData.pointPositionPercent}%`;
       this.pointValueElement.style.left = `${pointData.pointPositionPercent}%`;
@@ -50,10 +49,6 @@ export default class Point extends SliderComponent {
   }
 
   resize() {}
-
-  onClick() {
-    document.onclick = (event: MouseEvent) => this.presenter.coordsCounter(event.pageX, false, true);
-  }
 
   onMousedown() {
     this.presenter.pointZIndexCalc();

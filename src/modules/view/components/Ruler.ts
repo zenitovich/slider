@@ -59,6 +59,7 @@ export default class Ruler extends SliderComponent {
       const rulerCoordsRight: number = rulerCoords.right;
       this.presenter.rulerCounter(this.rulerLength, rulerCoordsX, rulerCoordsRight);
     }
+    console.log(this.$root.$el);
   }
 
   resize() {
@@ -71,8 +72,9 @@ export default class Ruler extends SliderComponent {
     }
   }
 
-  onClick(event: Event) {
+  onClick(event: MouseEvent) {
     console.log('Ruler onClick', event);
+    this.presenter.mousePositionCalc(event.pageX);
   }
 
   toHTML(): string {

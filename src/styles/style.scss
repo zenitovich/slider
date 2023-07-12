@@ -41,14 +41,15 @@ body {
     top: 35%;
     border: 6px solid white;;
     left: -(calc($pointWidth/2));
+    box-shadow: 0 0 0 2px #C0DBFB, 0px 0px 0px 4px #C0DBFB;
+    transition: 0.1s;
     &--value {
       display: flex;
       justify-content: center;
       padding: 20px 5px;
-      margin: -70px -22px;
+      margin: -75px -18px;
       color: white;
       background: #2280EF;
-      border: 4px solid white;
       border-radius: 50%;
       width: 50px;
     }
@@ -56,6 +57,7 @@ body {
   &__secondPoint {
     right: -(calc($pointWidth/2));
     left: auto;
+    background: red;
   }
   &__ruler {
     display: flex;

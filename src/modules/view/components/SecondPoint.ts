@@ -41,7 +41,6 @@ export default class SecondPoint extends SliderComponent {
   }
 
   changePoint(pointData: IPointData) {
-    this.presenter.secondPointPositionCalc(this.pointElement.getBoundingClientRect().x);
     if (this?.pointValueElement) {
       this.pointElement.style.left = `${pointData.secondPointPositionPercent}%`;
       this.pointValueElement.style.left = `${pointData.secondPointPositionPercent}%`;
@@ -50,10 +49,6 @@ export default class SecondPoint extends SliderComponent {
   }
 
   resize() {}
-
-  onClick() {
-    document.onclick = (event: MouseEvent) => this.presenter.coordsCounter(event.pageX, true, true);
-  }
 
   onMousedown() {
     this.presenter.secondPointZIndexCalc();

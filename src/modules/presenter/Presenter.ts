@@ -16,23 +16,28 @@ export default class Presenter {
     });
   }
 
-  pointPositionCalc(pointPositionPX: number) {
-    this.model.setPointPositionPX(pointPositionPX);
-  }
-
-  secondPointPositionCalc(secondPointPositionPX: number) {
-    this.model.setSecondPointPositionPX(secondPointPositionPX);
+  pointZIndexCalc() {
+    this.model.setPointZIndex(this.model.getSecondPointZIndex() + 1);
   }
 
   secondPointZIndexCalc() {
     this.model.setSecondPointZIndex(this.model.getPointZIndex() + 1);
   }
 
-  pointZIndexCalc() {
-    this.model.setPointZIndex(this.model.getSecondPointZIndex() + 1);
+  mousePositionCalc(eventPageX: number) {
+    const { length, coordsX } = this.model.getRulerData();
+    const percent = ((eventPageX - coordsX) / length) * 100;
+    const halfPointPercent = (HALF_POINT_WIDTH / length) * 100;
+    const pointPositionPercent = percent - halfPointPercent;
+    if (pointPositionPercent - this.model.getPointPositionPercent() < this.model.getSecondPointPositionPercent() - pointPositionPercent) {
+      console.log(this.model.getPointPositionPercent());
+      this.coordsCounter(eventPageX, false);
+    } else {
+      this.coordsCounter(eventPageX, true);
+    }
   }
 
-  public coordsCounter(eventPageX: number, isSecondPointMove?: boolean, click?: boolean) {
+  public coordsCounter(eventPageX: number, isSecondPointMove?: boolean) {
     const { length, coordsX, coordsRight } = this.model.getRulerData();
     const halfPointPercent = (HALF_POINT_WIDTH / length) * 100;
     const { min, max } = this.model.getInitData();
@@ -41,7 +46,7 @@ export default class Presenter {
     const pointValue: number = Math.round((scaleRange / 100) * percent + min);
     const pointPositionPercent = percent - halfPointPercent;
 
-    if (eventPageX >= coordsX && eventPageX <= coordsRight && !click) {
+    if (eventPageX >= coordsX && eventPageX <= coordsRight) {
       if (isSecondPointMove) {
         if (pointPositionPercent <= this.model.getPointPositionPercent()) {
           this.model.setSecondPointPositionPercent(this.model.getPointPositionPercent());
@@ -59,29 +64,6 @@ export default class Presenter {
       }
       this.model.setPointPositionPercent(pointPositionPercent);
       this.model.setValue(pointValue);
-    }
-
-    // new block
-    if (click && eventPageX >= coordsX && eventPageX <= coordsRight) {
-      if (isSecondPointMove && eventPageX > this.model.getPointPositionPX()) {
-        if (pointPositionPercent <= this.model.getPointPositionPercent()) {
-          this.model.setSecondPointPositionPercent(this.model.getPointPositionPercent());
-          this.model.setSecondValue(this.model.getValue());
-          return;
-        }
-        this.model.setSecondPointPositionPercent(pointPositionPercent);
-        this.model.setSecondValue(pointValue);
-        return;
-      }
-      if (!isSecondPointMove && eventPageX < this.model.getSecondPointPositionPX()) {
-        if (pointPositionPercent >= this.model.getSecondPointPositionPercent()) {
-          this.model.setPointPositionPercent(this.model.getSecondPointPositionPercent());
-          this.model.setValue(this.model.getSecondValue());
-          return;
-        }
-        this.model.setPointPositionPercent(pointPositionPercent);
-        this.model.setValue(pointValue);
-      }
     }
   }
 }
