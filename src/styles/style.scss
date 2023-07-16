@@ -42,7 +42,6 @@ body {
     border: 6px solid white;;
     left: -(calc($pointWidth/2));
     box-shadow: 0 0 0 2px #C0DBFB, 0px 0px 0px 4px #C0DBFB;
-    transition: 0.1s;
     &--value {
       display: flex;
       justify-content: center;

@@ -15,6 +15,8 @@ export default class Ruler extends SliderComponent {
 
   rulerElement: HTMLElement | null;
 
+  rulerRangeElement: HTMLElement | null;
+
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super(
       $root,
@@ -59,6 +61,8 @@ export default class Ruler extends SliderComponent {
       const rulerCoordsRight: number = rulerCoords.right;
       this.presenter.rulerCounter(this.rulerLength, rulerCoordsX, rulerCoordsRight);
     }
+    this.rulerRangeElement = document.querySelector('.slider__ruler-range');
+
     console.log(this.$root.$el);
   }
 
@@ -80,6 +84,7 @@ export default class Ruler extends SliderComponent {
   toHTML(): string {
     return `
             <div class="slider__ruler-value">${this.stringOfValues}</div>
+            <div class="slider__ruler-range"></div>
         `;
   }
 }

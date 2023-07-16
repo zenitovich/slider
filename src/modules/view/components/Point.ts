@@ -11,7 +11,7 @@ export default class Point extends SliderComponent {
 
   pointElement: HTMLElement;
 
-  private pointValueElement: HTMLElement | null;
+  private pointValueElement: HTMLElement;
 
   private zIndex: number;
 
@@ -26,13 +26,11 @@ export default class Point extends SliderComponent {
 
   init() {
     super.init();
-    this.pointValueElement = this.pointElement.querySelector('.slider__point--value');
   }
 
   showInitValue(scaleData: IScaleData) {
-    if (this.pointValueElement) {
-      this.pointValueElement.innerHTML = `${scaleData.min}`;
-    }
+    this.pointValueElement = new Dom('.slider__point--value').$el;
+    this.pointValueElement.innerHTML = `${scaleData.min}`;
   }
 
   zIndexChange(pointZIndex: number) {
@@ -41,11 +39,9 @@ export default class Point extends SliderComponent {
   }
 
   changePoint(pointData: IPointData) {
-    if (this?.pointValueElement) {
-      this.pointElement.style.left = `${pointData.pointPositionPercent}%`;
-      this.pointValueElement.style.left = `${pointData.pointPositionPercent}%`;
-      this.pointValueElement.innerHTML = pointData.value.toString();
-    }
+    this.pointElement.style.left = `${pointData.pointPositionPercent}%`;
+    this.pointValueElement.style.left = `${pointData.pointPositionPercent}%`;
+    this.pointValueElement.innerHTML = pointData.value.toString();
   }
 
   resize() {}

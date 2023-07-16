@@ -11,7 +11,7 @@ export default class SecondPoint extends SliderComponent {
 
   pointElement: HTMLElement;
 
-  private pointValueElement: HTMLElement | null;
+  private pointValueElement: HTMLElement;
 
   private zIndex: number;
 
@@ -26,13 +26,11 @@ export default class SecondPoint extends SliderComponent {
 
   init() {
     super.init();
-    this.pointValueElement = this.pointElement?.querySelector('.slider__secondPoint--value') || null;
   }
 
   showInitValue(scaleData: IScaleData) {
-    if (this.pointValueElement) {
-      this.pointValueElement.innerHTML = `${scaleData.max}`;
-    }
+    this.pointValueElement = new Dom('.slider__secondPoint--value').$el;
+    this.pointValueElement.innerHTML = `${scaleData.max}`;
   }
 
   zIndexChange(pointZIndex: number) {
@@ -41,11 +39,9 @@ export default class SecondPoint extends SliderComponent {
   }
 
   changePoint(pointData: IPointData) {
-    if (this?.pointValueElement) {
-      this.pointElement.style.left = `${pointData.secondPointPositionPercent}%`;
-      this.pointValueElement.style.left = `${pointData.secondPointPositionPercent}%`;
-      this.pointValueElement.innerHTML = pointData.secondValue.toString();
-    }
+    this.pointElement.style.left = `${pointData.secondPointPositionPercent}%`;
+    this.pointValueElement.style.left = `${pointData.secondPointPositionPercent}%`;
+    this.pointValueElement.innerHTML = pointData.secondValue.toString();
   }
 
   resize() {}
