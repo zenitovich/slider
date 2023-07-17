@@ -11,6 +11,12 @@ export default class Ruler extends SliderComponent {
 
   stringOfValues: string;
 
+  rulerLength: number;
+
+  rulerElement: HTMLElement | null;
+
+  rulerRangeElement: HTMLElement | null;
+
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super(
       $root,
@@ -22,6 +28,7 @@ export default class Ruler extends SliderComponent {
     );
     this.emitter = emitter;
     this.stringOfValues = '';
+    this.rulerElement = this.$root.$el;
     this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) => this.changeRuler(scaleData));
   }
 
@@ -41,24 +48,43 @@ export default class Ruler extends SliderComponent {
     arr.forEach((el) => {
       str += `<div class="slider__ruler-value--item">${el}</div>`;
     });
-
     return str;
   }
 
   changeRuler(scaleData: IScaleData) {
     this.stringOfValues = this.rulerToString(scaleData.min, scaleData.max, scaleData.divisionValue);
     this.changeHtml(this.toHTML());
+    if (this.rulerElement) {
+      this.rulerLength = this.rulerElement.offsetWidth;
+      const rulerCoords: DOMRect = this.rulerElement.getBoundingClientRect();
+      const rulerCoordsX: number = rulerCoords.x;
+      const rulerCoordsRight: number = rulerCoords.right;
+      this.presenter.rulerCounter(this.rulerLength, rulerCoordsX, rulerCoordsRight);
+    }
+    this.rulerRangeElement = document.querySelector('.slider__ruler-range');
+
+    console.log(this.$root.$el);
   }
 
-  resize() {}
+  resize() {
+    if (this.rulerElement) {
+      this.rulerLength = this.rulerElement.offsetWidth;
+      const rulerCoords: DOMRect = this.rulerElement.getBoundingClientRect();
+      const rulerCoordsX: number = rulerCoords.x;
+      const rulerCoordsRight: number = rulerCoords.right;
+      this.presenter.rulerCounter(this.rulerLength, rulerCoordsX, rulerCoordsRight);
+    }
+  }
 
-  onClick(event: Event) {
+  onClick(event: MouseEvent) {
     console.log('Ruler onClick', event);
+    this.presenter.mousePositionCalc(event.pageX);
   }
 
   toHTML(): string {
     return `
             <div class="slider__ruler-value">${this.stringOfValues}</div>
+            <div class="slider__ruler-range"></div>
         `;
   }
 }

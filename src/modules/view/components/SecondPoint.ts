@@ -4,8 +4,8 @@ import { Dom } from '@core/dom.ts';
 import Presenter from '@modules/presenter/Presenter.ts';
 import { IPointData, IScaleData } from '@/interfaces.ts';
 
-export default class Point extends SliderComponent {
-  static className = 'slider__point';
+export default class SecondPoint extends SliderComponent {
+  static className = 'slider__secondPoint';
 
   private emitter: Emitter;
 
@@ -16,11 +16,11 @@ export default class Point extends SliderComponent {
   private zIndex: number;
 
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
-    super($root, { name: 'Point', listeners: ['click', 'mousedown'] }, presenter);
+    super($root, { name: 'SecondPoint', listeners: ['click', 'mousedown'] }, presenter);
     this.emitter = emitter;
     this.pointElement = this.$root.$el;
-    this.emitter.subscribe('update:pointData', (pointData: IPointData) => this.changePoint(pointData));
-    this.emitter.subscribe('update:pointZIndex', (zIndex: number) => this.zIndexChange(zIndex));
+    this.emitter.subscribe('update:secondPointData', (pointData: IPointData) => this.changePoint(pointData));
+    this.emitter.subscribe('update:secondPointZIndex', (zIndex: number) => this.zIndexChange(zIndex));
     this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) => this.showInitValue(scaleData));
   }
 
@@ -29,8 +29,8 @@ export default class Point extends SliderComponent {
   }
 
   showInitValue(scaleData: IScaleData) {
-    this.pointValueElement = new Dom('.slider__point--value').$el;
-    this.pointValueElement.innerHTML = `${scaleData.min}`;
+    this.pointValueElement = new Dom('.slider__secondPoint--value').$el;
+    this.pointValueElement.innerHTML = `${scaleData.max}`;
   }
 
   zIndexChange(pointZIndex: number) {
@@ -39,17 +39,17 @@ export default class Point extends SliderComponent {
   }
 
   changePoint(pointData: IPointData) {
-    this.pointElement.style.left = `${pointData.pointPositionPercent}%`;
-    this.pointValueElement.style.left = `${pointData.pointPositionPercent}%`;
-    this.pointValueElement.innerHTML = pointData.value.toString();
+    this.pointElement.style.left = `${pointData.secondPointPositionPercent}%`;
+    this.pointValueElement.style.left = `${pointData.secondPointPositionPercent}%`;
+    this.pointValueElement.innerHTML = pointData.secondValue.toString();
   }
 
   resize() {}
 
   onMousedown() {
-    this.presenter.pointZIndexCalc();
+    this.presenter.secondPointZIndexCalc();
     document.onmousemove = (event: MouseEvent) => {
-      this.presenter.coordsCounter(event.pageX, false);
+      this.presenter.coordsCounter(event.pageX, true);
     };
     document.onmouseup = () => {
       document.onmousemove = null;
@@ -58,7 +58,7 @@ export default class Point extends SliderComponent {
 
   toHTML(): string {
     return `
-            <div class="slider__point--value"></div>
+            <div class="slider__secondPoint--value"></div>
         `;
   }
 }

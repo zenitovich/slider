@@ -1,16 +1,19 @@
+$pointWidth: 24px;
+
 body {
   margin: 0;
   padding: 0;
 }
 
 .slider {
-  background-color: aliceblue;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: Galvji;
-  color: sienna;
+  color: #2280EF;
+  font-weight: bold;
   width: 100%;
   height: 100%;
   padding: 50px 0;
@@ -28,46 +31,40 @@ body {
       align-items: flex-end;
     }
   }
-  &__point {
-    position: relative;
-    width: 75%;
-    height: 3px;
-    background-color: sienna;
-    &--button {
-      z-index: 3;
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background-color: aliceblue;
-      top: -10px;
-      left: -9px;
-      border: 3px solid sienna;
-    }
-    &--buttonTwo {
-      z-index: 3;
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background-color: aliceblue;
-      top: -10px;
-      right: -9px;
-      border: 3px solid sienna;
-    }
+  &__point, &__secondPoint {
+    z-index: 1;
+    position: absolute;
+    width: $pointWidth;
+    height: $pointWidth;
+    border-radius: 50%;
+    background-color: #2280EF;
+    top: 35%;
+    border: 6px solid white;;
+    left: -(calc($pointWidth/2));
+    box-shadow: 0 0 0 2px #C0DBFB, 0px 0px 0px 4px #C0DBFB;
     &--value {
-      height: 50px;
+      display: flex;
+      justify-content: center;
+      padding: 20px 5px;
+      margin: -75px -18px;
+      color: white;
+      background: #2280EF;
+      border-radius: 50%;
       width: 50px;
-      top: -30px;
-      position: absolute;
     }
+  }
+  &__secondPoint {
+    right: -(calc($pointWidth/2));
+    left: auto;
+    background: red;
   }
   &__ruler {
     display: flex;
     justify-content: space-between;
-    width: 75%;
-    height: 1px;
-    background-color: sienna;
+    width: 100%;
+    height: 20px;
+    background: #2280EF;
+    border-radius: 10px;
   }
   &__ruler-value {
     display: flex;
@@ -83,9 +80,6 @@ body {
     &--item::before {
       content: '';
       position: absolute;
-      width: 3px;
-      height: 18px;
-      background-color: sienna;
       top: 0;
       left: 0;
       right: 0;
