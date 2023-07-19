@@ -9,11 +9,13 @@ export default class SecondPoint extends SliderComponent {
 
   private emitter: Emitter;
 
-  pointElement: HTMLElement;
+  private pointElement: HTMLElement;
 
   private pointValueElement: HTMLElement;
 
   private zIndex: number;
+
+  private valueCheck: boolean;
 
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super($root, { name: 'SecondPoint', listeners: ['click', 'mousedown'] }, presenter);
@@ -21,11 +23,37 @@ export default class SecondPoint extends SliderComponent {
     this.pointElement = this.$root.$el;
     this.emitter.subscribe('update:secondPointData', (pointData: IPointData) => this.changePoint(pointData));
     this.emitter.subscribe('update:secondPointZIndex', (zIndex: number) => this.zIndexChange(zIndex));
+    this.emitter.subscribe('update: valueButtonChecked', (valueButtonChecked: boolean) => this.valueCheckedUpdate(valueButtonChecked));
     this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) => this.showInitValue(scaleData));
+    this.emitter.subscribe('update: rangeButtonChecked', (rangeCheck: boolean) => this.rangeCheckedUpdate(rangeCheck));
   }
 
   init() {
     super.init();
+    this.presenter.secondValueInit(true);
+  }
+
+  rangeCheckedUpdate(check: boolean) {
+    if (!check) {
+      this.$root.$el.style.opacity = '0';
+      this.pointValueElement.style.opacity = '0';
+      this.presenter.secondValueInit(false);
+    } else {
+      this.$root.$el.style.opacity = 'inherit';
+      if (this.valueCheck) {
+        this.pointValueElement.style.opacity = 'inherit';
+      }
+      this.presenter.secondValueInit(true);
+    }
+  }
+
+  valueCheckedUpdate(valueButtonChecked: boolean) {
+    this.valueCheck = valueButtonChecked;
+    if (!this.valueCheck) {
+      this.pointValueElement.style.opacity = '0';
+    } else {
+      this.pointValueElement.style.opacity = 'inherit';
+    }
   }
 
   showInitValue(scaleData: IScaleData) {

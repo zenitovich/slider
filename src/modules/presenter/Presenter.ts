@@ -50,8 +50,14 @@ export default class Presenter {
 
   mousePositionCalc(eventPageX: number) {
     const { pointPositionPercent, currentPointPositionPercent, currentSecondPointPositionPercent } = this.getPositionByCoords(eventPageX);
-    const isSecondPoint = pointPositionPercent - currentPointPositionPercent > currentSecondPointPositionPercent - pointPositionPercent;
-    this.coordsCounter(eventPageX, isSecondPoint);
+    if (this.model.getSecondValueInit()) {
+      const isSecondPoint = pointPositionPercent - currentPointPositionPercent > currentSecondPointPositionPercent - pointPositionPercent;
+      this.coordsCounter(eventPageX, isSecondPoint);
+      console.log('222222222');
+    } else {
+      this.coordsCounter(eventPageX);
+      console.log('11111111!!!!!!!!!!!!');
+    }
   }
 
   getPointPercentAndValue(percent: number, value: number, secondPoint?: boolean) {
@@ -78,11 +84,23 @@ export default class Presenter {
         this.getPointPercentAndValue(pointPositionPercent, pointValue, true);
         return;
       }
-      if (pointPositionPercent >= currentSecondPointPositionPercent) {
+      if (pointPositionPercent >= currentSecondPointPositionPercent && this.model.getSecondValueInit()) {
         this.getPointPercentAndValue(currentSecondPointPositionPercent, this.model.getSecondValue());
         return;
       }
       this.getPointPercentAndValue(pointPositionPercent, pointValue);
     }
+  }
+
+  valueCheck(check: boolean) {
+    this.model.setValueButtonChecked(check);
+  }
+
+  menuCheck(check: boolean) {
+    this.model.setRangeButtonChecked(check);
+  }
+
+  secondValueInit(secondValueInit: boolean) {
+    this.model.setSecondValueInit(secondValueInit);
   }
 }

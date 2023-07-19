@@ -9,7 +9,7 @@ export default class Point extends SliderComponent {
 
   private emitter: Emitter;
 
-  pointElement: HTMLElement;
+  private pointElement: HTMLElement;
 
   private pointValueElement: HTMLElement;
 
@@ -21,11 +21,20 @@ export default class Point extends SliderComponent {
     this.pointElement = this.$root.$el;
     this.emitter.subscribe('update:pointData', (pointData: IPointData) => this.changePoint(pointData));
     this.emitter.subscribe('update:pointZIndex', (zIndex: number) => this.zIndexChange(zIndex));
+    this.emitter.subscribe('update: valueButtonChecked', (valueButtonChecked: boolean) => this.checkedUpdate(valueButtonChecked));
     this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) => this.showInitValue(scaleData));
   }
 
   init() {
     super.init();
+  }
+
+  checkedUpdate(valueButtonChecked: boolean) {
+    if (!valueButtonChecked) {
+      this.pointValueElement.style.opacity = '0';
+    } else {
+      this.pointValueElement.style.opacity = 'inherit';
+    }
   }
 
   showInitValue(scaleData: IScaleData) {

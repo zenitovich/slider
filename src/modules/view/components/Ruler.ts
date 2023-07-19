@@ -9,11 +9,11 @@ export default class Ruler extends SliderComponent {
 
   private emitter: Emitter;
 
-  stringOfValues: string;
+  private stringOfValues: string;
 
-  rulerLength: number;
+  private rulerLength: number;
 
-  rulerElement: HTMLElement | null;
+  private rulerElement: HTMLElement | null;
 
   rulerRangeElement: HTMLElement | null;
 
@@ -62,8 +62,6 @@ export default class Ruler extends SliderComponent {
       this.presenter.rulerCounter(this.rulerLength, rulerCoordsX, rulerCoordsRight);
     }
     this.rulerRangeElement = document.querySelector('.slider__ruler-range');
-
-    console.log(this.$root.$el);
   }
 
   resize() {
@@ -77,7 +75,6 @@ export default class Ruler extends SliderComponent {
   }
 
   onClick(event: MouseEvent) {
-    console.log('Ruler onClick', event);
     this.presenter.mousePositionCalc(event.pageX);
   }
 

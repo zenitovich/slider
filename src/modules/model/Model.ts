@@ -20,8 +20,32 @@ export default class Model {
 
   private secondPointZIndex = 1;
 
+  private valueButtonChecked: boolean;
+
+  private rangeButtonChecked: boolean;
+
+  private secondValueInit = false;
+
   constructor(emitter: Emitter) {
     this.emitter = emitter;
+  }
+
+  setSecondValueInit(secondValueInit: boolean) {
+    this.secondValueInit = secondValueInit;
+  }
+
+  getSecondValueInit() {
+    return this.secondValueInit;
+  }
+
+  setValueButtonChecked(valueButtonChecked: boolean) {
+    this.valueButtonChecked = valueButtonChecked;
+    this.emitter.emit('update: valueButtonChecked', this.valueButtonChecked);
+  }
+
+  setRangeButtonChecked(rangeButtonChecked: boolean) {
+    this.rangeButtonChecked = rangeButtonChecked;
+    this.emitter.emit('update: rangeButtonChecked', this.rangeButtonChecked);
   }
 
   setPointZIndex(pointZIndex: number) {

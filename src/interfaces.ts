@@ -45,4 +45,6 @@ export interface IEvents {
   'update:secondPointData'?: Function[];
   'update:pointZIndex'?: Function[];
   'update:secondPointZIndex'?: Function[];
+  'update: valueButtonChecked'?: Function[];
+  'update: rangeButtonChecked'?: Function[];
 }

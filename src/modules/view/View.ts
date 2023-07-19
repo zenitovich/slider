@@ -15,9 +15,9 @@ export default class View {
   components: TComponent[];
 
   constructor(presenter: Presenter, emitter: Emitter, options: IOptions) {
-    this.components = options.isRange ? [Point, SecondPoint, Ruler, Menu] : [Point, Ruler, Menu];
     this.emitter = emitter;
     this.presenter = presenter;
+    this.components = options.isRange ? [Point, SecondPoint, Ruler, Menu] : [Point, Ruler, Menu];
   }
 
   resize(component: Ruler | Point | SecondPoint | Menu) {

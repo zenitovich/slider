@@ -10,6 +10,8 @@ export default class Menu extends SliderComponent {
 
   menuValueElementCh: HTMLInputElement;
 
+  menuRangeElementCh: HTMLInputElement;
+
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super($root, { name: 'Menu', listeners: ['click'] }, presenter);
     this.emitter = emitter;
@@ -25,24 +27,27 @@ export default class Menu extends SliderComponent {
   onClick() {
     this.menuValueElementCh = new Dom('.slider__menu--value').$el as HTMLInputElement;
     if (this.menuValueElementCh.checked) {
-      console.log('yep');
+      this.presenter.valueCheck(true);
+    } else {
+      this.presenter.valueCheck(false);
+    }
+
+    this.menuRangeElementCh = new Dom('.slider__menu--range').$el as HTMLInputElement;
+    if (this.menuRangeElementCh.checked) {
+      this.presenter.menuCheck(true);
+    } else {
+      this.presenter.menuCheck(false);
     }
   }
 
   toHTML(): string {
     return `
             <div class='slider__menu--item'>
-            <input type='checkbox' class='slider__menu--value' id='value'><label for="checkbox">Значение</label>
+            <input type='checkbox' class='slider__menu--value' id='value' checked><label for="checkbox">Значение</label>
             </div>
             <div class='slider__menu--item'>
-            <input type='checkbox' class='slider__menu--range' id='range'><label for="range">Диапазон</label>
+            <input type='checkbox' class='slider__menu--range' id='range' checked><label for="range">Диапазон</label>
             </div>
-<!--            <div class="slider__menu&#45;&#45;value">-->
-<!--            Value:<div class="slider__menu&#45;&#45;value-btn"></div>-->
-<!--            </div>-->
-<!--            <div class="slider__menu&#45;&#45;range">-->
-<!--            Range:<div class="slider__menu&#45;&#45;range-btn"></div>-->
-<!--            </div>-->
         `;
   }
 }
