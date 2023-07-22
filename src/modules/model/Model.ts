@@ -26,8 +26,18 @@ export default class Model {
 
   private secondValueInit = false;
 
+  private selectedValue: number;
+
   constructor(emitter: Emitter) {
     this.emitter = emitter;
+  }
+
+  setSelectedValue(selectedValue: number) {
+    this.selectedValue = selectedValue;
+  }
+
+  getSelectedValue() {
+    return this.selectedValue;
   }
 
   setSecondValueInit(secondValueInit: boolean) {

@@ -1,5 +1,5 @@
 import Model from '@modules/model/Model.ts';
-import { HALF_POINT_WIDTH, POINT_WIDTH_IN_PERCENT } from '@constants/index.ts';
+import { HALF_POINT_WIDTH, POINT_WIDTH, POINT_WIDTH_IN_PERCENT } from '@constants/index.ts';
 
 export default class Presenter {
   private model: Model;
@@ -53,10 +53,8 @@ export default class Presenter {
     if (this.model.getSecondValueInit()) {
       const isSecondPoint = pointPositionPercent - currentPointPositionPercent > currentSecondPointPositionPercent - pointPositionPercent;
       this.coordsCounter(eventPageX, isSecondPoint);
-      console.log('222222222');
     } else {
       this.coordsCounter(eventPageX);
-      console.log('11111111!!!!!!!!!!!!');
     }
   }
 
@@ -102,5 +100,20 @@ export default class Presenter {
 
   secondValueInit(secondValueInit: boolean) {
     this.model.setSecondValueInit(secondValueInit);
+  }
+
+  selectValue(selectedValue: number) {
+    this.model.setSelectedValue(selectedValue);
+    const currentSelectedValue = this.model.getSelectedValue();
+    const { min, max } = this.model.getInitData();
+    const { length } = this.model.getRulerData();
+    if (currentSelectedValue >= min && currentSelectedValue <= max) {
+      const selectedValuePercent = ((currentSelectedValue - min) / (max - min)) * POINT_WIDTH_IN_PERCENT - (POINT_WIDTH / length) * POINT_WIDTH_IN_PERCENT;
+      if (max - currentSelectedValue > currentSelectedValue - min || !this.model.getSecondValueInit()) {
+        this.getPointPercentAndValue(selectedValuePercent, currentSelectedValue);
+      } else {
+        this.getPointPercentAndValue(selectedValuePercent, currentSelectedValue, true);
+      }
+    }
   }
 }
