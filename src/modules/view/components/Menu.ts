@@ -8,11 +8,13 @@ export default class Menu extends SliderComponent {
 
   private emitter: Emitter;
 
-  menuValueElementCh: HTMLInputElement;
+  private menuValueElementCh: HTMLInputElement;
 
-  menuRangeElementCh: HTMLInputElement;
+  private menuRangeElementCh: HTMLInputElement;
 
-  selectedValueEl: HTMLInputElement;
+  private selectedValueEl: HTMLInputElement;
+
+  private selectedSecondValueEl: HTMLInputElement;
 
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super($root, { name: 'Menu', listeners: ['click'] }, presenter);
@@ -29,7 +31,8 @@ export default class Menu extends SliderComponent {
   onClick() {
     this.menuValueElementCh = new Dom('.slider__menu--value').$el as HTMLInputElement;
     this.menuRangeElementCh = new Dom('.slider__menu--range').$el as HTMLInputElement;
-    this.selectedValueEl = new Dom('.slider__menu--selected-value').$el as HTMLInputElement;
+    this.selectedValueEl = new Dom('#selectedValue').$el as HTMLInputElement;
+    this.selectedSecondValueEl = new Dom('#selectedSecondValue').$el as HTMLInputElement;
 
     if (this.menuValueElementCh.checked) {
       this.presenter.valueCheck(true);
@@ -38,13 +41,17 @@ export default class Menu extends SliderComponent {
     }
 
     if (this.menuRangeElementCh.checked) {
-      this.presenter.menuCheck(true);
+      this.presenter.rangeCheck(true);
     } else {
-      this.presenter.menuCheck(false);
+      this.presenter.rangeCheck(false);
     }
 
     this.selectedValueEl.oninput = () => {
       this.presenter.selectValue(parseInt(this.selectedValueEl.value, 10));
+    };
+
+    this.selectedSecondValueEl.oninput = () => {
+      this.presenter.selectValue(parseInt(this.selectedSecondValueEl.value, 10), true);
     };
   }
 
@@ -56,6 +63,10 @@ export default class Menu extends SliderComponent {
             <div class='slider__menu--item'>
             <label for="selectedValue">Значение:</label>
             <input type='number' class='slider__menu--selected-value' id='selectedValue'>
+            </div>
+            <div class='slider__menu--item'>
+            <label for="selectedSecondValue">Макс. Значение:</label>
+            <input type='number' class='slider__menu--selected-value' id='selectedSecondValue'>
             </div>
             <div class='slider__menu--item'>
             <label for="step">Шаг:</label>

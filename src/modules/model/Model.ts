@@ -28,8 +28,24 @@ export default class Model {
 
   private selectedValue: number;
 
+  private selectedSecondValue: number;
+
+  private progressBarWidth: number;
+
+  private secondProgressBarWidth: number;
+
   constructor(emitter: Emitter) {
     this.emitter = emitter;
+  }
+
+  setProgressBarWidth(width: number) {
+    this.progressBarWidth = width;
+    this.emitter.emit('update: progressBar', this.progressBarWidth);
+  }
+
+  setSecondProgressBarWidth(width: number) {
+    this.secondProgressBarWidth = width;
+    this.emitter.emit('update: secondProgressBar', this.secondProgressBarWidth);
   }
 
   setSelectedValue(selectedValue: number) {
@@ -38,6 +54,14 @@ export default class Model {
 
   getSelectedValue() {
     return this.selectedValue;
+  }
+
+  setSelectedSecondValue(selectedSecondValue: number) {
+    this.selectedSecondValue = selectedSecondValue;
+  }
+
+  getSelectedSecondValue() {
+    return this.selectedSecondValue;
   }
 
   setSecondValueInit(secondValueInit: boolean) {

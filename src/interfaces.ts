@@ -47,4 +47,6 @@ export interface IEvents {
   'update:secondPointZIndex'?: Function[];
   'update: valueButtonChecked'?: Function[];
   'update: rangeButtonChecked'?: Function[];
+  'update: progressBar'?: Function[];
+  'update: secondProgressBar'?: Function[];
 }
