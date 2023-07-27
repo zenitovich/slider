@@ -13,9 +13,7 @@ export default class Ruler extends SliderComponent {
 
   private rulerLength: number;
 
-  private rulerElement: HTMLElement | null;
-
-  rulerRangeElement: HTMLElement | null;
+  private rulerElement: HTMLElement;
 
   private rulerProgressBarElement: HTMLElement;
 
@@ -78,7 +76,6 @@ export default class Ruler extends SliderComponent {
       const rulerCoordsRight: number = rulerCoords.right;
       this.presenter.rulerCounter(this.rulerLength, rulerCoordsX, rulerCoordsRight);
     }
-    this.rulerRangeElement = document.querySelector('.slider__ruler-range');
   }
 
   changeProgressBarWidth(width: number) {

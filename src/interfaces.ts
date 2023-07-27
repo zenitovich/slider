@@ -49,4 +49,5 @@ export interface IEvents {
   'update: rangeButtonChecked'?: Function[];
   'update: progressBar'?: Function[];
   'update: secondProgressBar'?: Function[];
+  'update: stepValue'?: Function[];
 }

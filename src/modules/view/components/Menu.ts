@@ -16,6 +16,8 @@ export default class Menu extends SliderComponent {
 
   private selectedSecondValueEl: HTMLInputElement;
 
+  private stepValueEl: HTMLInputElement;
+
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super($root, { name: 'Menu', listeners: ['click'] }, presenter);
     this.emitter = emitter;
@@ -33,6 +35,7 @@ export default class Menu extends SliderComponent {
     this.menuRangeElementCh = new Dom('.slider__menu--range').$el as HTMLInputElement;
     this.selectedValueEl = new Dom('#selectedValue').$el as HTMLInputElement;
     this.selectedSecondValueEl = new Dom('#selectedSecondValue').$el as HTMLInputElement;
+    this.stepValueEl = new Dom('.slider__menu--step').$el as HTMLInputElement;
 
     if (this.menuValueElementCh.checked) {
       this.presenter.valueCheck(true);
@@ -52,6 +55,10 @@ export default class Menu extends SliderComponent {
 
     this.selectedSecondValueEl.oninput = () => {
       this.presenter.selectValue(parseInt(this.selectedSecondValueEl.value, 10), true);
+    };
+
+    this.stepValueEl.oninput = () => {
+      this.presenter.stepValueCounter(parseInt(this.stepValueEl.value, 10));
     };
   }
 

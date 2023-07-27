@@ -34,8 +34,19 @@ export default class Model {
 
   private secondProgressBarWidth: number;
 
+  private stepValue: number;
+
   constructor(emitter: Emitter) {
     this.emitter = emitter;
+  }
+
+  setStepValue(value: number) {
+    this.stepValue = value;
+    this.emitter.emit('update: stepValue', this.stepValue);
+  }
+
+  getStepValue() {
+    return this.stepValue;
   }
 
   setProgressBarWidth(width: number) {

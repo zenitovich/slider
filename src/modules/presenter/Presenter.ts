@@ -52,9 +52,15 @@ export default class Presenter {
     const { pointPositionPercent, currentPointPositionPercent, currentSecondPointPositionPercent } = this.getPositionByCoords(eventPageX);
     if (this.model.getSecondValueInit()) {
       const isSecondPoint = pointPositionPercent - currentPointPositionPercent > currentSecondPointPositionPercent - pointPositionPercent;
-      this.coordsCounter(eventPageX, isSecondPoint);
-    } else {
+      if (this.model.getStepValue() === undefined) {
+        this.coordsCounter(eventPageX, isSecondPoint);
+      } else {
+        this.coordsCounter(eventPageX, isSecondPoint, this.model.getStepValue());
+      }
+    } else if (this.model.getStepValue() === undefined) {
       this.coordsCounter(eventPageX);
+    } else {
+      this.coordsCounter(eventPageX, false, this.model.getStepValue());
     }
   }
 
@@ -68,27 +74,39 @@ export default class Presenter {
     }
   }
 
-  public coordsCounter(eventPageX: number, isSecondPointMove?: boolean) {
-    const { pointPositionPercent, currentPointPositionPercent, currentSecondPointPositionPercent, percent, coordsRight, coordsX } =
-      this.getPositionByCoords(eventPageX);
+  applyValues(eventPageX: number, isSecondPointMove: boolean | undefined) {
+    const { pointPositionPercent, currentPointPositionPercent, currentSecondPointPositionPercent, percent } = this.getPositionByCoords(eventPageX);
     const pointValue = this.getValueByCoords(percent);
 
-    if (eventPageX >= coordsX && eventPageX <= coordsRight) {
-      if (isSecondPointMove) {
-        if (pointPositionPercent <= currentPointPositionPercent) {
-          this.getPointPercentAndValue(currentPointPositionPercent, this.model.getValue(), true);
-          this.model.setSecondProgressBarWidth(POINT_WIDTH_IN_PERCENT - this.model.getSecondPointPositionPercent());
-          return;
-        }
-        this.getPointPercentAndValue(pointPositionPercent, pointValue, true);
+    if (isSecondPointMove) {
+      if (pointPositionPercent <= currentPointPositionPercent) {
+        this.getPointPercentAndValue(currentPointPositionPercent, this.model.getValue(), true);
         this.model.setSecondProgressBarWidth(POINT_WIDTH_IN_PERCENT - this.model.getSecondPointPositionPercent());
         return;
       }
-      if (pointPositionPercent >= currentSecondPointPositionPercent && this.model.getSecondValueInit()) {
-        this.getPointPercentAndValue(currentSecondPointPositionPercent, this.model.getSecondValue());
-        return;
+      this.getPointPercentAndValue(pointPositionPercent, pointValue, true);
+      this.model.setSecondProgressBarWidth(POINT_WIDTH_IN_PERCENT - this.model.getSecondPointPositionPercent());
+      return;
+    }
+    if (pointPositionPercent >= currentSecondPointPositionPercent && this.model.getSecondValueInit()) {
+      this.getPointPercentAndValue(currentSecondPointPositionPercent, this.model.getSecondValue());
+      return;
+    }
+    this.getPointPercentAndValue(pointPositionPercent, pointValue);
+  }
+
+  public coordsCounter(eventPageX: number, isSecondPointMove?: boolean, stepValue?: number) {
+    const { percent, coordsRight, coordsX } = this.getPositionByCoords(eventPageX);
+    const pointValue = this.getValueByCoords(percent);
+
+    if (eventPageX >= coordsX && eventPageX <= coordsRight) {
+      if (stepValue) {
+        if (pointValue % stepValue === 0) {
+          this.applyValues(eventPageX, isSecondPointMove);
+        }
+      } else {
+        this.applyValues(eventPageX, isSecondPointMove);
       }
-      this.getPointPercentAndValue(pointPositionPercent, pointValue);
     }
 
     this.model.setProgressBarWidth(this.model.getPointPositionPercent());
@@ -107,6 +125,13 @@ export default class Presenter {
       this.model.setPointPositionPercent(this.model.getSecondPointPositionPercent());
       this.model.setSecondValue(firstValue);
       this.model.setSecondPointPositionPercent(firstValuePosition);
+    }
+  }
+
+  stepValueCounter(value: number) {
+    const { min, max } = this.model.getInitData();
+    if (value < max - min && value > 0) {
+      this.model.setStepValue(value);
     }
   }
 
