@@ -1,7 +1,7 @@
 import { TEventName } from '@/interfaces.ts';
 
 export class Dom {
-  $el: HTMLElement | HTMLInputElement;
+  $el: HTMLElement;
 
   constructor(selector: string) {
     const el = document.querySelector(selector) as HTMLElement | null;

@@ -4,7 +4,6 @@ import Ruler from '@modules/view/components/Ruler.ts';
 import { Dom } from '@core/dom.ts';
 import Point from '@modules/view/components/Point.ts';
 import SecondPoint from '@modules/view/components/SecondPoint.ts';
-import Menu from '@modules/view/components/Menu.ts';
 import { IOptions, TComponent } from '@/interfaces.ts';
 
 export default class View {
@@ -17,10 +16,10 @@ export default class View {
   constructor(presenter: Presenter, emitter: Emitter, options: IOptions) {
     this.emitter = emitter;
     this.presenter = presenter;
-    this.components = options.isRange ? [Point, SecondPoint, Ruler, Menu] : [Point, Ruler, Menu];
+    this.components = options.isRange ? [Point, SecondPoint, Ruler] : [Point, Ruler];
   }
 
-  resize(component: Ruler | Point | SecondPoint | Menu) {
+  resize(component: Ruler | Point | SecondPoint) {
     window.addEventListener(
       'resize',
       (event) => {
