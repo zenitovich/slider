@@ -15,10 +15,6 @@ export default class Point extends SliderComponent {
 
   private zIndex: number;
 
-  private stepValue: number;
-
-  private stepValueCheck: boolean;
-
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super($root, { name: 'Point', listeners: ['click', 'mousedown'] }, presenter);
     this.emitter = emitter;
@@ -27,18 +23,10 @@ export default class Point extends SliderComponent {
     this.emitter.subscribe('update:pointZIndex', (zIndex: number) => this.zIndexChange(zIndex));
     this.emitter.subscribe('update: valueButtonChecked', (valueButtonChecked: boolean) => this.checkedUpdate(valueButtonChecked));
     this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) => this.showInitValue(scaleData));
-    this.emitter.subscribe('update: stepValue', (stepValue: number) => {
-      this.stepValueChecked(stepValue);
-    });
   }
 
   init() {
     super.init();
-  }
-
-  stepValueChecked(stepValue: number) {
-    this.stepValue = stepValue;
-    this.stepValueCheck = true;
   }
 
   checkedUpdate(valueButtonChecked: boolean) {
@@ -69,15 +57,11 @@ export default class Point extends SliderComponent {
 
   onMousedown() {
     this.presenter.pointZIndexCalc();
-    if (this.stepValueCheck) {
-      document.onmousemove = (event: MouseEvent) => {
-        this.presenter.coordsCounter(event.pageX, false, this.stepValue);
-      };
-    } else {
-      document.onmousemove = (event: MouseEvent) => {
-        this.presenter.coordsCounter(event.pageX, false);
-      };
-    }
+
+    document.onmousemove = (event: MouseEvent) => {
+      this.presenter.coordsCounter(event.pageX);
+    };
+
     document.onmouseup = () => {
       document.onmousemove = null;
     };

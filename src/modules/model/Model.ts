@@ -42,7 +42,6 @@ export default class Model {
 
   setStepValue(value: number) {
     this.stepValue = value;
-    this.emitter.emit('update: stepValue', this.stepValue);
   }
 
   getStepValue() {

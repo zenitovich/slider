@@ -15,7 +15,7 @@ export default class Ruler extends SliderComponent {
 
   private rulerElement: HTMLElement;
 
-  private rulerProgressBarElement: HTMLElement;
+  private rulerProgressBarElement: HTMLElement | null;
 
   private rulerSecondProgressBarElement: HTMLElement;
 
@@ -39,6 +39,11 @@ export default class Ruler extends SliderComponent {
     this.emitter.subscribe('update: rangeButtonChecked', (check: boolean) => this.rangeChecked(check));
   }
 
+  init() {
+    super.init();
+    this.rulerProgressBarElement = this.$root.$el.querySelector('.slider__ruler-progress-bar');
+  }
+
   rulerToString(min: number, max: number, divisionValue: number) {
     const arr: number[] = [min];
     const range = max - min;
@@ -60,7 +65,7 @@ export default class Ruler extends SliderComponent {
 
   rangeChecked(check: boolean) {
     this.rangeCheck = check;
-    if (!this.rangeCheck) {
+    if (!this.rangeCheck && this.rulerProgressBarElement) {
       this.rulerSecondProgressBarElement.style.width = '0';
       this.rulerProgressBarElement.style.width = '0';
     }
@@ -79,10 +84,14 @@ export default class Ruler extends SliderComponent {
   }
 
   changeProgressBarWidth(width: number) {
-    this.rulerProgressBarElement = new Dom('.slider__ruler-progress-bar').$el;
-    this.rulerProgressBarElement.style.width = `${width}%`;
-    if (!this.rangeCheck) {
-      this.rulerProgressBarElement.style.width = '0';
+    console.log(document.querySelectorAll('.slider__ruler-progress-bar'));
+    if (this.rulerProgressBarElement) {
+      this.rulerProgressBarElement.style.width = `${width}%`;
+      console.log(this.rulerProgressBarElement.style.width);
+      console.log(this.$root.$el);
+      if (!this.rangeCheck) {
+        this.rulerProgressBarElement.style.width = '0';
+      }
     }
   }
 
@@ -105,7 +114,7 @@ export default class Ruler extends SliderComponent {
   }
 
   onClick(event: MouseEvent) {
-    this.presenter.mousePositionCalc(event.pageX);
+    this.presenter.scaleClickHandler(event.pageX);
   }
 
   toHTML(): string {

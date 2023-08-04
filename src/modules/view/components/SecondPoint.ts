@@ -17,10 +17,6 @@ export default class SecondPoint extends SliderComponent {
 
   private valueCheck: boolean;
 
-  private stepValue: number;
-
-  private stepValueCheck: boolean;
-
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super($root, { name: 'SecondPoint', listeners: ['click', 'mousedown'] }, presenter);
     this.emitter = emitter;
@@ -30,19 +26,11 @@ export default class SecondPoint extends SliderComponent {
     this.emitter.subscribe('update: valueButtonChecked', (valueButtonChecked: boolean) => this.valueCheckedUpdate(valueButtonChecked));
     this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) => this.showInitValue(scaleData));
     this.emitter.subscribe('update: rangeButtonChecked', (rangeCheck: boolean) => this.rangeCheckedUpdate(rangeCheck));
-    this.emitter.subscribe('update: stepValue', (stepValue: number) => {
-      this.stepValueChecked(stepValue);
-    });
   }
 
   init() {
     super.init();
     this.presenter.secondValueInit(true);
-  }
-
-  stepValueChecked(stepValue: number) {
-    this.stepValue = stepValue;
-    this.stepValueCheck = true;
   }
 
   rangeCheckedUpdate(check: boolean) {
@@ -88,15 +76,11 @@ export default class SecondPoint extends SliderComponent {
 
   onMousedown() {
     this.presenter.secondPointZIndexCalc();
-    if (this.stepValueCheck) {
-      document.onmousemove = (event: MouseEvent) => {
-        this.presenter.coordsCounter(event.pageX, true, this.stepValue);
-      };
-    } else {
-      document.onmousemove = (event: MouseEvent) => {
-        this.presenter.coordsCounter(event.pageX, true);
-      };
-    }
+
+    document.onmousemove = (event: MouseEvent) => {
+      this.presenter.coordsCounter(event.pageX, true);
+    };
+
     document.onmouseup = () => {
       document.onmousemove = null;
     };

@@ -37,11 +37,11 @@ export default class Slider {
   }
 
   showRange() {
-    this.presenter.rangeCheck(true);
+    this.presenter.setRangeCheck(true);
   }
 
   hideRange() {
-    this.presenter.rangeCheck(false);
+    this.presenter.setRangeCheck(false);
   }
 
   chooseValue(value: number) {
