@@ -157,4 +157,8 @@ export default class Presenter {
       }
     }
   }
+
+  getValue() {
+    return this.model.getValue();
+  }
 }

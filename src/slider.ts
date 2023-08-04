@@ -55,4 +55,8 @@ export default class Slider {
   chooseStepValue(value: number) {
     this.presenter.stepValueCounter(value);
   }
+
+  getValue() {
+    return this.presenter.getValue();
+  }
 }

@@ -2,7 +2,7 @@ import '@styles/style.scss';
 import Slider from '@/slider.ts';
 
 const slider = new Slider('#app', {
-  scaleData: { min: 14, max: 38, divisionValue: 7 },
+  scaleData: { min: 100, max: 500, divisionValue: 7 },
   isRange: true,
 });
 

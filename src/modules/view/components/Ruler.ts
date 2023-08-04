@@ -15,7 +15,7 @@ export default class Ruler extends SliderComponent {
 
   private rulerElement: HTMLElement;
 
-  private rulerProgressBarElement: HTMLElement | null;
+  private rulerProgressBarElement: HTMLElement;
 
   private rulerSecondProgressBarElement: HTMLElement;
 
@@ -40,11 +40,13 @@ export default class Ruler extends SliderComponent {
   }
 
   init() {
-    this.rulerProgressBarElement = document.querySelector('.slider__ruler-progress-bar');
+    super.init();
+    this.findElements();
   }
 
   findElements() {
-    this.rulerProgressBarElement = this.$root.$el.querySelector('.slider__ruler-progress-bar');
+    this.rulerProgressBarElement = new Dom('.slider__ruler-progress-bar').$el;
+    this.rulerSecondProgressBarElement = new Dom('.slider__ruler-second-progress-bar').$el;
   }
 
   rulerToString(min: number, max: number, divisionValue: number) {
@@ -88,19 +90,13 @@ export default class Ruler extends SliderComponent {
   }
 
   changeProgressBarWidth(width: number) {
-    console.log(document.querySelectorAll('.slider__ruler-progress-bar'));
-    if (this.rulerProgressBarElement) {
-      this.rulerProgressBarElement.style.width = `${width}%`;
-      console.log(this.rulerProgressBarElement.style.width);
-      console.log(this.$root.$el);
-      if (!this.rangeCheck) {
-        this.rulerProgressBarElement.style.width = '0';
-      }
+    this.rulerProgressBarElement.style.width = `${width}%`;
+    if (!this.rangeCheck) {
+      this.rulerProgressBarElement.style.width = '0';
     }
   }
 
   changeSecondProgressBarWidth(width: number) {
-    this.rulerSecondProgressBarElement = new Dom('.slider__ruler-second-progress-bar').$el;
     this.rulerSecondProgressBarElement.style.width = `${width}%`;
     if (!this.rangeCheck) {
       this.rulerSecondProgressBarElement.style.width = '0';
@@ -122,7 +118,6 @@ export default class Ruler extends SliderComponent {
   }
 
   toHTML(): string {
-    console.log('toHTML');
     return `
             <div class='slider__ruler-second-progress-bar'></div>
             <div class='slider__ruler-progress-bar'></div>
