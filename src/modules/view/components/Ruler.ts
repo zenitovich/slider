@@ -40,7 +40,10 @@ export default class Ruler extends SliderComponent {
   }
 
   init() {
-    super.init();
+    this.rulerProgressBarElement = document.querySelector('.slider__ruler-progress-bar');
+  }
+
+  findElements() {
     this.rulerProgressBarElement = this.$root.$el.querySelector('.slider__ruler-progress-bar');
   }
 
@@ -74,6 +77,7 @@ export default class Ruler extends SliderComponent {
   changeRuler(scaleData: IScaleData) {
     this.stringOfValues = this.rulerToString(scaleData.min, scaleData.max, scaleData.divisionValue);
     this.changeHtml(this.toHTML());
+    this.findElements();
     if (this.rulerElement) {
       this.rulerLength = this.rulerElement.offsetWidth;
       const rulerCoords: DOMRect = this.rulerElement.getBoundingClientRect();
@@ -118,6 +122,7 @@ export default class Ruler extends SliderComponent {
   }
 
   toHTML(): string {
+    console.log('toHTML');
     return `
             <div class='slider__ruler-second-progress-bar'></div>
             <div class='slider__ruler-progress-bar'></div>
