@@ -20,8 +20,76 @@ export default class Model {
 
   private secondPointZIndex = 1;
 
+  private valueButtonChecked: boolean;
+
+  private rangeButtonChecked: boolean;
+
+  private secondValueInit = false;
+
+  private selectedValue: number;
+
+  private selectedSecondValue: number;
+
+  private progressBarWidth: number;
+
+  private secondProgressBarWidth: number;
+
+  private stepValue: number;
+
   constructor(emitter: Emitter) {
     this.emitter = emitter;
+  }
+
+  setStepValue(value: number) {
+    this.stepValue = value;
+  }
+
+  getStepValue() {
+    return this.stepValue;
+  }
+
+  setProgressBarWidth(width: number) {
+    this.progressBarWidth = width;
+    this.emitter.emit('update: progressBar', this.progressBarWidth);
+  }
+
+  setSecondProgressBarWidth(width: number) {
+    this.secondProgressBarWidth = width;
+    this.emitter.emit('update: secondProgressBar', this.secondProgressBarWidth);
+  }
+
+  setSelectedValue(selectedValue: number) {
+    this.selectedValue = selectedValue;
+  }
+
+  getSelectedValue() {
+    return this.selectedValue;
+  }
+
+  setSelectedSecondValue(selectedSecondValue: number) {
+    this.selectedSecondValue = selectedSecondValue;
+  }
+
+  getSelectedSecondValue() {
+    return this.selectedSecondValue;
+  }
+
+  setSecondValueInit(secondValueInit: boolean) {
+    this.secondValueInit = secondValueInit;
+  }
+
+  getSecondValueInit() {
+    return this.secondValueInit;
+  }
+
+  setValueButtonChecked(valueButtonChecked: boolean) {
+    this.valueButtonChecked = valueButtonChecked;
+    this.emitter.emit('update: valueButtonChecked', this.valueButtonChecked);
+  }
+
+  setRangeButtonChecked(rangeButtonChecked: boolean) {
+    this.rangeButtonChecked = rangeButtonChecked;
+    this.emitter.emit('update: rangeButtonChecked', this.rangeButtonChecked);
   }
 
   setPointZIndex(pointZIndex: number) {

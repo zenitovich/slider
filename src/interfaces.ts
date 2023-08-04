@@ -1,6 +1,6 @@
 import Ruler from '@modules/view/components/Ruler.ts';
 import Point from '@modules/view/components/Point.ts';
-import SecondPoint from '~modules/view/components/SecondPoint.ts';
+import SecondPoint from '@modules/view/components/SecondPoint.ts';
 
 export type TComponent = typeof Ruler | typeof Point | typeof SecondPoint;
 
@@ -44,4 +44,9 @@ export interface IEvents {
   'update:secondPointData'?: Function[];
   'update:pointZIndex'?: Function[];
   'update:secondPointZIndex'?: Function[];
+  'update: valueButtonChecked'?: Function[];
+  'update: rangeButtonChecked'?: Function[];
+  'update: progressBar'?: Function[];
+  'update: secondProgressBar'?: Function[];
+  'update: stepValue'?: Function[];
 }

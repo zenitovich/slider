@@ -1,5 +1,5 @@
 import Model from '@modules/model/Model.ts';
-import { HALF_POINT_WIDTH, POINT_WIDTH_IN_PERCENT } from '@constants/index.ts';
+import { HALF_POINT_WIDTH, POINT_WIDTH, POINT_WIDTH_IN_PERCENT } from '@constants/index.ts';
 
 export default class Presenter {
   private model: Model;
@@ -48,13 +48,19 @@ export default class Presenter {
     return pointValue;
   }
 
-  mousePositionCalc(eventPageX: number) {
+  scaleClickHandler(eventPageX: number) {
     const { pointPositionPercent, currentPointPositionPercent, currentSecondPointPositionPercent } = this.getPositionByCoords(eventPageX);
-    const isSecondPoint = pointPositionPercent - currentPointPositionPercent > currentSecondPointPositionPercent - pointPositionPercent;
-    this.coordsCounter(eventPageX, isSecondPoint);
+    const secondValueInit = this.model.getSecondValueInit();
+
+    if (secondValueInit) {
+      const isSecondPoint = pointPositionPercent - currentPointPositionPercent > currentSecondPointPositionPercent - pointPositionPercent;
+      this.coordsCounter(eventPageX, isSecondPoint);
+    } else {
+      this.coordsCounter(eventPageX, false);
+    }
   }
 
-  getPointPercentAndValue(percent: number, value: number, secondPoint?: boolean) {
+  setPointPercentAndValue(percent: number, value: number, secondPoint?: boolean) {
     if (secondPoint) {
       this.model.setSecondPointPositionPercent(percent);
       this.model.setSecondValue(value);
@@ -64,25 +70,95 @@ export default class Presenter {
     }
   }
 
-  public coordsCounter(eventPageX: number, isSecondPointMove?: boolean) {
-    const { pointPositionPercent, currentPointPositionPercent, currentSecondPointPositionPercent, percent, coordsRight, coordsX } =
-      this.getPositionByCoords(eventPageX);
+  applyValues(eventPageX: number, isSecondPointMove: boolean | undefined) {
+    const { pointPositionPercent, currentPointPositionPercent, currentSecondPointPositionPercent, percent } = this.getPositionByCoords(eventPageX);
     const pointValue = this.getValueByCoords(percent);
 
-    if (eventPageX >= coordsX && eventPageX <= coordsRight) {
-      if (isSecondPointMove) {
-        if (pointPositionPercent <= currentPointPositionPercent) {
-          this.getPointPercentAndValue(currentPointPositionPercent, this.model.getValue(), true);
-          return;
-        }
-        this.getPointPercentAndValue(pointPositionPercent, pointValue, true);
+    if (isSecondPointMove) {
+      if (pointPositionPercent <= currentPointPositionPercent) {
+        this.setPointPercentAndValue(currentPointPositionPercent, this.model.getValue(), true);
+        this.model.setSecondProgressBarWidth(POINT_WIDTH_IN_PERCENT - this.model.getSecondPointPositionPercent());
         return;
       }
-      if (pointPositionPercent >= currentSecondPointPositionPercent) {
-        this.getPointPercentAndValue(currentSecondPointPositionPercent, this.model.getSecondValue());
-        return;
-      }
-      this.getPointPercentAndValue(pointPositionPercent, pointValue);
+      this.setPointPercentAndValue(pointPositionPercent, pointValue, true);
+      this.model.setSecondProgressBarWidth(POINT_WIDTH_IN_PERCENT - this.model.getSecondPointPositionPercent());
+      return;
     }
+    if (pointPositionPercent >= currentSecondPointPositionPercent && this.model.getSecondValueInit()) {
+      this.setPointPercentAndValue(currentSecondPointPositionPercent, this.model.getSecondValue());
+      return;
+    }
+    this.setPointPercentAndValue(pointPositionPercent, pointValue);
+  }
+
+  public coordsCounter(eventPageX: number, isSecondPointMove?: boolean) {
+    const { percent, coordsRight, coordsX } = this.getPositionByCoords(eventPageX);
+    const pointValue = this.getValueByCoords(percent);
+    const stepValue = this.model.getStepValue();
+
+    if (eventPageX >= coordsX && eventPageX <= coordsRight) {
+      if (stepValue) {
+        if (pointValue % stepValue === 0) {
+          this.applyValues(eventPageX, isSecondPointMove);
+        }
+      } else {
+        this.applyValues(eventPageX, isSecondPointMove);
+      }
+    }
+
+    this.model.setProgressBarWidth(this.model.getPointPositionPercent());
+  }
+
+  valueCheck(check: boolean) {
+    this.model.setValueButtonChecked(check);
+  }
+
+  setRangeCheck(check: boolean) {
+    this.model.setRangeButtonChecked(check);
+    if (this.model.getValue() > this.model.getSecondValue()) {
+      const firstValue = this.model.getValue();
+      const firstValuePosition = this.model.getPointPositionPercent();
+      this.model.setValue(this.model.getSecondValue());
+      this.model.setPointPositionPercent(this.model.getSecondPointPositionPercent());
+      this.model.setSecondValue(firstValue);
+      this.model.setSecondPointPositionPercent(firstValuePosition);
+    }
+  }
+
+  stepValueCounter(value: number) {
+    const { min, max } = this.model.getInitData();
+
+    if (value < max - min && value > 0) {
+      this.model.setStepValue(value);
+    }
+  }
+
+  secondValueInit(secondValueInit: boolean) {
+    this.model.setSecondValueInit(secondValueInit);
+  }
+
+  selectValue(selectedValue: number, secondValue?: boolean) {
+    this.model.setSelectedValue(selectedValue);
+    const currentSecondValue = this.model.getSecondValue();
+    const currentFirstValue = this.model.getValue();
+    const currentSelectedValue = this.model.getSelectedValue();
+    const { min, max } = this.model.getInitData();
+    const { length } = this.model.getRulerData();
+
+    if (currentSelectedValue >= min && currentSelectedValue <= max) {
+      const selectedValuePercent = ((currentSelectedValue - min) / (max - min)) * POINT_WIDTH_IN_PERCENT - (POINT_WIDTH / length) * POINT_WIDTH_IN_PERCENT;
+
+      if ((!secondValue && currentSelectedValue <= currentSecondValue) || !this.model.getSecondValueInit()) {
+        this.setPointPercentAndValue(selectedValuePercent, currentSelectedValue);
+        this.model.setProgressBarWidth(this.model.getPointPositionPercent());
+      } else if (currentSelectedValue >= currentFirstValue && secondValue) {
+        this.setPointPercentAndValue(selectedValuePercent, currentSelectedValue, true);
+        this.model.setSecondProgressBarWidth(POINT_WIDTH_IN_PERCENT - this.model.getSecondPointPositionPercent());
+      }
+    }
+  }
+
+  getValue() {
+    return this.model.getValue();
   }
 }

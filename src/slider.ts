@@ -12,17 +12,51 @@ export default class Slider {
 
   private readonly model: Model;
 
-  private $el: Dom;
+  private $root: Dom;
 
   private readonly emitter: Emitter;
 
+  menuValueElementCh: HTMLInputElement;
+
   constructor(selector: string, options: IOptions) {
     this.emitter = new Emitter();
-    this.$el = new Dom(selector);
+    this.$root = new Dom(selector);
     this.model = new Model(this.emitter);
     this.presenter = new Presenter(this.model);
     this.view = new View(this.presenter, this.emitter, options);
-    this.$el?.append(this.view.getRoot());
+    this.$root?.append(this.view.getRoot());
     this.model.setInitData(options);
+  }
+
+  showValue() {
+    this.presenter.valueCheck(true);
+  }
+
+  hideValue() {
+    this.presenter.valueCheck(false);
+  }
+
+  showRange() {
+    this.presenter.setRangeCheck(true);
+  }
+
+  hideRange() {
+    this.presenter.setRangeCheck(false);
+  }
+
+  chooseValue(value: number) {
+    this.presenter.selectValue(value);
+  }
+
+  chooseSecondValue(value: number) {
+    this.presenter.selectValue(value, true);
+  }
+
+  chooseStepValue(value: number) {
+    this.presenter.stepValueCounter(value);
+  }
+
+  getValue() {
+    return this.presenter.getValue();
   }
 }

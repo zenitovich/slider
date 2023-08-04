@@ -45,7 +45,7 @@ module.exports = {
         "import/no-cycle": 0,
         "no-console": 0,
         "@typescript-eslint/no-empty-interface": 0,
-        "max-len": ["error", { "code": 150 }],
+        "max-len": ["error", { "code": 155 }],
         "import/extensions": "off",
         "import/prefer-default-export": "off",
         "@typescript-eslint/ban-types": [

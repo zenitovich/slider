@@ -9,13 +9,17 @@ export default class Ruler extends SliderComponent {
 
   private emitter: Emitter;
 
-  stringOfValues: string;
+  private stringOfValues: string;
 
-  rulerLength: number;
+  private rulerLength: number;
 
-  rulerElement: HTMLElement | null;
+  private rulerElement: HTMLElement;
 
-  rulerRangeElement: HTMLElement | null;
+  private rulerProgressBarElement: HTMLElement;
+
+  private rulerSecondProgressBarElement: HTMLElement;
+
+  private rangeCheck = true;
 
   constructor(emitter: Emitter, $root: Dom, presenter: Presenter) {
     super(
@@ -30,6 +34,19 @@ export default class Ruler extends SliderComponent {
     this.stringOfValues = '';
     this.rulerElement = this.$root.$el;
     this.emitter.subscribe('update:optionValues', (scaleData: IScaleData) => this.changeRuler(scaleData));
+    this.emitter.subscribe('update: progressBar', (width: number) => this.changeProgressBarWidth(width));
+    this.emitter.subscribe('update: secondProgressBar', (width: number) => this.changeSecondProgressBarWidth(width));
+    this.emitter.subscribe('update: rangeButtonChecked', (check: boolean) => this.rangeChecked(check));
+  }
+
+  init() {
+    super.init();
+    this.findElements();
+  }
+
+  findElements() {
+    this.rulerProgressBarElement = new Dom('.slider__ruler-progress-bar').$el;
+    this.rulerSecondProgressBarElement = new Dom('.slider__ruler-second-progress-bar').$el;
   }
 
   rulerToString(min: number, max: number, divisionValue: number) {
@@ -51,9 +68,18 @@ export default class Ruler extends SliderComponent {
     return str;
   }
 
+  rangeChecked(check: boolean) {
+    this.rangeCheck = check;
+    if (!this.rangeCheck && this.rulerProgressBarElement) {
+      this.rulerSecondProgressBarElement.style.width = '0';
+      this.rulerProgressBarElement.style.width = '0';
+    }
+  }
+
   changeRuler(scaleData: IScaleData) {
     this.stringOfValues = this.rulerToString(scaleData.min, scaleData.max, scaleData.divisionValue);
     this.changeHtml(this.toHTML());
+    this.findElements();
     if (this.rulerElement) {
       this.rulerLength = this.rulerElement.offsetWidth;
       const rulerCoords: DOMRect = this.rulerElement.getBoundingClientRect();
@@ -61,9 +87,20 @@ export default class Ruler extends SliderComponent {
       const rulerCoordsRight: number = rulerCoords.right;
       this.presenter.rulerCounter(this.rulerLength, rulerCoordsX, rulerCoordsRight);
     }
-    this.rulerRangeElement = document.querySelector('.slider__ruler-range');
+  }
 
-    console.log(this.$root.$el);
+  changeProgressBarWidth(width: number) {
+    this.rulerProgressBarElement.style.width = `${width}%`;
+    if (!this.rangeCheck) {
+      this.rulerProgressBarElement.style.width = '0';
+    }
+  }
+
+  changeSecondProgressBarWidth(width: number) {
+    this.rulerSecondProgressBarElement.style.width = `${width}%`;
+    if (!this.rangeCheck) {
+      this.rulerSecondProgressBarElement.style.width = '0';
+    }
   }
 
   resize() {
@@ -77,12 +114,13 @@ export default class Ruler extends SliderComponent {
   }
 
   onClick(event: MouseEvent) {
-    console.log('Ruler onClick', event);
-    this.presenter.mousePositionCalc(event.pageX);
+    this.presenter.scaleClickHandler(event.pageX);
   }
 
   toHTML(): string {
     return `
+            <div class='slider__ruler-second-progress-bar'></div>
+            <div class='slider__ruler-progress-bar'></div>
             <div class="slider__ruler-value">${this.stringOfValues}</div>
             <div class="slider__ruler-range"></div>
         `;
